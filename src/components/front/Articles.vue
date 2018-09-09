@@ -1,7 +1,6 @@
 <template>
 <div class="articles">
   <h1>Liste des articles</h1>
-
   <div class="article-list">
     <div class="article" :key="index" v-for="(article, index) in articles">
       <h3>{{ article.title }}</h3>

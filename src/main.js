@@ -8,6 +8,8 @@ import AxiosConfig from './settings/client'
 import i18n from './locale/i18n'
 import router from './router'
 
+import './assets/style.scss'
+
 Vue.prototype.$axios = Axios.create(AxiosConfig)
 Vue.config.productionTip = false
 Vue.use(VueAxios, Axios)

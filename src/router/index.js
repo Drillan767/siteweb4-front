@@ -12,8 +12,12 @@ import Landing from '../components/front/Landing'
 // --------- ADMIN ---------------- //
 import AdminLayout from '../components/admin/AdminLayout'
 import Dashboard from '../components/admin/Dashboard'
+import ArticlesList from '../components/admin/articles/Articles'
+import ArticleNew from '../components/admin/articles/ArticleNew'
+import ArticleEdit from '../components/admin/articles/ArticleEdit'
 // --------- OTHERS --------------- //
 import NotFound from '../components/NotFound'
+import Login from '../components/auth/Login'
 
 Vue.use(Router)
 
@@ -59,12 +63,30 @@ export default new Router({
     {
       path: '/admin',
       component: AdminLayout,
+      name: 'admin',
       children: [
         {
           path: '',
           component: Dashboard
+        },
+        {
+          path: 'articles',
+          component: ArticlesList
+        },
+        {
+          path: 'article/new',
+          component: ArticleNew
+        },
+        {
+          path: 'article/edit',
+          component: ArticleEdit
         }
       ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '*',
