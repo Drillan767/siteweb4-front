@@ -1,37 +1,49 @@
 <template>
   <div class="admin-layout">
-    <h1>Admin Layouuuuuut</h1>
-    <div class="tabs is-centered is-boxed">
-      <ul>
-        <li class="is-active">
-          <a>
-            <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
-            <span>Pictures</span>
-          </a>
-        </li>
-        <li>
-          <a>
-            <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
-            <span>Music</span>
-          </a>
-        </li>
-        <li>
-          <a>
-            <span class="icon is-small"><i class="fas fa-film" aria-hidden="true"></i></span>
-            <span>Videos</span>
-          </a>
-        </li>
-        <li>
-          <a>
-            <span class="icon is-small"><i class="far fa-file-alt" aria-hidden="true"></i></span>
-            <span>Documents</span>
-          </a>
-        </li>
-      </ul>
+    <div class="container">
+      <h1 class="title layout-title">Dashboard</h1>
+      <div class="columns">
+        <div class="column is-3">
+          <aside class="menu">
+            <p class="menu-label">
+              General
+            </p>
+            <ul class="menu-list">
+              <li><a class="is-active">Dashboard</a></li>
+              <li><a>Customers</a></li>
+            </ul>
+            <p class="menu-label">
+              Administration
+            </p>
+            <ul class="menu-list">
+              <li><a>Team Settings</a></li>
+              <li>
+                <a>Manage Your Team</a>
+                <ul>
+                  <li><a>Members</a></li>
+                  <li><a>Plugins</a></li>
+                  <li><a>Add a member</a></li>
+                </ul>
+              </li>
+              <li><a>Invitations</a></li>
+              <li><a>Cloud Storage Environment Settings</a></li>
+              <li><a>Authentication</a></li>
+            </ul>
+            <p class="menu-label">
+              Transactions
+            </p>
+            <ul class="menu-list">
+              <li><a>Payments</a></li>
+              <li><a>Transfers</a></li>
+              <li><a>Balance</a></li>
+            </ul>
+          </aside>
+        </div>
+        <transition :name="transitionName">
+          <router-view></router-view>
+        </transition>
+      </div>
     </div>
-    <transition :name="transitionName">
-      <router-view></router-view>
-    </transition>
   </div>
 </template>
 
@@ -48,7 +60,7 @@ export default {
     this.$axios.get('/logged_in')
       .then(response => {
         if (!response.data) {
-          this.$router.replace({ name: 'login', params: { error: 'not_logged' } })
+          this.$router.replace({name: 'login', params: {error: 'not_logged'}})
         }
       })
   }
