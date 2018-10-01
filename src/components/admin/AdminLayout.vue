@@ -10,32 +10,21 @@
             </p>
             <ul class="menu-list">
               <li><a class="is-active">Dashboard</a></li>
-              <li><a>Customers</a></li>
+              <li><a>Log out</a></li>
             </ul>
             <p class="menu-label">
-              Administration
+              Articles
             </p>
             <ul class="menu-list">
-              <li><a>Team Settings</a></li>
-              <li>
-                <a>Manage Your Team</a>
-                <ul>
-                  <li><a>Members</a></li>
-                  <li><a>Plugins</a></li>
-                  <li><a>Add a member</a></li>
-                </ul>
-              </li>
-              <li><a>Invitations</a></li>
-              <li><a>Cloud Storage Environment Settings</a></li>
-              <li><a>Authentication</a></li>
+              <li><a>New article</a></li>
+              <li><a>All articles</a></li>
             </ul>
             <p class="menu-label">
-              Transactions
+              Portfolio
             </p>
             <ul class="menu-list">
-              <li><a>Payments</a></li>
-              <li><a>Transfers</a></li>
-              <li><a>Balance</a></li>
+              <li><a>New project</a></li>
+              <li><a>All projects</a></li>
             </ul>
           </aside>
         </div>
