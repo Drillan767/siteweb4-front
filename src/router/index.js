@@ -23,7 +23,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  linkExactActiveClass: 'is-active',
+  linkExactActiveClass: 'active',
   routes: [
     {
       path: '/',

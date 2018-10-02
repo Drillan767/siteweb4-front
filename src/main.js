@@ -7,8 +7,12 @@ import VueAxios from 'vue-axios'
 import AxiosConfig from './settings/client'
 import i18n from './locale/i18n'
 import router from './router'
-
+import jQuery from 'jquery/dist/jquery.slim.min'
+import 'bootstrap'
 import './assets/style.scss'
+
+window.$ = jQuery
+window.JQuery = jQuery
 
 Vue.prototype.$axios = Axios.create(AxiosConfig)
 Vue.config.productionTip = false
