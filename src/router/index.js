@@ -66,20 +66,46 @@ export default new Router({
       name: 'admin',
       children: [
         {
+          name: 'Dashboard',
           path: '',
-          component: Dashboard
+          component: Dashboard,
+          meta: {
+            title: 'Dashboard',
+            breadcrumb: [
+              'Dashboard'
+            ]
+          }
         },
         {
+          name: 'All articles',
           path: 'articles',
-          component: ArticlesList
+          component: ArticlesList,
+          meta: {
+            title: 'All articles',
+            breadcrumb: [
+              'Dashboard',
+              'All articles'
+            ]
+          }
         },
         {
+          name: 'New Article',
           path: 'article/new',
-          component: ArticleNew
+          component: ArticleNew,
+          meta: {
+            title: 'All articles',
+            breadcrumb: [
+              'Dashboard',
+              'All articles',
+              'New article'
+            ]
+          }
         },
         {
+          name: 'Edit Article',
           path: 'article/edit',
-          component: ArticleEdit
+          component: ArticleEdit,
+          meta: {title: 'Edit article'}
         }
       ]
     },

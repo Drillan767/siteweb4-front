@@ -62,7 +62,7 @@
 
     <div id="content">
 
-      <h3>Dashboard</h3>
+      <h3>{{ pageTitle }}</h3>
 
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -75,11 +75,13 @@
 
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Library</a></li>
-              <li class="breadcrumb-item active" aria-current="page"><a>Data</a></li>
+              <li class="breadcrumb-item" v-for="(element, index) in this.$route.meta.breadcrumb" :key="index" :class="[index === last ? 'active' : '']">
+                <router-link v-if="index !== last" :to="{name: element}">{{ element }}</router-link>
+                <a v-else>{{ element }}</a>
+              </li>
             </ol>
           </nav>
+
         </div>
       </nav>
 
@@ -93,7 +95,9 @@ export default {
   data () {
     return {
       transitionName: null,
-      logged: null
+      logged: null,
+      pageTitle: 'Dashboard',
+      breadcrumb: []
     }
   },
 
@@ -106,11 +110,24 @@ export default {
       })
   },
 
+  watch: {
+    $route (to, from) {
+      this.pageTitle = to.meta.title
+      console.log(to)
+    }
+  },
+
   mounted () {
     $('#sidebarCollapse').on('click', function () {
       $('#sidebar').toggleClass('active')
       $(this).toggleClass('active')
     })
+  },
+
+  computed: {
+    last () {
+      return Object.keys(this.$route.meta.breadcrumb).length - 1
+    }
   }
 }
 </script>
