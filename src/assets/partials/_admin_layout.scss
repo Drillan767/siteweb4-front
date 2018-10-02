@@ -212,3 +212,9 @@ ul ul a {
     transform: rotate(-45deg) translate(1px, -1px);
   }
 }
+
+@media (min-width: 768px) {
+  #sidebarCollapse {
+    display: none
+  }
+}

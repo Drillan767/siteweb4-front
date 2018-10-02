@@ -1,48 +1,20 @@
 <template>
-  <section class="hero is-fullheight">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <div class="column is-4 is-offset-4">
-          <div class="notification is-danger">
-            <i class="fas fa-exclamation-circle"></i>
-            Login error
-          </div>
-          <h3 class="title has-text-grey">Login</h3>
-          <p class="subtitle has-text-grey">Please login to proceed.</p>
-          <div class="box">
-            <figure class="avatar">
-              <img src="https://placehold.it/128x128">
-            </figure>
-            <form>
-              <div class="field">
-                <div class="control">
-                  <input class="input is-large" type="email" placeholder="Your Email" autofocus="">
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="control">
-                  <input class="input is-large" type="password" placeholder="Your Password">
-                </div>
-              </div>
-              <div class="field">
-                <label class="checkbox">
-                  <input type="checkbox">
-                  Remember me
-                </label>
-              </div>
-              <button class="button is-block is-info is-large is-fullwidth">Login</button>
-            </form>
-          </div>
-          <p class="has-text-grey">
-            <a href="../">Sign Up</a> &nbsp;·&nbsp;
-            <a href="../">Forgot Password</a> &nbsp;·&nbsp;
-            <a href="../">Need Help?</a>
-          </p>
-        </div>
+  <div class="login">
+    <form class="form-signin text-center">
+      <img class="mb-4" src="https://placekitten.com/72/72" alt="" width="72" height="72">
+      <h3 class="font-weight-normal">Please sign in</h3>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
       </div>
-    </div>
-  </section>
+      <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Login</button>
+    </form>
+  </div>
 </template>
 
 <script>
