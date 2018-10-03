@@ -93,7 +93,7 @@ export default new Router({
           path: 'article/new',
           component: ArticleNew,
           meta: {
-            title: 'All articles',
+            title: 'New article',
             breadcrumb: [
               'Dashboard',
               'All articles',

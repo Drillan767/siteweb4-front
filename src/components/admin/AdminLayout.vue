@@ -62,8 +62,6 @@
 
     <div id="content">
 
-      <h3>{{ pageTitle }}</h3>
-
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
 
@@ -75,7 +73,12 @@
 
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item" v-for="(element, index) in this.$route.meta.breadcrumb" :key="index" :class="[index === last ? 'active' : '']">
+              <li
+                class="breadcrumb-item"
+                v-for="(element, index) in this.$route.meta.breadcrumb"
+                :key="index"
+                :class="[index === last ? 'active' : '']"
+              >
                 <router-link v-if="index !== last" :to="{name: element}">{{ element }}</router-link>
                 <a v-else>{{ element }}</a>
               </li>
@@ -84,6 +87,8 @@
 
         </div>
       </nav>
+
+      <h2>{{ pageTitle }}</h2>
 
       <router-view></router-view>
     </div>
@@ -101,14 +106,14 @@ export default {
     }
   },
 
-  beforeCreate () {
+  /* beforeCreate () {
     this.$axios.get('/logged_in')
       .then(response => {
         if (!response.data) {
           this.$router.replace({name: 'login', params: {error: 'not_logged'}})
         }
       })
-  },
+  }, */
 
   watch: {
     $route (to, from) {

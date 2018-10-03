@@ -16,4 +16,15 @@ body {
   }
 }
 
+input[type="email"], input[type="text"] {
+  &.form-control {
+    background: none;
+    color: #fff;
+  }
+}
+
+input[type="file"].form-control-file {
+  color: #fff;
+}
+
 $night: #061F2F;

@@ -7,11 +7,6 @@
       <input type="email" v-model="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" v-model="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" v-model="remember_me"> Remember me
-        </label>
-      </div>
       <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Login</button>
     </form>
   </div>
