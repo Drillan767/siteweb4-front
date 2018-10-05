@@ -116,6 +116,10 @@ export default {
   beforeCreate () {
     const refreshToken = VueCookie.get('refresh_token')
     this.$axios.post('/user/token/refresh', {refresh_token: refreshToken})
+      .then(response => {
+        VueCookie.set('token', response.data.token)
+        VueCookie.set('refresh_token', response.data.refreshToken)
+      })
       .catch(e => {
         VueCookie.delete('refresh_token')
         VueCookie.delete('token')
@@ -125,6 +129,8 @@ export default {
 
   watch: {
     $route (to, from) {
+      console.log(from)
+      console.log(to)
       this.pageTitle = to.meta.title
     }
   },
