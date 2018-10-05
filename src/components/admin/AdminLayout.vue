@@ -22,6 +22,12 @@
               </router-link>
             </li>
             <li>
+              <a @click="logout">
+                <i class="fas fa-exit"></i>
+                Logout
+              </a>
+            </li>
+            <li>
               <span>
                 Articles
               </span>
@@ -96,6 +102,7 @@
 </template>
 
 <script>
+import VueCookie from '../../settings/VueCookie'
 export default {
   data () {
     return {
@@ -106,18 +113,31 @@ export default {
     }
   },
 
-  /* beforeCreate () {
-    this.$axios.get('/logged_in')
-      .then(response => {
-        if (!response.data) {
-          this.$router.replace({name: 'login', params: {error: 'not_logged'}})
-        }
+  beforeCreate () {
+    const refreshToken = VueCookie.get('refresh_token')
+    this.$axios.post('/user/token/refresh', {refresh_token: refreshToken})
+      .catch(e => {
+        VueCookie.delete('refresh_token')
+        VueCookie.delete('token')
+        this.$router.replace({name: 'login', params: {error: 'not_logged'}})
       })
-  }, */
+  },
 
   watch: {
     $route (to, from) {
       this.pageTitle = to.meta.title
+    }
+  },
+
+  methods: {
+    logout () {
+      const refreshToken = VueCookie.get('refresh_token')
+      this.$axios.post('/logout', {refresh_token: refreshToken})
+        .then(response => {
+          VueCookie.delete('refresh_token')
+          VueCookie.delete('token')
+          this.$router.replace({name: 'Home'})
+        })
     }
   },
 

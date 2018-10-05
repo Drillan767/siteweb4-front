@@ -26,6 +26,7 @@ export default new Router({
   linkExactActiveClass: 'active',
   routes: [
     {
+      name: 'Home',
       path: '/',
       component: FrontLayout,
       children: [
