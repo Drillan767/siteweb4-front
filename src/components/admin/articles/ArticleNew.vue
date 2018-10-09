@@ -13,25 +13,27 @@
 
       <div class="form-group">
         <label for="article_title">Title</label>
-        <input type="text" :class="[errorByName('title'), 'form-control']" v-model="post.title" id="article_title" placeholder="Title">
-        <div class="invalid-feedback" v-if="errorByName('title') === 'is-invalid'">
+        <input type="text" :class="[fieldsInError.includes('title') ? 'is-invalid' : '', 'form-control']" v-model="post.title" id="article_title" placeholder="Title">
+        <div class="invalid-feedback" v-if="fieldsInError.includes('title')">
           A title is required.
         </div>
       </div>
 
       <div class="form-group">
         <label for="article_tags">Tags</label>
-        <input type="text" :class="[errorByName('tags'), 'form-control']" v-model="post.tags" id="article_tags" placeholder="Tags">
-        <div class="invalid-feedback" v-if="errorByName('tags') === 'is-invalid'">
+        <input type="text" :class="[fieldsInError.includes('tags') ? 'is-invalid' : '', 'form-control']" v-model="post.tags" id="article_tags" placeholder="Tags">
+        <div class="invalid-feedback" v-if="fieldsInError.includes('title')">
           Please insert at least one tag.
         </div>
       </div>
 
       <label>Illustration</label>
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="article_illustration" required>
-        <label class="custom-file-label" for="article_illustration">Choose file...</label>
-        <div class="invalid-feedback">Example invalid custom file feedback</div>
+        <input type="file" :class="[fieldsInError.includes('illustration') ? 'is-invalid' : '', 'custom-file-input']" id="article_illustration" @change="filename($event.target.files[0].name)" required>
+        <label class="custom-file-label" for="article_illustration">{{ label ? label : 'Choose a file...' }}</label>
+        <div class="invalid-feedback" v-if="fieldsInError.includes('illustration')">
+          Please pick a valid image to upload
+        </div>
       </div>
 
       <div class="form-group">
@@ -65,9 +67,9 @@
             role="tabpanel"
             aria-labelledby="nav-write-tab"
           >
-            <textarea :class="[errorByName('content'), 'form-control']" v-model="post.content" @input="update" id="article_content" rows="6"></textarea>
-            <div class="invalid-feedback" v-if="errorByName('content') === 'is-invalid'">
-              Please insert at least one tag.
+            <textarea :class="[fieldsInError.includes('content') ? 'is-invalid' : '', 'form-control']" v-model="post.content" @input="update" id="article_content" rows="6"></textarea>
+            <div class="invalid-feedback" v-if="fieldsInError.includes('content')">
+              This field is required and must contain at least 30 characters
             </div>
           </div>
           <div
@@ -77,6 +79,7 @@
             aria-labelledby="nav-result-tab"
           >
             <div v-html="compiledMarkdown"></div>
+            <hr />
           </div>
         </div>
       </div>
@@ -109,7 +112,9 @@ export default {
         draft: true,
         lang: 'fr'
       },
-      errors: null
+      errors: null,
+      fieldsInError: [],
+      label: null
     }
   },
 
@@ -128,11 +133,19 @@ export default {
         }
       })
         .then(response => {
-          this.$route.replace({url: `/article/${response.data.slug}`, props: {created: true}})
+          this.$router.replace(`/admin/article/${response.data.slug}`)
         })
         .catch(e => {
-          console.log(e.response)
+          console.log(e)
           this.errors = e.response.data
+          this.fieldsInError = []
+          if (this.errors.constructor === Array) {
+            this.errors.map(error => {
+              this.fieldsInError.push(error.field)
+            })
+          } else {
+            this.fieldsInError.push('illustration')
+          }
         })
     },
 
@@ -141,18 +154,14 @@ export default {
       this.submit()
     },
 
-    errorByName (field) {
-      if (this.errors && this.errors.filter(error => error.field === field)) {
-        return 'is-invalid'
-      } else {
-        return ''
-      }
-    },
-
     update () {
       _.debounce(e => {
         this.post.content = e.target.value
       })
+    },
+
+    filename (file) {
+      this.label = file
     }
   },
 

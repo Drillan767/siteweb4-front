@@ -17,6 +17,7 @@ import ArticleNew from '../components/admin/articles/ArticleNew'
 import ArticleEdit from '../components/admin/articles/ArticleEdit'
 // --------- OTHERS --------------- //
 import NotFound from '../components/NotFound'
+import NotAllowed from '../components/NotAllowed'
 import Login from '../components/auth/Login'
 
 Vue.use(Router)
@@ -104,7 +105,7 @@ export default new Router({
         },
         {
           name: 'Edit Article',
-          path: 'article/edit',
+          path: 'article/edit/:slug',
           component: ArticleEdit,
           meta: {title: 'Edit article'}
         }
@@ -116,8 +117,13 @@ export default new Router({
       component: Login
     },
     {
-      path: '*',
-      component: NotFound
+      path: '/503',
+      component: NotAllowed
+    },
+    {
+      path: '/404',
+      component: NotFound,
+      alias: '*'
     }
   ]
 })

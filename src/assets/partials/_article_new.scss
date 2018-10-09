@@ -47,7 +47,20 @@
 
   #nav-result {
     min-height: 190px;
+
+    div {
+      padding-top: 15px;
+      max-height: 350px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      p {
+        color: #fff;
+      }
+    }
   }
+
+
 
   .custom-file {
     margin-bottom: 30px;

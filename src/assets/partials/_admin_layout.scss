@@ -1,5 +1,9 @@
 .admin-layout {
   background-color: $night;
+
+  hr {
+    border-top: solid 1px #fff;
+  }
 }
 
 p {
