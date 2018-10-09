@@ -129,8 +129,8 @@ export default {
 
   watch: {
     $route (to, from) {
-      console.log(from)
-      console.log(to)
+      // console.log(from)
+      // console.log(to)
       this.pageTitle = to.meta.title
     }
   },

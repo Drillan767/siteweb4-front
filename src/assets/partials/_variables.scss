@@ -16,7 +16,7 @@ body {
   }
 }
 
-input[type="email"], input[type="text"] {
+input[type="email"], input[type="text"], textarea, textarea:focus {
   &.form-control {
     background: none;
     color: #fff;

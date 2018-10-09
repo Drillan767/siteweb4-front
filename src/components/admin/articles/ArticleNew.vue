@@ -1,20 +1,37 @@
 <template>
-  <div class="col-md-8 offset-md-2">
+  <div class="col-md-8 offset-md-2 article-new">
+    <div class="alert alert-danger" v-if="errors" role="alert">
+      <span>Please fix the following problems:</span>
+      <ul>
+        <li v-for="(error, index) in errors" :key="index">
+          {{ error.message }}
+        </li>
+      </ul>
+    </div>
+
     <form @submit.prevent="submit">
 
       <div class="form-group">
         <label for="article_title">Title</label>
-        <input type="text" class="form-control" v-model="post.title" id="article_title" placeholder="Title">
+        <input type="text" :class="[errorByName('title'), 'form-control']" v-model="post.title" id="article_title" placeholder="Title">
+        <div class="invalid-feedback" v-if="errorByName('title') === 'is-invalid'">
+          A title is required.
+        </div>
       </div>
 
       <div class="form-group">
-        <label for="article_tags">Title</label>
-        <input type="text" class="form-control" v-model="post.tags" id="article_tags" placeholder="Tags">
+        <label for="article_tags">Tags</label>
+        <input type="text" :class="[errorByName('tags'), 'form-control']" v-model="post.tags" id="article_tags" placeholder="Tags">
+        <div class="invalid-feedback" v-if="errorByName('tags') === 'is-invalid'">
+          Please insert at least one tag.
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="article_illustration">Illustration</label>
-        <input type="file" class="form-control-file" id="article_illustration">
+      <label>Illustration</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="article_illustration" required>
+        <label class="custom-file-label" for="article_illustration">Choose file...</label>
+        <div class="invalid-feedback">Example invalid custom file feedback</div>
       </div>
 
       <div class="form-group">
@@ -48,8 +65,10 @@
             role="tabpanel"
             aria-labelledby="nav-write-tab"
           >
-            <label for="article_content">Content</label>
-            <textarea class="form-control" v-model="post.content" @input="update" id="article_content" rows="6"></textarea>
+            <textarea :class="[errorByName('content'), 'form-control']" v-model="post.content" @input="update" id="article_content" rows="6"></textarea>
+            <div class="invalid-feedback" v-if="errorByName('content') === 'is-invalid'">
+              Please insert at least one tag.
+            </div>
           </div>
           <div
             class="tab-pane fade"
@@ -112,6 +131,7 @@ export default {
           this.$route.replace({url: `/article/${response.data.slug}`, props: {created: true}})
         })
         .catch(e => {
+          console.log(e.response)
           this.errors = e.response.data
         })
     },
@@ -119,6 +139,14 @@ export default {
     draft (value) {
       this.post.draft = value
       this.submit()
+    },
+
+    errorByName (field) {
+      if (this.errors && this.errors.filter(error => error.field === field)) {
+        return 'is-invalid'
+      } else {
+        return ''
+      }
     },
 
     update () {
