@@ -5,10 +5,10 @@ import App from './App'
 import Axios from 'axios'
 import VueAxios from 'vue-axios'
 import AxiosConfig from './settings/client'
-import i18n from './locale/i18n'
 import router from './router'
+import VueI18n from 'vue-i18n'
+import messages from './locale/locale'
 import jQuery from 'jquery/dist/jquery.slim.min'
-import StackEdit from 'stackedit-js'
 import 'bootstrap'
 import './assets/style.scss'
 
@@ -18,7 +18,12 @@ window.JQuery = jQuery
 Vue.prototype.$axios = Axios.create(AxiosConfig)
 Vue.config.productionTip = false
 Vue.use(VueAxios, Axios)
-Object.defineProperty(Vue.prototype, '$stackedit', { value: StackEdit })
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({
+  locale: 'fr',
+  messages: messages
+})
 
 /* eslint-disable no-new */
 new Vue({

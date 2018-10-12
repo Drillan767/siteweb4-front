@@ -1,0 +1,52 @@
+.front-layout {
+  font-family: 'Fira-Mono', 'monospace';
+  min-height: 100vh;
+  background-color: #0e0e0e;
+
+  nav {
+    .nav-main {
+      margin-top: -10px;
+    }
+
+    a, p, span {
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #navbarText {
+      a, p, span {
+        &.nav-link {
+          margin-top: 7px;
+        }
+      }
+    }
+  }
+
+  @media(max-width: 992px) {
+    #navbarText li {
+      hr.mobile {
+        display: block;
+      }
+
+      p.pipe {
+        display: none;
+      }
+    }
+  }
+
+  @media(min-width: 992px) {
+    #navbarText li {
+      hr.mobile {
+        display: none;
+      }
+
+      p.pipe {
+        display: block;
+      }
+    }
+  }
+}

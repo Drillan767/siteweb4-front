@@ -61,6 +61,17 @@
                 All projects
               </router-link>
             </li>
+            <li>
+              <span>
+                Settings
+              </span>
+            </li>
+            <li>
+              <router-link to="/admin/portfolio">
+                <i class="fas fa-th-list"></i>
+                Edit settings
+              </router-link>
+            </li>
           </ul>
         </li>
       </ul>

@@ -32,7 +32,7 @@ export default new Router({
       component: FrontLayout,
       children: [
         {
-          path: 'articles',
+          path: 'blog',
           component: Articles
         },
         {
@@ -45,10 +45,12 @@ export default new Router({
         },
         {
           path: 'project/:slug',
+          alias: 'projet/:slug',
           component: Project
         },
         {
           path: 'about',
+          alias: 'a-propos',
           component: About
         },
         {
