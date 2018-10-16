@@ -1,0 +1,19 @@
+.edit-settings {
+  form {
+    .row {
+      & > div {
+        margin-bottom: 3vh;
+        .custom-file {
+          label {
+            background: none;
+          }
+        }
+        a {
+          img {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

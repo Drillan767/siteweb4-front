@@ -21,9 +21,9 @@
                 Back to website
               </router-link>
             </li>
-            <li>
+            <li class="logout">
               <a @click="logout">
-                <i class="fas fa-exit"></i>
+                <i class="fas fa-sign-out-alt fa-flip-horizontal"></i>
                 Logout
               </a>
             </li>
@@ -67,9 +67,15 @@
               </span>
             </li>
             <li>
-              <router-link to="/admin/portfolio">
-                <i class="fas fa-th-list"></i>
-                Edit settings
+              <router-link to="/admin/settings">
+                <i class="fas fa-cogs"></i>
+                Global settings
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/admin/user/settings">
+                <i class="fas fa-user-cog"></i>
+                User settings
               </router-link>
             </li>
           </ul>
@@ -142,7 +148,7 @@ export default {
     $route (to, from) {
       // console.log(from)
       // console.log(to)
-      this.pageTitle = to.meta.title
+      document.title = to.meta.title
     }
   },
 

@@ -15,7 +15,7 @@
             <router-link class="nav-link" to="/blog">Blog</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/projects">{{ $t("navbar.projects") }}</router-link>
+            <router-link class="nav-link" to="/portfolio">{{ $t("navbar.projects") }}</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/contact">{{ $t("navbar.contact")}}</router-link>

@@ -15,6 +15,8 @@ import Dashboard from '../components/admin/Dashboard'
 import ArticlesList from '../components/admin/articles/Articles'
 import ArticleNew from '../components/admin/articles/ArticleNew'
 import ArticleEdit from '../components/admin/articles/ArticleEdit'
+import EditSettings from '../components/admin/Settings'
+import UserSettings from '../components/admin/UserSettings'
 // --------- OTHERS --------------- //
 import NotFound from '../components/NotFound'
 import NotAllowed from '../components/NotAllowed'
@@ -109,7 +111,37 @@ export default new Router({
           name: 'Edit Article',
           path: 'article/edit/:slug',
           component: ArticleEdit,
-          meta: {title: 'Edit article'}
+          meta: {
+            title: 'Edit article',
+            breadcrumb: [
+              'Dashboard',
+              'All articles'
+            ]
+          }
+        },
+        {
+          name: 'Edit settings',
+          path: 'settings',
+          component: EditSettings,
+          meta: {
+            title: 'Edit settings',
+            breadcrumb: [
+              'Dashboard',
+              'Settings'
+            ]
+          }
+        },
+        {
+          name: 'User settings',
+          path: 'user/settings',
+          component: UserSettings,
+          meta: {
+            title: 'User settings',
+            breadcrumb: [
+              'Dashboard',
+              'User settings'
+            ]
+          }
         }
       ]
     },

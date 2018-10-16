@@ -8,12 +8,10 @@ import AxiosConfig from './settings/client'
 import router from './router'
 import VueI18n from 'vue-i18n'
 import messages from './locale/locale'
-import jQuery from 'jquery/dist/jquery.slim.min'
 import 'bootstrap'
+import '@fancyapps/fancybox/dist/jquery.fancybox.min.js'
+import '@fancyapps/fancybox/dist/jquery.fancybox.min.css'
 import './assets/style.scss'
-
-window.$ = jQuery
-window.JQuery = jQuery
 
 Vue.prototype.$axios = Axios.create(AxiosConfig)
 Vue.config.productionTip = false
