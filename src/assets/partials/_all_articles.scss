@@ -1,0 +1,20 @@
+.articles {
+  table {
+    table-layout: fixed;
+    tbody tr {
+      a {
+        font-weight: bold;
+      }
+      .actions {
+        display: none;
+        span {
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+      &:hover .actions {
+        display: block;
+      }
+    }
+  }
+}

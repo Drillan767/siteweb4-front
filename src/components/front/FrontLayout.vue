@@ -57,6 +57,10 @@ export default {
   methods: {
     handleLocale (locale) {
       this.$i18n.locale = locale
+    },
+
+    setTitle (value) {
+      document.title = `Joseph Levarato | ${value}`
     }
   }
 }

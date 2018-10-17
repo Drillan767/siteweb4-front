@@ -92,8 +92,11 @@
         </label>
       </div>
 
-      <button type="button" v-on:click="draft(true)" class="btn btn-outline-secondary">Save as draft</button>
-      <button type="button" v-on:click="draft(false)" class="btn btn-outline-primary">Save and publish</button>
+      <div class="form-group text-right">
+        <button type="button" v-on:click="draft(true)" class="btn btn-outline-secondary">Save as draft</button>
+        <button type="button" v-on:click="draft(false)" class="btn btn-outline-primary">Save and publish</button>
+      </div>
+
     </form>
   </div>
 </template>
@@ -101,6 +104,8 @@
 <script>
 import _ from 'underscore'
 import marked from 'marked'
+import 'select2/dist/css/select2.min.css'
+import 'select2/dist/js/select2.min.js'
 import VueCookie from '../../../settings/VueCookie'
 export default {
   data () {
@@ -108,7 +113,7 @@ export default {
       post: {
         title: '',
         content: '',
-        tags: '',
+        tags: [],
         draft: true,
         lang: 'fr'
       },
@@ -122,10 +127,10 @@ export default {
     submit () {
       let formData = new FormData()
       formData.append('title', this.post.title)
-      formData.append('tags', this.post.tags)
+      formData.append('tags', JSON.stringify(['hey', 'salut', 'ça va', 'bien et toi', 'mdr']))
       formData.append('content', this.post.content)
       formData.append('illustration', document.getElementById('article_illustration').files[0])
-      formData.append('draft', this.post.draft)
+      formData.append('draft', this.post.draft ? 1 : 0)
       formData.append('lang', this.post.lang ? 'fr' : 'en')
       this.$axios.post('/post', formData, {
         headers: {
@@ -169,6 +174,10 @@ export default {
     compiledMarkdown () {
       return marked(this.post.content, {sanitized: true})
     }
+  },
+
+  mounted () {
+    $('#tags').select2()
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="articles">
-    <table class="table">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>Title</th>
@@ -9,31 +9,24 @@
           <th>Status</th>
           <th>Created at</th>
           <th>Updated at</th>
-          <th>Action</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(post, index) in posts" :key="index">
-          <td><router-link :to="`/article/${ post.slug }`">{{ post.title }}</router-link></td>
+          <td><router-link :to="`/admin/article/${ post.slug }`">{{ post.title }}</router-link></td>
           <td>TODO: tag sysem</td>
           <td>{{ post.lang === 'fr' ? 'Français' : 'English' }}</td>
-          <td>{{ post.draft === "false" ? 'Published' : 'Draft' }}</td>
+          <td>{{ post.draft ? 'Published' : 'Draft' }}</td>
           <td>{{ formatDate(post.created_at) }}</td>
           <td>{{ formatDate(post.updated_at) }}</td>
           <td>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-outline-success">
-                <input type="radio" name="options" id="option1" autocomplete="off" checked>
-                <i class="far fa-file-alt"></i> {{ post.draft === "false" ? 'Unpublish' : 'Publish' }}
-              </label>
-              <label class="btn btn-outline-warning">
-                <input type="radio" name="options" id="option2" autocomplete="off">
-                <i class="fas fa-edit"></i> Edit
-              </label>
-              <label class="btn btn-outline-danger">
-                <input type="radio" name="options" id="option3" autocomplete="off">
-                <i class="fas fa-times"></i> Delete
-              </label>
+            <div class="actions">
+              <span @click="handlePublish(post.id)">{{ post.draft ? 'Unpublish' : 'Publish' }}</span>
+              |
+              <span>Edit</span>
+              |
+              <span>Delete</span>
             </div>
           </td>
         </tr>
@@ -44,6 +37,7 @@
 </template>
 
 <script>
+import VueCookie from '../../../settings/VueCookie'
 export default {
   data () {
     return {
@@ -54,7 +48,6 @@ export default {
   mounted () {
     this.$axios.get('/posts')
       .then(response => {
-        console.log(response)
         this.posts = response.data
       })
       .catch(e => console.log(e.response))
@@ -63,6 +56,22 @@ export default {
   methods: {
     formatDate (date) {
       return new Date(date).toLocaleDateString()
+    },
+
+    handlePublish (id) {
+      this.$axios.post('/post/publish', {id: id}, {
+        headers: {
+          'Authorization': `Bearer ${VueCookie.get('token')}`
+        }})
+        .then(response => {
+          console.log(response)
+          this.posts = this.posts.map((post, index) => {
+            if (post.id === id) {
+              return response.data
+            }
+          })
+        })
+        .catch(e => console.log(e.response))
     }
   }
 }

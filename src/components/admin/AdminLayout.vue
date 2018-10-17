@@ -78,42 +78,49 @@
                 User settings
               </router-link>
             </li>
+            <li>
+              <router-link to="/admin/tags">
+                <i class="fas fa-tag"></i>
+                Manage tags
+              </router-link>
+            </li>
           </ul>
         </li>
       </ul>
     </nav>
 
     <div id="content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container-fluid">
 
-      <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="navbar-btn">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
 
-          <button type="button" id="sidebarCollapse" class="navbar-btn">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li
+                  class="breadcrumb-item"
+                  v-for="(element, index) in this.$route.meta.breadcrumb"
+                  :key="index"
+                  :class="[index === last ? 'active' : '']"
+                >
+                  <router-link v-if="index !== last" :to="{name: element}">{{ element }}</router-link>
+                  <a v-else>{{ element }}</a>
+                </li>
+              </ol>
+            </nav>
 
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li
-                class="breadcrumb-item"
-                v-for="(element, index) in this.$route.meta.breadcrumb"
-                :key="index"
-                :class="[index === last ? 'active' : '']"
-              >
-                <router-link v-if="index !== last" :to="{name: element}">{{ element }}</router-link>
-                <a v-else>{{ element }}</a>
-              </li>
-            </ol>
-          </nav>
+          </div>
+        </nav>
 
-        </div>
-      </nav>
+        <h2>{{ pageTitle }}</h2>
 
-      <h2>{{ pageTitle }}</h2>
-
-      <router-view></router-view>
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -148,7 +155,8 @@ export default {
     $route (to, from) {
       // console.log(from)
       // console.log(to)
-      document.title = to.meta.title
+      this.setTitle(to.meta.title)
+      this.pageTitle = to.meta.title
     }
   },
 
@@ -161,6 +169,10 @@ export default {
           VueCookie.delete('token')
           this.$router.replace({name: 'Home'})
         })
+    },
+
+    setTitle (value) {
+      document.title = `Administration | ${value}`
     }
   },
 

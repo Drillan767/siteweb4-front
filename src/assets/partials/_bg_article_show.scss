@@ -1,0 +1,17 @@
+.bg-article-show {
+  h1 {
+    width: 100%;
+  }
+  .status {
+    justify-content: space-between;
+    height: fit-content;
+    margin-top: 10px;
+
+    span:not(.badge) {
+      color: #fff;
+    }
+  }
+  .bulk {
+    text-align: right;
+  }
+}

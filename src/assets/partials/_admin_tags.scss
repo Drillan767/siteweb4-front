@@ -1,0 +1,20 @@
+.tags {
+  .row {
+    .bulk {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      a i {
+        color: #fff;
+      }
+    }
+    &:hover {
+      .bulk {
+        display: flex;
+        a:hover i {
+          color: #080808;
+        }
+      }
+    }
+  }
+}

@@ -9,10 +9,14 @@ import ArticleShow from '../components/front/ArticleShow'
 import About from '../components/front/About'
 import Contact from '../components/front/Contact'
 import Landing from '../components/front/Landing'
+import TagList from '../components/front/TagList'
+import ShowTag from '../components/front/ShowTag'
 // --------- ADMIN ---------------- //
 import AdminLayout from '../components/admin/AdminLayout'
+import Tags from '../components/admin/Tags'
 import Dashboard from '../components/admin/Dashboard'
 import ArticlesList from '../components/admin/articles/Articles'
+import BOArticle from '../components/admin/articles/Article'
 import ArticleNew from '../components/admin/articles/ArticleNew'
 import ArticleEdit from '../components/admin/articles/ArticleEdit'
 import EditSettings from '../components/admin/Settings'
@@ -62,6 +66,14 @@ export default new Router({
         {
           path: '',
           component: Landing
+        },
+        {
+          path: 'tags',
+          component: TagList
+        },
+        {
+          path: 'tag/:slug',
+          component: ShowTag
         }
       ]
     },
@@ -120,6 +132,11 @@ export default new Router({
           }
         },
         {
+          name: 'Show Article',
+          path: 'article/:slug',
+          component: BOArticle
+        },
+        {
           name: 'Edit settings',
           path: 'settings',
           component: EditSettings,
@@ -140,6 +157,18 @@ export default new Router({
             breadcrumb: [
               'Dashboard',
               'User settings'
+            ]
+          }
+        },
+        {
+          name: 'Tags',
+          path: 'tags',
+          component: Tags,
+          meta: {
+            title: 'Tag list',
+            breadcrumb: [
+              'Dashboard',
+              'Tags'
             ]
           }
         }

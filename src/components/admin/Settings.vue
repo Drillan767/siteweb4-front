@@ -179,7 +179,6 @@ export default {
     },
 
     createImage (file, field) {
-      console.log(field)
       let reader = new FileReader()
       let vm = this
 
