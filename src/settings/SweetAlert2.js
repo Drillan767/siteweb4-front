@@ -1,5 +1,10 @@
 import swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
+import axios from 'axios'
+
+const API = axios.create({
+  baseURL: 'http://localhost:3333/api/v1'
+})
 
 const SweetAlert = {
   delete (title, text, type, confirmation, url) {
@@ -11,9 +16,9 @@ const SweetAlert = {
       showLoaderOnConfirm: true,
       confirmButtonText: 'Delete',
       preConfirm: () => {
-        return this.$axios.delete(url)
+        return API.delete(url)
           .then(response => {
-            return response.json()
+            return response
           })
       },
       allowOutsideClick: () => !swal.isLoading()
@@ -24,6 +29,14 @@ const SweetAlert = {
           title: confirmation
         })
       }
+    })
+  },
+
+  confirm (title, text) {
+    swal({
+      type: 'success',
+      title: title,
+      text: text
     })
   }
 }

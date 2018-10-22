@@ -20,11 +20,10 @@
       </div>
 
       <div class="form-group">
-        <label for="article_tags">Tags</label>
-        <input type="text" :class="[fieldsInError.includes('tags') ? 'is-invalid' : '', 'form-control']" v-model="post.tags" id="article_tags" placeholder="Tags">
-        <div class="invalid-feedback" v-if="fieldsInError.includes('title')">
-          Please insert at least one tag.
-        </div>
+        <label for="tags">Tags</label>
+        <select id="tags" multiple v-model="post.tags">
+          <option v-for="(tag, index) in tags" :key="index" :value="tag.id">{{ tag.name }}</option>
+        </select>
       </div>
 
       <label>Illustration</label>
@@ -104,9 +103,10 @@
 <script>
 import _ from 'underscore'
 import marked from 'marked'
-import 'select2/dist/css/select2.min.css'
-import 'select2/dist/js/select2.min.js'
 import VueCookie from '../../../settings/VueCookie'
+import SlimSelect from 'slim-select'
+import 'slim-select/dist/slimselect.min.css'
+
 export default {
   data () {
     return {
@@ -117,6 +117,8 @@ export default {
         draft: true,
         lang: 'fr'
       },
+      tags: [],
+      options: [],
       errors: null,
       fieldsInError: [],
       label: null
@@ -127,7 +129,7 @@ export default {
     submit () {
       let formData = new FormData()
       formData.append('title', this.post.title)
-      formData.append('tags', JSON.stringify(['hey', 'salut', 'ça va', 'bien et toi', 'mdr']))
+      formData.append('tags', this.post.tags)
       formData.append('content', this.post.content)
       formData.append('illustration', document.getElementById('article_illustration').files[0])
       formData.append('draft', this.post.draft ? 1 : 0)
@@ -177,7 +179,25 @@ export default {
   },
 
   mounted () {
-    $('#tags').select2()
+    this.$axios.get('/tags')
+      .then(response => {
+        this.tags = response.data
+        this.tags.map(tag => {
+          this.options.push({id: tag.id, name: tag.name})
+        })
+      })
+
+    /* eslint-disable no-new */
+    new SlimSelect({
+      select: '#tags',
+      closeOnSelect: false
+    })
+  },
+
+  watch: {
+    value (value) {
+
+    }
   }
 }
 </script>

@@ -19,16 +19,31 @@
           Delete
         </button>
       </div>
+      <div class="col-md-8 tags">
+        <span class="label">Tags:</span>
+        <div class="labels">
+          <router-link
+            v-for="(tag, index) in post.tags"
+            :key="index"
+            :to="`/tag/${tag.slug}`"
+            class="badge badge-secondary"
+          >
+            {{ tag.name }}
+          </router-link>
+        </div>
+      </div>
       <div class="img-preview">
         <a data-fancybox="gallery" :href="post.illustration">
           <img :src="post.illustration">
         </a>
       </div>
+      <div v-html="toHTML" class="content-preview col-md-8"></div>
     </div>
   </div>
 </template>
 
 <script>
+import marked from 'marked'
 export default {
   data () {
     return {
@@ -48,12 +63,13 @@ export default {
   mounted () {
     this.$axios.get(`/post/${this.$route.params.slug}`)
       .then(response => {
+        console.log(response.data)
         if (response.status === 204) {
           this.$router.replace('/404')
         }
         console.log(response)
         this.post = response.data
-        document.title = this.post.title
+        this.$parent.setTitle(this.post.title)
       })
       .catch(e => {
         console.log(e.response)
@@ -67,6 +83,12 @@ export default {
 
     deleteArticle () {
       // ...
+    }
+  },
+
+  computed: {
+    toHTML () {
+      return marked(this.post.content, {sanitized: true})
     }
   }
 }

@@ -17,4 +17,17 @@
       }
     }
   }
+
+  .modal {
+    &-header {
+      border-bottom: none;
+    }
+    &-content {
+      background-color: #101e26;
+    }
+    &-footer {
+      border-top: none;
+    }
+  }
+
 }

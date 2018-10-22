@@ -12,6 +12,39 @@
     }
   }
   .bulk {
-    text-align: right;
+    display: flex;
+    justify-content: center;
+
+    a, button {
+      margin: 0 10px;
+    }
+  }
+
+  .tags {
+    display: flex;
+    margin: 15px 0;
+
+    .label {
+      color: #fff;
+    }
+
+    .labels a {
+      margin: 0 2px;
+      &:first-child {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .img-preview {
+    height: 200px;
+    overflow: hidden;
+    img {
+      margin-top: -25%;
+    }
+  }
+
+  .content-preview {
+    margin-top: 30px;
   }
 }

@@ -28,6 +28,6 @@ new Vue({
   el: '#app',
   router,
   i18n,
-  components: { App },
+  components: { App, MultiSelect },
   template: '<App/>'
 })

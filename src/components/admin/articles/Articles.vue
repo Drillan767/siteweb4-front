@@ -4,7 +4,6 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>Tags</th>
           <th>Language</th>
           <th>Status</th>
           <th>Created at</th>
@@ -15,7 +14,6 @@
       <tbody>
         <tr v-for="(post, index) in posts" :key="index">
           <td><router-link :to="`/admin/article/${ post.slug }`">{{ post.title }}</router-link></td>
-          <td>TODO: tag sysem</td>
           <td>{{ post.lang === 'fr' ? 'Français' : 'English' }}</td>
           <td>{{ post.draft ? 'Published' : 'Draft' }}</td>
           <td>{{ formatDate(post.created_at) }}</td>
@@ -24,7 +22,7 @@
             <div class="actions">
               <span @click="handlePublish(post.id)">{{ post.draft ? 'Unpublish' : 'Publish' }}</span>
               |
-              <span>Edit</span>
+              <router-link :to="`/admin/article/edit/${post.slug}`">Edit</router-link>
               |
               <span>Delete</span>
             </div>
@@ -48,6 +46,7 @@ export default {
   mounted () {
     this.$axios.get('/posts')
       .then(response => {
+        console.log(response)
         this.posts = response.data
       })
       .catch(e => console.log(e.response))
@@ -64,7 +63,6 @@ export default {
           'Authorization': `Bearer ${VueCookie.get('token')}`
         }})
         .then(response => {
-          console.log(response)
           this.posts = this.posts.map((post, index) => {
             if (post.id === id) {
               return response.data

@@ -21,7 +21,6 @@ export default {
     this.$axios.get('/posts')
       .then(response => {
         this.articles = response.data
-        console.log(this.articles)
       })
   }
 }

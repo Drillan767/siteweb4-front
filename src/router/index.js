@@ -124,10 +124,10 @@ export default new Router({
           path: 'article/edit/:slug',
           component: ArticleEdit,
           meta: {
-            title: 'Edit article',
             breadcrumb: [
               'Dashboard',
-              'All articles'
+              'All articles',
+              'Edit article'
             ]
           }
         },
