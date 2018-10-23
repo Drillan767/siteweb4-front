@@ -22,7 +22,13 @@
       <div class="form-group">
         <label for="tags">Tags</label>
         <select id="tags" multiple v-model="post.tags">
-          <option v-for="(tag, index) in tags" :key="index" :value="tag.id">{{ tag.name }}</option>
+          <option
+            v-for="(tag, index) in tags"
+            :key="index" :value="tag.id"
+            selected
+          >
+            {{ tag.name }}
+          </option>
         </select>
       </div>
 
@@ -123,7 +129,7 @@ export default {
         lang: 'fr'
       },
       tags: [],
-      default: [],
+      preset: [],
       errors: null,
       fieldsInError: [],
       label: null
@@ -189,7 +195,6 @@ export default {
     this.$axios.get('/tags')
       .then(response => {
         this.tags = response.data
-        console.log(this.tags)
       })
 
     // Getting the current article's informations
@@ -202,7 +207,7 @@ export default {
         this.post = response.data
         this.$parent.setTitle(`Edit ${this.post.title}`)
         this.post.tags.map(tag => {
-          this.default.push(tag.id)
+          this.preset.push(tag.id)
         })
       })
       .catch(e => {

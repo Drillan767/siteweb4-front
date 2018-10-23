@@ -1,12 +1,14 @@
 <template>
   <div class="tags">
-    <div class="col-sm-12 text-center">
-      <button class="btn btn-outline-primary" @click="handleAdd">
+    <div class="form-inline col-md-8">
+      <button class="btn btn-outline-primary mb-2" @click="handleAdd">
         <i class="fas fa-plus"></i>
         Add a new tag
       </button>
+      <label class="sr-only" for="search">Name</label>
+      <input type="text" class="form-control mb-2 mr-sm-2" id="search" v-model="search" placeholder="Search...">
     </div>
-    <div class="col-sm-12 row" v-for="(tag, index) in tags" :key="index">
+    <div class="col-sm-12 row" v-for="(tag, index) in filteredList" :key="index">
       <div class="col-sm-8">
         <h4>{{tag.name}}</h4>
         <p>{{tag.description_en}}</p>
@@ -102,7 +104,8 @@ export default {
         name: '',
         description_en: '',
         description_fr: ''
-      }
+      },
+      search: ''
     }
   },
 
@@ -116,14 +119,13 @@ export default {
 
   methods: {
     handleDelete (tag) {
-      const feedback = SweetAlert.delete(
+      SweetAlert.delete(
         `Delete "${tag.name}"?`,
         `Are you sure you want to delete the tag "${tag.name}"?`,
         'warning',
         `"${tag.name}" has been successfully deleted`,
         `/tag/${tag.id}`
       )
-      console.log(feedback)
     },
 
     handleAdd () {
@@ -168,6 +170,13 @@ export default {
             })
           })
       }
+    }
+  },
+  computed: {
+    filteredList () {
+      return this.tags.filter(tag => {
+        return tag.name.toLowerCase().includes(this.search.toLowerCase())
+      })
     }
   }
 }

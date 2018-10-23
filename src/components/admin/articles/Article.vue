@@ -10,7 +10,7 @@
         <span>Updated on {{ formatDate(post.updated_at) }}</span>
       </div>
       <div class="col-md-4 bulk">
-        <router-link class="btn btn-outline-warning" :to="`/admin/article/edit/${post.id}`">
+        <router-link class="btn btn-outline-warning" :to="`/admin/article/edit/${post.slug}`">
           <i class="fas fa-wrench"></i>
           Edit
         </router-link>
@@ -44,6 +44,7 @@
 
 <script>
 import marked from 'marked'
+import SweetAlert from '../../../settings/SweetAlert2'
 export default {
   data () {
     return {
@@ -82,7 +83,14 @@ export default {
     },
 
     deleteArticle () {
-      // ...
+      SweetAlert.delete(
+        `Delete "${this.post.title}"?`,
+        `Are you sure you want to delete "${this.post.title}"?`,
+        'warning',
+        `Article "${this.post.title}" was successfully deleted`,
+        `/post/${this.post.id}`,
+        '/admin/articles'
+      )
     }
   },
 

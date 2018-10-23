@@ -1,4 +1,9 @@
 .tags {
+  .form-inline {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
   .row {
     .bulk {
       display: none;

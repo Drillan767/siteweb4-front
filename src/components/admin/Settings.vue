@@ -129,6 +129,9 @@
               <span class="slider round"></span>
             </label>
           </div>
+          <div class="col-sm-12 text-center">
+            <button class="btn btn-outline-primary">Save changes</button>
+          </div>
         </div>
       </form>
     </div>
@@ -192,6 +195,11 @@ export default {
     removeImage (field) {
       this.settings[field] = ''
       this.file_label[field] = ''
+    },
+
+    submit () {
+      let formData = new FormData()
+      formData.append('landing')
     }
   },
 

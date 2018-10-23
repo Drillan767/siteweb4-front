@@ -33,7 +33,6 @@ export default new Router({
   linkExactActiveClass: 'active',
   routes: [
     {
-      name: 'Home',
       path: '/',
       component: FrontLayout,
       children: [
@@ -81,7 +80,6 @@ export default new Router({
     {
       path: '/admin',
       component: AdminLayout,
-      name: 'admin',
       children: [
         {
           name: 'Dashboard',

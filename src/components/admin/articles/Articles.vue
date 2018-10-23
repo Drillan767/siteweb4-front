@@ -24,7 +24,7 @@
               |
               <router-link :to="`/admin/article/edit/${post.slug}`">Edit</router-link>
               |
-              <span>Delete</span>
+              <span @click="handleDelete(post, index)">Delete</span>
             </div>
           </td>
         </tr>
@@ -36,6 +36,7 @@
 
 <script>
 import VueCookie from '../../../settings/VueCookie'
+import SweetAlert from '../../../settings/SweetAlert2'
 export default {
   data () {
     return {
@@ -46,7 +47,6 @@ export default {
   mounted () {
     this.$axios.get('/posts')
       .then(response => {
-        console.log(response)
         this.posts = response.data
       })
       .catch(e => console.log(e.response))
@@ -70,6 +70,18 @@ export default {
           })
         })
         .catch(e => console.log(e.response))
+    },
+
+    handleDelete (post, index) {
+      const result = SweetAlert.delete(
+        `Delete "${post.title}"?`,
+        `Are you sure you want to delete "${post.tite}"?`,
+        'warning',
+        `"${post.title}" was successfully deleted`,
+        `/post/${post.id}`
+      )
+      console.log(result)
+      this.posts.splice(index, 1)
     }
   }
 }
