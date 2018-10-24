@@ -10,7 +10,7 @@ const API = axios.create({
 
 const SweetAlert = {
   delete (title, text, type, confirmation, url, redirect = null) {
-    swal({
+    let res = swal({
       title: title,
       text: text,
       type: type,
@@ -28,7 +28,8 @@ const SweetAlert = {
           })
       },
       allowOutsideClick: () => !swal.isLoading()
-    }).then((result) => {
+    })
+    res.then((result) => {
       if (result.value) {
         swal({
           type: 'success',
@@ -37,10 +38,10 @@ const SweetAlert = {
         if (redirect) {
           Router.push(redirect)
         }
-        console.log(result.value)
         return result.value
       }
     })
+    return res
   },
 
   confirm (title, text) {

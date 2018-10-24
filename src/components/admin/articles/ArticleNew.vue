@@ -20,10 +20,17 @@
       </div>
 
       <div class="form-group">
-        <label for="tags">Tags</label>
-        <select id="tags" multiple v-model="post.tags">
-          <option v-for="(tag, index) in tags" :key="index" :value="tag.id">{{ tag.name }}</option>
-        </select>
+        <label>Tags</label>
+        <VueMultiselect
+          id="tags"
+          :multiple="true"
+          :options="tags"
+          :close-on-select="false"
+          label="name"
+          track-by="name"
+          v-model="post.tags"
+        >
+        </VueMultiselect>
       </div>
 
       <label>Illustration</label>
@@ -104,10 +111,10 @@
 import _ from 'underscore'
 import marked from 'marked'
 import VueCookie from '../../../settings/VueCookie'
-import SlimSelect from 'slim-select'
-import 'slim-select/dist/slimselect.min.css'
+import VueMultiselect from 'vue-multiselect/src/Multiselect'
 
 export default {
+  components: {VueMultiselect},
   data () {
     return {
       post: {
@@ -117,6 +124,7 @@ export default {
         draft: true,
         lang: 'fr'
       },
+      selected: [],
       tags: [],
       options: [],
       errors: null,
@@ -127,9 +135,10 @@ export default {
 
   methods: {
     submit () {
+      this.selected = this.post.tags.map(tag => tag.id)
       let formData = new FormData()
       formData.append('title', this.post.title)
-      formData.append('tags', this.post.tags)
+      formData.append('tags', this.selected)
       formData.append('content', this.post.content)
       formData.append('illustration', document.getElementById('article_illustration').files[0])
       formData.append('draft', this.post.draft ? 1 : 0)
@@ -186,12 +195,6 @@ export default {
           this.options.push({id: tag.id, name: tag.name})
         })
       })
-
-    /* eslint-disable no-new */
-    new SlimSelect({
-      select: '#tags',
-      closeOnSelect: false
-    })
   },
 
   watch: {

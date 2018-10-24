@@ -73,15 +73,21 @@ export default {
     },
 
     handleDelete (post, index) {
-      const result = SweetAlert.delete(
+      SweetAlert.delete(
         `Delete "${post.title}"?`,
         `Are you sure you want to delete "${post.tite}"?`,
         'warning',
         `"${post.title}" was successfully deleted`,
         `/post/${post.id}`
       )
-      console.log(result)
-      this.posts.splice(index, 1)
+        .then(result => {
+          if (result.value) {
+            this.posts.splice(index, 1)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }

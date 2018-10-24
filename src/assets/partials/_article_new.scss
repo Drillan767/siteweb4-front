@@ -15,11 +15,22 @@
     }
   }
 
-  .ss-multi-selected {
+  .multiselect__tags {
+    input#tags {
+      background: none
+    }
     background: none;
-    min-height: 38px;
-    .ss-add {
-      margin: 13px 12px 0 5px;
+    .multiselect__tag {
+      background: #266bb5;
+      i {
+        &::after {
+          color: #fff;
+        }
+        &:hover {
+          background: #105094;
+        }
+      }
+
     }
   }
 

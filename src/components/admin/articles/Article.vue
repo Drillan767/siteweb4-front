@@ -64,11 +64,9 @@ export default {
   mounted () {
     this.$axios.get(`/post/${this.$route.params.slug}`)
       .then(response => {
-        console.log(response.data)
         if (response.status === 204) {
           this.$router.replace('/404')
         }
-        console.log(response)
         this.post = response.data
         this.$parent.setTitle(this.post.title)
       })
