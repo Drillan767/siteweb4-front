@@ -167,7 +167,7 @@ export default {
         .then(response => {
           VueCookie.delete('refresh_token')
           VueCookie.delete('token')
-          this.$router.replace({name: 'Home'})
+          this.$router.replace({name: 'Landing'})
         })
     },
 

@@ -111,3 +111,12 @@ input {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.custom-file {
+  margin-bottom: 30px;
+
+  label {
+    background: none;
+    color: #fff;
+  }
+}

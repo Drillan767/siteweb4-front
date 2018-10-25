@@ -9,11 +9,47 @@
           }
         }
         a {
+          margin-bottom: 10px;
           img {
             max-width: 100%;
           }
         }
       }
     }
+  }
+}
+
+.user-settings {
+  .row {
+    .col-sm-6 {
+      .mx-datepicker {
+        width: 100%;
+        .mx-input {
+          height: 38px;
+          background: none;
+          color: #fff;
+        }
+        .mx-input-append {
+          background: none;
+          .mx-calendar-icon {
+            color: #fff;
+          }
+        }
+      }
+    }
+    &.profile {
+      margin-top: 40px;
+      img {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+  }
+  td.cell.cur-month {
+    color: inherit;
+  }
+
+  .col-form-label {
+    text-align: right;
   }
 }

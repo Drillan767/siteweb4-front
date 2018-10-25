@@ -104,8 +104,20 @@
       </div>
 
       <div class="form-group text-right">
-        <button type="button" v-on:click="draft(true)" class="btn btn-outline-secondary">Save as draft</button>
-        <button type="button" v-on:click="draft(false)" class="btn btn-outline-primary">Save and publish</button>
+        <button
+          type="button"
+          v-on:click="draft(true)"
+          class="btn btn-outline-secondary"
+        >
+          Update as a draft
+        </button>
+        <button
+          type="button"
+          v-on:click="draft(false)"
+          class="btn btn-outline-primary"
+        >
+          Update and publish
+        </button>
       </div>
 
     </form>

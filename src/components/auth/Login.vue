@@ -28,33 +28,27 @@ export default {
     }
   },
 
-  /* created () {
+  created () {
     this.$axios.post('/user/token/refresh')
       .then(response => {
         if (response.data) {
-          this.$router.replace({ name: 'admin' })
+          this.$router.replace({ name: 'Dashboard' })
         }
       })
-  }, */
+  },
 
   methods: {
     signin () {
       this.$axios.post('/login', {email: this.email, password: this.password})
         .then(response => {
-          if (response.status === 401) {
-            this.error = response.data.error
-          } else if (response.status === 200) {
-            VueCookie.set('token', response.data.token)
-            VueCookie.set('refresh_token', response.data.refreshToken)
-            this.$router.replace({name: 'admin'})
-          } else {
-            console.log(response)
-          }
+          VueCookie.set('token', response.data.token)
+          VueCookie.set('refresh_token', response.data.refreshToken)
+          this.$router.replace({name: 'Dashboard'})
         })
         .catch(e => {
           VueCookie.delete('refresh_token')
           VueCookie.delete('token')
-          this.error = e.response.data.error
+          console.log(e.response)
         })
     }
   }
