@@ -28,15 +28,6 @@ export default {
     }
   },
 
-  created () {
-    this.$axios.post('/user/token/refresh')
-      .then(response => {
-        if (response.data) {
-          this.$router.replace({ name: 'Dashboard' })
-        }
-      })
-  },
-
   methods: {
     signin () {
       this.$axios.post('/login', {email: this.email, password: this.password})

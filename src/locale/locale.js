@@ -5,9 +5,13 @@ const messages = {
       project: '/project'
     },
     navbar: {
+      home: 'Home',
       about: 'About',
       projects: 'Projects',
       contact: 'Contact me'
+    },
+    misc: {
+      years: 'years old'
     }
   },
   fr: {
@@ -16,9 +20,13 @@ const messages = {
       project: '/projet'
     },
     navbar: {
+      home: 'Accueil',
       about: 'À propos',
       projects: 'Projets',
       contact: 'Contactez-moi'
+    },
+    misc: {
+      years: 'ans'
     }
   }
 }

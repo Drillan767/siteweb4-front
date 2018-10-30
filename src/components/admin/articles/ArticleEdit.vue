@@ -228,6 +228,10 @@ export default {
       .catch(e => {
         console.log(e.response)
       })
+  },
+
+  beforeCreate () {
+    this.$parent.setTitle(`Edit ${this.article.title}`)
   }
 }
 </script>

@@ -85,7 +85,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-outline-primary" @click="submit">Save</button>
+            <button type="button" class="btn btn-outline-primary" @click="submit(null)">Save</button>
           </div>
         </div>
       </div>
@@ -140,16 +140,15 @@ export default {
     },
 
     submit (id = null) {
-      if (!id) {
+      if (!Number.isInteger(id)) {
         this.$axios.post('/tag', this.tag, {
           headers: {
             'Authorization': `Bearer ${VueCookie.get('token')}`
           }
         })
           .then(response => {
-            $('#addModal form').find('input[type=text], textarea').val('')
-            $('#addModal').modal('toggle')
             SweetAlert.confirm('Tag successfully created', `Tag "${response.data.name}" was created`)
+            $('#addModal').find('input[type=text], textarea').val('').modal('toggle')
             this.tags.push(response.data)
           })
           .catch(e => console.log(e))
@@ -160,9 +159,9 @@ export default {
           }
         })
           .then(response => {
+            SweetAlert.confirm('Tag was updated!', `Tag "${response.data.name}" sucessfully updated!`)
             $('#editModal form').find('input[type=text], textarea').val('')
             $('#editModal').modal('toggle')
-            SweetAlert.confirm('Tag was updated!', `Tag "${response.data.name}" sucessfully updated!`)
             this.tags.map(tag => {
               if (tag.id === id) {
                 return response.data

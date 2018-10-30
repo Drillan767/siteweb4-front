@@ -110,7 +110,6 @@ export default {
   mounted () {
     this.$axios.get('/user')
       .then(response => {
-        console.log(response)
         this.user = response.data
       })
       .catch(e => {

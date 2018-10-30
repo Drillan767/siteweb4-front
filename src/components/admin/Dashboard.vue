@@ -4,6 +4,8 @@
 
 <script>
 export default {
-
+  beforeCreate () {
+    this.$parent.setTitle('Dashboard')
+  }
 }
 </script>

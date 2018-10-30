@@ -87,9 +87,7 @@ export default new Router({
           component: Dashboard,
           meta: {
             title: 'Dashboard',
-            breadcrumb: [
-              'Dashboard'
-            ]
+            breadcrumb: []
           }
         },
         {
@@ -112,8 +110,7 @@ export default new Router({
             title: 'New article',
             breadcrumb: [
               'Dashboard',
-              'All articles',
-              'New article'
+              'All articles'
             ]
           }
         },
@@ -132,7 +129,13 @@ export default new Router({
         {
           name: 'Show Article',
           path: 'article/:slug',
-          component: BOArticle
+          component: BOArticle,
+          meta: {
+            breadcrumb: [
+              'Dashboard',
+              'All articles'
+            ]
+          }
         },
         {
           name: 'Edit settings',

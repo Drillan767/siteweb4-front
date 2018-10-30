@@ -151,15 +151,6 @@ export default {
       })
   },
 
-  watch: {
-    $route (to, from) {
-      // console.log(from)
-      // console.log(to)
-      this.setTitle(to.meta.title)
-      this.pageTitle = to.meta.title
-    }
-  },
-
   methods: {
     logout () {
       const refreshToken = VueCookie.get('refresh_token')
@@ -173,6 +164,8 @@ export default {
 
     setTitle (value) {
       document.title = `Administration | ${value}`
+      this.$route.meta.breadcrumb.splice(-1, 1).push(value)
+      this.pageTitle = value
     }
   },
 

@@ -7,5 +7,8 @@
 <script>
 export default {
 
+  beforeCreate () {
+    this.$parent.setTitle(this.$t('navbar.about'))
+  }
 }
 </script>

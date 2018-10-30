@@ -195,6 +195,11 @@ export default {
           this.options.push({id: tag.id, name: tag.name})
         })
       })
+  },
+
+  beforeCreate () {
+    this.$parent.setTitle('New article')
+    this.$parent.pageTitle = 'New article'
   }
 }
 </script>

@@ -1,0 +1,12 @@
+.front-articles {
+  .posts {
+    float: left;
+    width: calc(100% / 3);
+    height: 50px;
+
+    .post {
+      text-align: center;
+
+    }
+  }
+}

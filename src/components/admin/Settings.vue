@@ -242,7 +242,11 @@ export default {
   },
 
   created () {
-    this.$axios.get('/settings')
+    this.$axios.get('/admin_settings', {
+      headers: {
+        'Authorization': `Bearer ${VueCookie.get('token')}`
+      }
+    })
       .then(response => {
         this.settings = response.data
       })

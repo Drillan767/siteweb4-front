@@ -1,7 +1,6 @@
 <template>
   <div class="bg-article-show">
     <div class="row">
-      <h1>{{ post.title }}</h1>
       <div class="row col-md-8 status">
         <span v-if="post.draft" class="badge badge-secondary">Draft</span>
         <span v-else class="badge badge-success">Published</span>
@@ -96,6 +95,10 @@ export default {
     toHTML () {
       return marked(this.post.content, {sanitized: true})
     }
+  },
+
+  beforeCreate () {
+    this.$parent.setTitle(this.article.title)
   }
 }
 </script>
