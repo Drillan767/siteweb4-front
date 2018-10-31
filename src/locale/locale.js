@@ -10,8 +10,14 @@ const messages = {
       projects: 'Projects',
       contact: 'Contact me'
     },
+    article: {
+      read: 'Read more',
+      load: 'Load more articles',
+      no_more: 'All article displayed'
+    },
     misc: {
-      years: 'years old'
+      years: 'years old',
+      all: 'All'
     }
   },
   fr: {
@@ -25,8 +31,14 @@ const messages = {
       projects: 'Projets',
       contact: 'Contactez-moi'
     },
+    article: {
+      read: 'Lire',
+      load: 'Afficher plus d\'articles',
+      no_more: 'Tous les articles sont affichés'
+    },
     misc: {
-      years: 'ans'
+      years: 'ans',
+      all: 'All'
     }
   }
 }

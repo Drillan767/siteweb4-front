@@ -1,12 +1,153 @@
 .front-articles {
-  .posts {
-    float: left;
-    width: calc(100% / 3);
-    height: 50px;
+  .header {
+    text-align: center;
+    padding: 25px 0;
+    text-transform: uppercase;
+    color: #fff;
 
-    .post {
-      text-align: center;
-
+    h1 {
+      font-weight: bold;
     }
   }
+  .filter {
+    text-align: center;
+    color: #fff;
+
+    span {
+      &:not(:last-child) {
+        &::after {
+          content: '|';
+        }
+      }
+      &.active {
+        font-weight: bold;
+      }
+    }
+  }
+  .posts {
+    .post {
+      text-align: center;
+      width: calc(100% / 3);
+      height: calc(80vh / 2);
+      float: left;
+      z-index: 1;
+      position: relative;
+      background-color: #0c0c0c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        .post-bg {
+          opacity: .2;
+        }
+      }
+
+      &-bg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: -1;
+        background-position: 50% 50%;
+        background-size: cover;
+        opacity: .5;
+        transition: .5s opacity;
+      }
+      &-content {
+        h3, h3 a, p, a {
+          color: #fff;
+        }
+        &-title a {
+          font-weight: bold;
+        }
+        a {
+          &::before, &::after {
+            display: inline-block;
+            opacity: 0;
+            -webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
+            -moz-transition: -moz-transform 0.3s, opacity 0.2s;
+            transition: transform 0.3s, opacity 0.2s;
+          }
+          &::before {
+            margin-right: 10px;
+            content: '[';
+            -webkit-transform: translateX(20px);
+            -moz-transform: translateX(20px);
+            transform: translateX(20px);
+          }
+          &::after {
+            margin-left: 10px;
+            content: ']';
+            -webkit-transform: translateX(-20px);
+            -moz-transform: translateX(-20px);
+            transform: translateX(-20px);
+          }
+          &:hover {
+            &::before, &::after {
+              opacity: 1;
+              -webkit-transform: translateX(0px);
+              -moz-transform: translateX(0px);
+              transform: translateX(0px);
+            }
+          }
+          &:focus {
+            &::before, &::after {
+              opacity: 1;
+              -webkit-transform: translateX(0px);
+              -moz-transform: translateX(0px);
+              transform: translateX(0px);
+            }
+          }
+        }
+      }
+    }
+  }
+  .more {
+    padding: 5vh 0;
+    text-align: center;
+    font-size: 20px;
+    color: grey;
+
+    span {
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.cl-effect-1 a::before,
+.cl-effect-1 a::after {
+  display: inline-block;
+  opacity: 0;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.2s;
+  transition: transform 0.3s, opacity 0.2s;
+}
+
+.cl-effect-1 a::before {
+  margin-right: 10px;
+  content: '[';
+  -webkit-transform: translateX(20px);
+  -moz-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+.cl-effect-1 a::after {
+  margin-left: 10px;
+  content: ']';
+  -webkit-transform: translateX(-20px);
+  -moz-transform: translateX(-20px);
+  transform: translateX(-20px);
+}
+
+.cl-effect-1 a:hover::before,
+.cl-effect-1 a:hover::after,
+.cl-effect-1 a:focus::before,
+.cl-effect-1 a:focus::after {
+  opacity: 1;
+  -webkit-transform: translateX(0px);
+  -moz-transform: translateX(0px);
+  transform: translateX(0px);
 }

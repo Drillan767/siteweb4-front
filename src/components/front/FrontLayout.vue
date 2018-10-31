@@ -1,5 +1,5 @@
 <template>
-<div class="front-layout">
+<div class="front-layout" :style="{ backgroundImage: `url(${background})` }">
   <section class="container">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <router-link class="nav-main" to="/">{{ settings.website_name }}</router-link>
@@ -44,6 +44,7 @@ export default {
   data () {
     return {
       transitionName: null,
+      background: '',
       settings: {
         medium: '',
         linkedin: '',
@@ -83,6 +84,10 @@ export default {
 
     setTitle (value) {
       document.title = `${this.settings.website_name} | ${value}`
+    },
+
+    setBackground (image) {
+      this.background = image
     }
   },
 
