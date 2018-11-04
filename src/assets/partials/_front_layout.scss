@@ -1,3 +1,21 @@
+@keyframes slideup-enter {
+  0% {
+    transform: translateY(100%)
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideup-leave {
+  0% {
+    transform: translateZ(0);
+  }
+  100% {
+    transform: translateZ(-3%);
+  }
+}
+
 .front-layout {
   font-family: 'Fira-Mono', 'monospace';
   min-height: 100vh;
@@ -26,6 +44,18 @@
         }
       }
     }
+  }
+
+  .slideup-enter-active {
+    position: absolute;
+    z-index: 1;
+    animation: slideup-enter 5s ease-in;
+  }
+
+  .slideup-leave-active {
+    position: absolute;
+    z-index: 0;
+    animation: slideup-leave 5s ease-out;
   }
 
   @media(max-width: 992px) {

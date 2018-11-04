@@ -32,7 +32,7 @@
         </ul>
       </div>
     </nav>
-    <transition :name="transitionName">
+    <transition name="slideup">
       <router-view></router-view>
     </transition>
   </section>
@@ -72,8 +72,12 @@ export default {
 
   watch: {
     $route (to, from) {
-      // console.log(from)
-      // console.log(to)
+      console.log(from.name)
+      console.log(to.name)
+      if (to.name === 'bog-show') {
+        console.log('ouais')
+        this.transitionName = 'slideup'
+      }
     }
   },
 

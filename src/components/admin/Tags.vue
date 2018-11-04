@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm-12 row" v-for="(tag, index) in filteredList" :key="index">
       <div class="col-sm-8">
-        <h4>{{tag.name}}</h4>
+        <h4>{{tag.name_en}} <small v-if="tag.name_en !== tag.name_fr">/ {{ tag.name_fr }}</small></h4>
         <p>{{tag.description_en}}</p>
       </div>
       <div class="col-sm-4 bulk">
@@ -37,8 +37,12 @@
           <div class="modal-body">
             <form @submit.prevent="submit">
               <div class="form-group">
-                <label for="e_name">Tag name</label>
-                <input type="text" class="form-control" id="e_name" v-model="tag.name" placeholder="Tag name">
+                <label for="name_en">Tag name</label>
+                <input type="text" class="form-control" id="name_en" v-model="tag.name_en" placeholder="Tag name">
+              </div>
+              <div class="form-group">
+                <label for="name_fr">French translation</label>
+                <input type="text" class="form-control" id="name_fr" v-model="tag.name_fr" placeholder="French translation">
               </div>
               <div class="form-group">
                 <label for="e_description_en">Description in english</label>
@@ -71,7 +75,11 @@
             <form @submit.prevent="submit">
               <div class="form-group">
                 <label for="name">Tag name</label>
-                <input type="text" class="form-control" id="name" v-model="tag.name" placeholder="Tag name">
+                <input type="text" class="form-control" id="name" v-model="tag.name_en" placeholder="Tag name">
+              </div>
+              <div class="form-group">
+                <label for="e_name_fr">French translation</label>
+                <input type="text" class="form-control" id="e_name_fr" v-model="tag.name_fr" placeholder="French translation">
               </div>
               <div class="form-group">
                 <label for="description_en">Description in english</label>
@@ -101,7 +109,8 @@ export default {
     return {
       tags: [],
       tag: {
-        name: '',
+        name_en: '',
+        name_fr: '',
         description_en: '',
         description_fr: ''
       },
@@ -115,15 +124,16 @@ export default {
         this.tags = response.data
       })
       .catch(e => console.log(e.response))
+    this.$parent.setTitle('Tag management')
   },
 
   methods: {
     handleDelete (tag) {
       SweetAlert.delete(
-        `Delete "${tag.name}"?`,
-        `Are you sure you want to delete the tag "${tag.name}"?`,
+        `Delete "${tag.name_en}"?`,
+        `Are you sure you want to delete the tag "${tag.name_en}"?`,
         'warning',
-        `"${tag.name}" has been successfully deleted`,
+        `"${tag.name_en}" has been successfully deleted`,
         `/tag/${tag.id}`
       )
     },
@@ -134,7 +144,7 @@ export default {
 
     handleEdit (tag) {
       this.tag = tag
-      $('#editModal h5').text(`Edit "${tag.name}"`)
+      $('#editModal h5').text(`Edit "${tag.name_en}"`)
       $('#editModal ')
       $('#editModal').modal()
     },
@@ -147,7 +157,7 @@ export default {
           }
         })
           .then(response => {
-            SweetAlert.confirm('Tag successfully created', `Tag "${response.data.name}" was created`)
+            SweetAlert.confirm('Tag successfully created', `Tag "${response.data.name_en}" was created`)
             $('#addModal').find('input[type=text], textarea').val('').modal('toggle')
             this.tags.push(response.data)
           })
@@ -159,7 +169,7 @@ export default {
           }
         })
           .then(response => {
-            SweetAlert.confirm('Tag was updated!', `Tag "${response.data.name}" sucessfully updated!`)
+            SweetAlert.confirm('Tag was updated!', `Tag "${response.data.name_en}" sucessfully updated!`)
             $('#editModal form').find('input[type=text], textarea').val('')
             $('#editModal').modal('toggle')
             this.tags.map(tag => {
@@ -174,7 +184,7 @@ export default {
   computed: {
     filteredList () {
       return this.tags.filter(tag => {
-        return tag.name.toLowerCase().includes(this.search.toLowerCase())
+        return tag.name_en.toLowerCase().includes(this.search.toLowerCase())
       })
     }
   }

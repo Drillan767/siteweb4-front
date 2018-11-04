@@ -7,14 +7,14 @@
     <span @click="selected = 'all'" :class="[selected === 'all' ? 'active' : '']">{{ $t('misc.all') }} </span>
     <span
       v-for="(tag, index) in tags"
-      :key="index" @click="selected = tag.name.toLowerCase()"
-      :class="[selected === tag.name.toLowerCase() ? 'active' : '']"
+      :key="index" @click="selected = tag.id"
+      :class="[selected === tag.id ? 'active' : '']"
     >
-      {{ tag.name }}
+      {{ tag[`name_${$i18n.locale}`] }}
     </span>
   </p>
   <isotope class="posts" ref="cpt" :list="filteredArticles" :options="option">
-    <div class="post" v-for="article in filteredArticles" :key="article.id">
+    <div class="post" v-for="(article, index) in filteredArticles" :key="index">
       <div class="post-bg" :style="{ backgroundImage: `url(${article.illustration})` }"></div>
       <div class="post-content">
         <p class="post-content-date">
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-// import _ from 'lodash'
 import isotope from 'vueisotope'
 import moment from 'moment'
 export default {
@@ -45,6 +44,7 @@ export default {
       articles: [],
       filtered: [],
       tags: [],
+      ids: [],
       selected: 'all',
       page: 2,
       loading: false,
@@ -54,26 +54,27 @@ export default {
         getSortData: {
           id: 'id'
         },
-        sortBy: 'id'
+        sortBy: 'created_at'
       }
     }
   },
 
   mounted () {
-    this.$axios.get('/tags')
-      .then(response => {
-        console.log(response.data)
-        this.tags = response.data
-      })
-
     this.$parent.setTitle('Blog')
     this.$parent.setBackground(this.$parent.settings.article_bg)
 
     this.$axios.post('post/infinite', {page: 1, limit: 6})
       .then(response => {
-        console.log(response)
         if (response.data.data.length < 6) this.incomplete = false
         this.articles = response.data.data
+        response.data.data.map(article => {
+          article.tags.map(tag => {
+            if (!this.ids.includes(tag.id)) {
+              this.tags.push(tag)
+              this.ids.push(tag.id)
+            }
+          })
+        })
       })
       .catch(e => {
         console.log(e.response)
@@ -88,6 +89,14 @@ export default {
           if (response.data.data.length < 6) this.incomplete = false
           response.data.data.map(article => {
             this.articles.push(article)
+            response.data.data.map(article => {
+              article.tags.map(tag => {
+                if (!this.ids.includes(tag.id)) {
+                  this.tags.push(tag)
+                  this.ids.push(tag.id)
+                }
+              })
+            })
           })
         })
         .catch(e => {
@@ -107,7 +116,7 @@ export default {
         return this.articles
       } else {
         let self = this
-        return this.articles.filter(article => article.tags.some(tag => tag.name === self.selected))
+        return this.articles.filter(article => article.tags.some(tag => tag.id === self.selected))
       }
     }
   }

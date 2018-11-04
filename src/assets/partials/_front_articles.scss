@@ -14,6 +14,9 @@
     color: #fff;
 
     span {
+
+      cursor: pointer;
+
       &:not(:last-child) {
         &::after {
           content: '|';

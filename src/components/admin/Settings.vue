@@ -241,7 +241,7 @@ export default {
     }
   },
 
-  created () {
+  mounted () {
     this.$axios.get('/admin_settings', {
       headers: {
         'Authorization': `Bearer ${VueCookie.get('token')}`
@@ -253,6 +253,7 @@ export default {
       .catch(e => {
         console.log(e.response)
       })
+    this.$parent.setTitle('Global settings')
     $('[data-fancybox="gallery"]').fancybox()
   }
 }

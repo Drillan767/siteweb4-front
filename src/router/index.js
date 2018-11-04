@@ -37,10 +37,12 @@ export default new Router({
       component: FrontLayout,
       children: [
         {
+          name: 'blog-index',
           path: 'blog',
           component: Articles
         },
         {
+          name: 'blog-show',
           path: 'article/:slug',
           component: ArticleShow
         },

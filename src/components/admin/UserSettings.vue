@@ -115,6 +115,7 @@ export default {
       .catch(e => {
         console.log(e.response)
       })
+    this.$parent.setTitle('User settings')
   },
   data () {
     return {
