@@ -1,0 +1,55 @@
+.article-show {
+  .article-header {
+    overflow: hidden;
+    position: relative;
+    height: 35vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    h1 {
+      color: #fff;
+      position: absolute;
+      font-weight: bold;
+    }
+    .article-bg {
+      height: 35vh;
+      background: no-repeat center center / cover;
+      margin-bottom: 3vh;
+      width: 110%;
+      transform: scale(1.3);
+      position: absolute;
+    }
+  }
+  .article-details {
+    margin-top: 2vh;
+    
+    .tags {
+      display: flex;
+
+      .tag {
+        margin-right: 10px;
+        &-body {
+          background: black;
+          color: #fff;
+          padding: 8px;
+          display: flex;
+          width: fit-content;
+          i {
+            line-height: inherit;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+
+    .date {
+      color: #fff;
+    }
+  }
+
+  .article-content {
+    margin-top: 5vh;
+    color: #fff;
+  }
+}
