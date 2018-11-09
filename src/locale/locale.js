@@ -13,7 +13,14 @@ const messages = {
     article: {
       read: 'Read more',
       load: 'Load more articles',
-      no_more: 'All article displayed'
+      no_more: 'All article displayed',
+      comment: 'comment | comment | comments',
+      reply: 'Reply'
+    },
+    comment: {
+      email_p: 'Email (won\'t be displayed)',
+      username: 'Username',
+      send: 'Send'
     },
     misc: {
       years: 'years old',
@@ -34,7 +41,14 @@ const messages = {
     article: {
       read: 'Lire',
       load: 'Afficher plus d\'articles',
-      no_more: 'Tous les articles sont affichés'
+      no_more: 'Tous les articles sont affichés',
+      comment: 'commentaire | commentaire | commentaires',
+      reply: 'Répondre'
+    },
+    comment: {
+      email_p: 'Email (ne sera pas affiché)',
+      username: 'Pseudo',
+      send: 'Envoyer'
     },
     misc: {
       years: 'ans',

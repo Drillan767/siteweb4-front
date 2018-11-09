@@ -19,6 +19,7 @@ import ArticlesList from '../components/admin/articles/Articles'
 import BOArticle from '../components/admin/articles/Article'
 import ArticleNew from '../components/admin/articles/ArticleNew'
 import ArticleEdit from '../components/admin/articles/ArticleEdit'
+import Comments from '../components/admin/Comments'
 import EditSettings from '../components/admin/Settings'
 import UserSettings from '../components/admin/UserSettings'
 // --------- OTHERS --------------- //
@@ -136,6 +137,16 @@ export default new Router({
             breadcrumb: [
               'Dashboard',
               'All articles'
+            ]
+          }
+        },
+        {
+          name: 'All comments',
+          path: 'comments',
+          component: Comments,
+          meta: {
+            breadcrumb: [
+              'Dashboard'
             ]
           }
         },

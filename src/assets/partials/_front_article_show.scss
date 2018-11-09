@@ -8,7 +8,6 @@
     align-items: flex-end;
 
     h1 {
-      color: #fff;
       position: absolute;
       font-weight: bold;
     }
@@ -31,10 +30,11 @@
         margin-right: 10px;
         &-body {
           background: black;
-          color: #fff;
           padding: 8px;
           display: flex;
           width: fit-content;
+          font-size: 14px;
+
           i {
             line-height: inherit;
             margin-right: 5px;
@@ -42,14 +42,75 @@
         }
       }
     }
-
-    .date {
-      color: #fff;
-    }
   }
 
   .article-content {
     margin-top: 5vh;
-    color: #fff;
+
+    p, li {
+      font-family: 'Work-sans', 'monospace';
+      color: #cbcbcb;
+    }
+
+    .hljs {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .article-comments {
+
+    h1 {
+      text-align: center;
+      margin: 4vh 0;
+      font-weight: bold;
+    }
+
+    .comment {
+      display: flex;
+
+      &.response {
+        margin: 20px 0 0 130px;
+      }
+
+      &-avatar {
+        margin-right: 30px;
+
+        i {
+          font-size: 100px;
+          color: #fff;
+        }
+      }
+
+      &-cont {
+        .comment {
+          &-meta {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+
+            &-name {
+              font-weight: bold;
+            }
+
+            &-date {
+              margin: 0 22px 0 auto;
+            }
+
+            &-reply {
+              margin: 0 22px;
+              cursor: pointer;
+              text-transform: uppercase;
+
+              &:hover {
+                font-weight: bold;
+              }
+            }
+            &-date, &-reply {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
   }
 }

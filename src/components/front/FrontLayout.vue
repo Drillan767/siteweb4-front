@@ -1,5 +1,6 @@
 <template>
-  <div class="front-layout" :style="{ backgroundImage: `url(${background})` }">
+  <!--<div class="front-layout" :style="{ backgroundImage: `url(${background})` }">-->
+  <div class="front-layout">
     <section class="container">
       <nav class="navbar navbar-expand-lg navbar-dark">
         <router-link class="nav-main" to="/">{{ settings.website_name }}</router-link>

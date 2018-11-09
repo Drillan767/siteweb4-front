@@ -45,6 +45,12 @@
               </router-link>
             </li>
             <li>
+              <router-link to="/admin/comments">
+                <i class="fas fa-comments"></i>
+                Comments
+              </router-link>
+            </li>
+            <li>
               <span>
                 Portfolio
               </span>

@@ -50,6 +50,7 @@ export default {
         this.posts = response.data
       })
       .catch(e => console.log(e.response))
+    this.$parent.setTitle('All articles')
   },
 
   methods: {

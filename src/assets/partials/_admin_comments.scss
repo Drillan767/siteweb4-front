@@ -1,0 +1,22 @@
+.comments {
+
+  .pending td {
+    font-weight: bold;
+  }
+
+  .modal {
+    &-header {
+      border-bottom: none;
+    }
+    &-content {
+      background-color: #101e26;
+
+      .comment p {
+        color: #fff;
+      }
+    }
+    &-footer {
+      border-top: none;
+    }
+  }
+}
