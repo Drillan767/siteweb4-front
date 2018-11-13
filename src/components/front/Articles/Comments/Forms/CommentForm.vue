@@ -1,12 +1,12 @@
 <template>
   <form @submit.prevent="submit" class="article-comment">
-    <div v-if="errors.length > 0">
+    <div v-if="errors.length > 0" class="comment-error">
       <ul>
         <li v-for="(error, index) in errors" :key="index">{{ error.error }}</li>
       </ul>
     </div>
-    <div v-else-if="success">
-      <p>Thanks! Your comment will show up once reviewed!</p>
+    <div v-else-if="success" class="comment-success">
+      <p>{{ $t('comment.ok') }}</p>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -78,6 +78,7 @@ export default {
             this.$parent.comments.push(response.data)
           })
           .catch(e => {
+            this.errors.push(e.response.data)
             console.log(e.response.data)
           })
       }

@@ -8,75 +8,94 @@
     margin-bottom: 4vh;
   }
 
-
-
   .article-comment {
+
     .col-md-12:not(.text-right) {
       margin: 20px 0 10px 0;
-      &.text-right {
-        margin-bottom: 50px;
+    }
+    .text-right {
+      margin-bottom: 50px;
+    }
+  }
+
+  .comment {
+    display: flex;
+
+    &.response {
+      margin: 20px 0 20px 130px;
+    }
+
+    &-avatar {
+      margin-right: 30px;
+
+      i {
+        font-size: 100px;
+        color: #fff;
+      }
+    }
+
+    &-cont {
+      .comment {
+        &-meta {
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+
+          &-name {
+            font-weight: bold;
+          }
+
+          &-date {
+            margin: 0 22px 0 auto;
+          }
+
+          &-reply {
+            margin: 0 22px;
+            cursor: pointer;
+            text-transform: uppercase;
+
+            &:hover {
+              font-weight: bold;
+            }
+          }
+          &-date, &-reply {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+  .replies {
+    .article-reply {
+      margin-left: 255px;
+
+      .col-md-12:not(.text-right) {
+        margin: 20px 0 10px 0;
+      }
+      .text-right {
+        margin-bottom: 20px;
       }
     }
   }
 
-    .comment {
-      display: flex;
+  .comment-error {
+    background: red;
+    margin-bottom: 15px;
+    align-items: center;
+    padding: 10px 0;
 
-      &.response {
-        margin: 20px 0 0 130px;
-      }
-
-      &-avatar {
-        margin-right: 30px;
-
-        i {
-          font-size: 100px;
-          color: #fff;
-        }
-      }
-
-      &-cont {
-        .comment {
-          &-meta {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-
-            &-name {
-              font-weight: bold;
-            }
-
-            &-date {
-              margin: 0 22px 0 auto;
-            }
-
-            &-reply {
-              margin: 0 22px;
-              cursor: pointer;
-              text-transform: uppercase;
-
-              &:hover {
-                font-weight: bold;
-              }
-            }
-            &-date, &-reply {
-              font-size: 0.8rem;
-            }
-          }
-        }
-      }
+    ul {
+      margin-bottom: 0;
     }
-    .replies {
-      .article-reply {
-        margin-left: 255px;
+  }
 
-        .col-md-12:not(.text-right) {
-          margin: 20px 0 10px 0;
+  .comment-success {
+    background-color: #003a00;
+    padding: 15px;
+    margin-bottom: 15px;
 
-          &.text-right {
-            margin-bottom: 20px;
-          }
-        }
-      }
+    p {
+      margin: 0;
     }
+  }
 }

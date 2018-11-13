@@ -12,7 +12,7 @@
           <span class="comment-meta-date">
           {{ $parent.dateFormat(reply.created_at) }}
         </span>
-          <span class="comment-meta-reply" @click="toggle(CommentForm)">
+          <span class="comment-meta-reply" @click="toggle('replyForm')">
           {{ $t('article.reply') }}
         </span>
         </div>
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <ReplyForm :post_id="post_id" :reply="0" />
+    <div :is="currentComponent" v-bind="{post_id: post_id, reply: reply}"></div>
   </div>
 </template>
 
@@ -31,6 +31,8 @@ import ReplyForm from './Forms/ReplyForm'
 export default {
   name: 'ReplyComment',
   props: ['replies', 'reply', 'post_id'],
+  components: {ReplyForm, CommentForm},
+
   data () {
     return {
       currentComponent: null,
@@ -38,15 +40,21 @@ export default {
     }
   },
 
-  components: {ReplyForm, CommentForm},
-
-  mounted () {
-    console.log(this.replies)
-  },
-
   methods: {
     toggle (component) {
       this.currentComponent = component
+    },
+
+    test () {
+      console.log('Oooooskuuuuuuuur')
+    }
+  },
+
+  computed: {
+    properties () {
+      if (this.currentComponent === 'commentForm') {
+        return {post_id: 3, reply: 2}
+      }
     }
   }
 }

@@ -1,12 +1,12 @@
 <template>
   <form @submit.prevent="submit" class="article-reply">
-    <div v-if="errors.length > 0">
+    <div v-if="errors.length > 0" class="comment-error">
       <ul>
         <li v-for="(error, index) in errors" :key="index">{{ error.error }}</li>
       </ul>
     </div>
-    <div v-else-if="success">
-      <p>Thanks! Your comment will show up once reviewed!</p>
+    <div v-else-if="success" class="comment-success">
+      <p>{{ $t('comment.ok') }}</p>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -23,7 +23,7 @@
       </div>
       <input type="checkbox" class="d-none" v-model="comment.honey_pot">
       <div class="col-md-12 text-right">
-        <button class="btn btn-outline-danger">{{ $t('comment.cancel') }}</button>
+        <button class="btn btn-outline-danger" @click.prevent="$parent.toggle(null)">{{ $t('comment.cancel') }}</button>
         <button class="btn btn-outline-primary">{{ $t('comment.send') }}</button>
       </div>
     </div>

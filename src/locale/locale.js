@@ -21,7 +21,8 @@ const messages = {
       email_p: 'Email (won\'t be displayed)',
       username: 'Username',
       send: 'Send',
-      cancel: 'Cancel'
+      cancel: 'Cancel',
+      ok: 'Thanks! Your comment will show up once reviewed!'
     },
     misc: {
       years: 'years old',
@@ -50,7 +51,8 @@ const messages = {
       email_p: 'Email (ne sera pas affiché)',
       username: 'Pseudo',
       send: 'Envoyer',
-      cancel: 'Annuler'
+      cancel: 'Annuler',
+      ok: 'Merci ! Votre commentaire apparaitra une fois vérifié !'
     },
     misc: {
       years: 'ans',

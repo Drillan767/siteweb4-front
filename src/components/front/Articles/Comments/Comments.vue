@@ -1,7 +1,7 @@
 <template>
   <div class="comments">
     <CommentForm :post_id="id" :reply="0" />
-    <div v-for="(comment, index) in comments" :key="index">
+    <div v-for="(comment, index) in mainComments" :key="index">
       <div class="comment" v-if="comment.reply === 0">
         <div class="comment-avatar">
           <i class="fas fa-user-circle"></i>
@@ -14,7 +14,7 @@
             <span class="comment-meta-date">
               {{ dateFormat(comment.created_at) }}
             </span>
-            <span class="comment-meta-reply">
+            <span class="comment-meta-reply" @click="toggle(index)">
               {{ $t('article.reply') }}
             </span>
           </div>
@@ -24,10 +24,10 @@
         </div>
       </div>
       <ReplyComment
-        v-if="responses(comment.id).length > 0"
         :replies="responses(comment.id)"
         :post_id="id"
         :reply="comment.id"
+        ref="replyComment"
       />
     </div>
   </div>
@@ -48,17 +48,30 @@ export default {
   },
 
   mounted () {
-    console.log(this.comments)
+    console.log(this.$refs)
   },
 
   methods: {
     responses (id) {
-      return this.comments.filter(comment => comment.reply === id)
+      return this.comments.filter(comment => comment.reply === id && comment.accepted)
     },
 
     dateFormat (date) {
       const format = this.$i18n.locale === 'fr' ? 'DD/MM/YYYY' : 'YYYY/MM/DD'
       return moment(date).format(format)
+    },
+
+    toggle (index) {
+      this.$refs.replyComment.map(comment => {
+        comment.currentComponent = null
+      })
+      this.$refs.replyComment[index].toggle('replyForm')
+    }
+  },
+
+  computed: {
+    mainComments () {
+      return this.comments.filter(comment => comment.reply === 0 && comment.accepted)
     }
   }
 }

@@ -79,7 +79,6 @@ export default {
 
         this.$axios.post('/comments', {post_id: response.data.id})
           .then(response => {
-            console.log(response.data)
             this.comments = response.data
           })
           .catch(e => {
