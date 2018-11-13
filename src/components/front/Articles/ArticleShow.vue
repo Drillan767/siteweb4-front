@@ -38,55 +38,7 @@
 
     <div class="article-comments col-lg-10 offset-lg-1">
       <h1>Comments</h1>
-      <div class="comment">
-        <div class="comment-avatar">
-          <i class="fas fa-user-circle"></i>
-        </div>
-        <div class="comment-cont">
-          <div class="comment-meta">
-            <span class="comment-meta-name">
-              John Leonard
-            </span>
-            <span class="comment-meta-date">
-              20/03/2018
-            </span>
-            <span class="comment-meta-reply">
-              {{ $t('article.reply') }}
-            </span>
-          </div>
-          <div class="comment-text">
-            <p>
-              Nullam ac dui et purus malesuada gravida id fermentum orci. In eu ipsum quis urna hendrerit condimentum vitae
-              a mauris. In congue turpis purus, vitae tempus ante id. Donec orci arcu, sagittis ut finibus vitae.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="comment response">
-        <div class="comment-avatar">
-          <i class="fas fa-user-circle"></i>
-        </div>
-        <div class="comment-cont">
-          <div class="comment-meta">
-            <span class="comment-meta-name">
-              John Leonard
-            </span>
-            <span class="comment-meta-date">
-              20/03/2018
-            </span>
-            <span class="comment-meta-reply">
-              {{ $t('article.reply') }}
-            </span>
-          </div>
-          <div class="comment-text">
-            <p>
-              Nullam ac dui et purus malesuada gravida id fermentum orci. In eu ipsum quis urna hendrerit condimentum vitae
-              a mauris. In congue turpis purus, vitae tempus ante id. Donec orci arcu, sagittis ut finibus vitae.
-            </p>
-          </div>
-        </div>
-      </div>
-      <CommentForm :post_id="article.id" :reply="0" />
+      <Comments :comments="comments" :id="article.id" />
     </div>
   </div>
 </template>
@@ -94,9 +46,10 @@
 <script>
 import marked from 'marked'
 import moment from 'moment'
-import CommentForm from './CommentForm'
+import Comments from './Comments/Comments'
+import CommentForm from './Comments/Forms/CommentForm'
 export default {
-  components: {CommentForm},
+  components: {Comments, CommentForm},
   data () {
     return {
       article: {

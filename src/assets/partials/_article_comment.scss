@@ -1,5 +1,82 @@
-.article-comment {
-  .col-md-12 {
-    margin: 20px 0 10px 0;
+.article-comments {
+
+  h1 {
+    text-align: center;
+    border-top: solid 1px #fff;
+    font-weight: bold;
+    padding-top: 4vh;
+    margin-bottom: 4vh;
   }
+
+
+
+  .article-comment {
+    .col-md-12:not(.text-right) {
+      margin: 20px 0 10px 0;
+      &.text-right {
+        margin-bottom: 50px;
+      }
+    }
+  }
+
+    .comment {
+      display: flex;
+
+      &.response {
+        margin: 20px 0 0 130px;
+      }
+
+      &-avatar {
+        margin-right: 30px;
+
+        i {
+          font-size: 100px;
+          color: #fff;
+        }
+      }
+
+      &-cont {
+        .comment {
+          &-meta {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+
+            &-name {
+              font-weight: bold;
+            }
+
+            &-date {
+              margin: 0 22px 0 auto;
+            }
+
+            &-reply {
+              margin: 0 22px;
+              cursor: pointer;
+              text-transform: uppercase;
+
+              &:hover {
+                font-weight: bold;
+              }
+            }
+            &-date, &-reply {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+    .replies {
+      .article-reply {
+        margin-left: 255px;
+
+        .col-md-12:not(.text-right) {
+          margin: 20px 0 10px 0;
+
+          &.text-right {
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
 }

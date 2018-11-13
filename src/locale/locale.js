@@ -20,7 +20,8 @@ const messages = {
     comment: {
       email_p: 'Email (won\'t be displayed)',
       username: 'Username',
-      send: 'Send'
+      send: 'Send',
+      cancel: 'Cancel'
     },
     misc: {
       years: 'years old',
@@ -48,7 +49,8 @@ const messages = {
     comment: {
       email_p: 'Email (ne sera pas affiché)',
       username: 'Pseudo',
-      send: 'Envoyer'
+      send: 'Envoyer',
+      cancel: 'Annuler'
     },
     misc: {
       years: 'ans',

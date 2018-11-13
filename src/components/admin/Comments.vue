@@ -1,11 +1,11 @@
 <template>
   <div class="comments">
     <div class="filter">
-      <span @click="filter = 'all'">All</span>
+      <span :class="[filter === 'all' ? 'font-weight-bold' : '']" @click="filter = 'all'">All</span>
       |
-      <span @click="filter = 'pending'">Pending</span>
+      <span :class="[filter === 'pending' ? 'font-weight-bold' : '']" @click="filter = 'pending'">Pending</span>
       |
-      <span @click="filter = 'ok'">Accepted</span>
+      <span :class="[filter === 'ok' ? 'font-weight-bold' : '']" @click="filter = 'ok'">Accepted</span>
     </div>
     <table class="table table-hover">
       <thead>
@@ -36,11 +36,14 @@
               <i class="fas fa-search"></i>
             </span>
             |
-            <span @click="handleDecision('accept', comment.id)">
+            <span class="check" v-if="!comment.accepted" @click="handleDecision('accept', comment.id)">
               <i class="fas fa-check"></i>
             </span>
+            <span class="time" v-else @click="handleDecision('deny', comment.id)">
+              <i class="fas fa-times"></i>
+            </span>
             |
-            <span @click="handleDecision('delete', comment.id)">
+            <span @click="handleDecision('delete', comment.id, index)">
               <i class="fas fa-trash-alt"></i>
             </span>
           </td>
@@ -52,7 +55,6 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalShow">Modal title</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -83,8 +85,21 @@
             <button type="button" class="btn btn-outline-danger" @click.prevent="handleDecision('delete', comment.id)">
               <i class="fas fa-trash-alt"></i>
             </button>
-            <button type="button" class="btn btn-outline-success">
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              @click.prevent="handleDecision('accept', comment.id)"
+              v-if="comment.accepted"
+            >
               <i class="fas fa-check"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-warning"
+              @click.prevent="handleDecision('deny', comment.id)"
+              v-if="!comment.accepted"
+            >
+              <i class="fas fa-times"></i>
             </button>
           </div>
         </div>
@@ -96,6 +111,7 @@
 
 <script>
 import moment from 'moment'
+import VueCookie from '../../settings/VueCookie'
 import SweetAlert from '../../settings/SweetAlert2'
 export default {
   data () {
@@ -139,16 +155,43 @@ export default {
       $('#showModal').modal()
     },
 
-    handleDecision (decision, id) {
-      if (decision === 'delete') {
-        // title, text, type, confirmation, url
+    handleDecision (decision, id, index = null) {
+      if (decision !== 'delete') {
+        this.$axios.post('/comment/decision', {decision: decision, id: id}, {
+          headers: {
+            'Authorization': `Bearer ${VueCookie.get('token')}`
+          }
+        })
+          .then(response => {
+            this.comments.map(comment => {
+              if (comment.id === id) {
+                return response.data
+              }
+            })
+            this.$forceUpdate()
+            SweetAlert.confirm(
+              'Comment updated',
+              'Comment was successfully updated'
+            )
+          })
+      } else {
+        // title text type confirmation url
         SweetAlert.delete(
           'Delete this comment?',
           'Are you sure you want to delete this comment?',
           'warning',
-          'Comment deleted',
-          `/comment/${decision}/${id}`
+          'Comment successfully deleted',
+          `/comment/delete/${id}`
         )
+          .then(result => {
+            $('#showModal').modal('toggle')
+            if (result.value) {
+              this.posts.splice(index, 1)
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
       }
     }
   },
