@@ -47,10 +47,6 @@ export default {
     }
   },
 
-  mounted () {
-    console.log(this.$refs)
-  },
-
   methods: {
     responses (id) {
       return this.comments.filter(comment => comment.reply === id && comment.accepted)

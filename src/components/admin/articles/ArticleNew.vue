@@ -26,8 +26,8 @@
           :multiple="true"
           :options="tags"
           :close-on-select="false"
-          label="name"
-          track-by="name"
+          label="name_en"
+          track-by="name_en"
           v-model="post.tags"
         >
         </VueMultiselect>
@@ -192,7 +192,7 @@ export default {
       .then(response => {
         this.tags = response.data
         this.tags.map(tag => {
-          this.options.push({id: tag.id, name: tag.name})
+          this.options.push({id: tag.id, name: tag.name_en})
         })
       })
   },

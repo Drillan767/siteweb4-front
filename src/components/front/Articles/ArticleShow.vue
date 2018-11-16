@@ -22,7 +22,10 @@
       </router-link>
     </div>
     <div class="col-md-4 text-right date">
-      <span>{{ this.comments.length }} {{ $tc('article.comment', this.comments.length)}}</span>
+      <span>
+        {{ this.comments.filter(comment => comment.accepted).length }}
+        {{ $tc('article.comment', this.comments.length)}}
+      </span>
       <span>/</span>
       <span v-if="article.created_at === article.updated_at">
         <i class="far fa-clock"></i>

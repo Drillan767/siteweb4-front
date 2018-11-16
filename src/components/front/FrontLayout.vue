@@ -13,7 +13,9 @@
               <router-link class="nav-link" :to="$t('links.about')">{{ $t("navbar.about") }}</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/blog">Blog</router-link>
+              <router-link class="nav-link" to="/blog">
+                Blog
+              </router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/portfolio">{{ $t("navbar.projects") }}</router-link>
@@ -73,10 +75,7 @@ export default {
 
   watch: {
     $route (to, from) {
-      console.log(from.name)
-      console.log(to.name)
       if (to.name === 'bog-show') {
-        console.log('ouais')
         this.transitionName = 'slideup'
       }
     }

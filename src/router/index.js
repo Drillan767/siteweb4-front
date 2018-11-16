@@ -19,6 +19,10 @@ import ArticlesList from '../components/admin/articles/Articles'
 import BOArticle from '../components/admin/articles/Article'
 import ArticleNew from '../components/admin/articles/ArticleNew'
 import ArticleEdit from '../components/admin/articles/ArticleEdit'
+import ProjectShow from '../components/admin/portfolio/Project'
+import Projects from '../components/admin/portfolio/Projects'
+import ProjectNew from '../components/admin/portfolio/ProjectNew'
+import ProjectEdit from '../components/admin/portfolio/ProjectEdit'
 import Comments from '../components/admin/Comments'
 import EditSettings from '../components/admin/Settings'
 import UserSettings from '../components/admin/UserSettings'
@@ -147,6 +151,51 @@ export default new Router({
           meta: {
             breadcrumb: [
               'Dashboard'
+            ]
+          }
+        },
+        {
+          name: 'Portfolio',
+          path: 'portfolio',
+          component: Projects,
+          meta: {
+            breadcrumb: [
+              'Dashboard',
+              'Portfolio'
+            ]
+          }
+        },
+        {
+          name: 'New project',
+          path: 'project/new',
+          component: ProjectNew,
+          meta: {
+            breadcrumb: [
+              'Dashboard',
+              'Portfolio',
+              'New project'
+            ]
+          }
+        },
+        {
+          name: 'Show Project',
+          path: 'project/:slug',
+          component: ProjectShow,
+          meta: {
+            breadcrumb: [
+              'Dashboard',
+              'Portfolio'
+            ]
+          }
+        },
+        {
+          name: 'Edit Project',
+          path: 'project/edit/:slug',
+          component: ProjectEdit,
+          meta: {
+            breadcrumb: [
+              'Dashboard',
+              'Portfolio'
             ]
           }
         },

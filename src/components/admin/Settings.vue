@@ -65,7 +65,7 @@
                 class="custom-file-label"
                 for="portfolio_bg"
               >
-                {{ file_label.portfolio_bg || 'Portfolio Background' }}
+                {{ file_label.portfolio_bg || portfolio }}
               </label>
             </div>
           </div>
