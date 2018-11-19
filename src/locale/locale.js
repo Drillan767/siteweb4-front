@@ -24,6 +24,10 @@ const messages = {
       cancel: 'Cancel',
       ok: 'Thanks! Your comment will show up once reviewed!'
     },
+    project: {
+      simple: 'project',
+      see: 'See more'
+    },
     misc: {
       years: 'years old',
       all: 'All'
@@ -53,6 +57,10 @@ const messages = {
       send: 'Envoyer',
       cancel: 'Annuler',
       ok: 'Merci ! Votre commentaire apparaitra une fois vérifié !'
+    },
+    project: {
+      simple: 'projet',
+      see: 'Voir plus'
     },
     misc: {
       years: 'ans',

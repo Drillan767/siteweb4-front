@@ -15,8 +15,13 @@
     </p>
     <isotope class="projects" :options="options" :list="filteredProjects">
       <div :class="['project', addClass(index)]" v-for="(project, index) in filteredProjects" :key="index">
-        <div class="project-bg" :style="{ backgroundImage: `url(${project.illustration})` }"></div>
-        {{ project.title }}
+        <div class="hovereffect">
+          <img :src="project.illustration" class="img-responsive"/>
+          <div class="overlay">
+            <h2>{{ project.title }}</h2>
+            <router-link class="info" :to="`${$t('project.simple')}/${project.slug}`">{{ $t('project.see') }}</router-link>
+          </div>
+        </div>
       </div>
     </isotope>
   </div>
@@ -36,13 +41,14 @@ export default {
       selected: 'all',
       options: {
         itemSelector: 'projects',
+        layoutMode: 'fitRows',
         getSortData: {
           id: 'id'
         },
+        masonry: {
+          gutter: 10
+        },
         sortBy: 'created_at'
-      },
-      masonry: {
-        gutter: 10
       }
     }
   },
@@ -69,11 +75,10 @@ export default {
   methods: {
     addClass (index) {
       let response = ''
-      if (index % 2 === 0) {
-        response += ' width-2'
-      }
-      if (index % 3 === 0) {
-        response += ' height-2'
+      if (index % 5 === 0) {
+        response += ' col-md-5'
+      } else {
+        response += ' col-md-3'
       }
       return response
     }
