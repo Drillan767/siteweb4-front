@@ -7,38 +7,42 @@
     </div>
 
     <div class="row article-details">
-    <div class="tags col-md-8">
-      <router-link
-        v-for="(tag, index) in article.tags"
-        :key="index"
-        :to="`/tag/${tag.slug}`"
-        :title="tag[`name_${$i18n.locale}`]"
-        class="tag"
-      >
-          <span class="tag-body">
-          <i :class="['fas', getFAClass(tag.category)]"></i>
-          {{ tag[`name_${$i18n.locale}`] }}
+      <div class="tags col-md-8">
+        <router-link
+          v-for="(tag, index) in article.tags"
+          :key="index"
+          :to="`/tag/${tag.slug}`"
+          :title="tag[`name_${$i18n.locale}`]"
+          class="tag"
+        >
+            <span class="tag-body">
+            <i :class="['fas', getFAClass(tag.category)]"></i>
+            {{ tag[`name_${$i18n.locale}`] }}
+          </span>
+        </router-link>
+      </div>
+      <div class="col-md-4 text-right date">
+        <span>
+          {{ this.comments.filter(comment => comment.accepted).length }}
+          {{ $tc('article.comment', this.comments.length)}}
         </span>
-      </router-link>
-    </div>
-    <div class="col-md-4 text-right date">
-      <span>
-        {{ this.comments.filter(comment => comment.accepted).length }}
-        {{ $tc('article.comment', this.comments.length)}}
-      </span>
-      <span>/</span>
-      <span v-if="article.created_at === article.updated_at">
-        <i class="far fa-clock"></i>
-        {{ dateFormat(article.created_at) }}
-      </span>
-      <span v-else>
-        <i class="far fa-clock"></i>
-        {{ dateFormat(article.updated_at) }}
-      </span>
-    </div>
+        <span>/</span>
+        <span v-if="article.created_at === article.updated_at">
+          <i class="far fa-clock"></i>
+          {{ dateFormat(article.created_at) }}
+        </span>
+        <span v-else>
+          <i class="far fa-clock"></i>
+          {{ dateFormat(article.updated_at) }}
+        </span>
+      </div>
     </div>
     <div v-html="toHTML" class="article-content col-lg-10 offset-lg-1"></div>
-
+    <div class="back">
+      <router-link class="icon" to="/blog" :title="$t('misc.back')">
+        <i class="fas fa-th"></i>
+      </router-link>
+    </div>
     <div class="article-comments col-lg-10 offset-lg-1">
       <h1>Comments</h1>
       <Comments :comments="comments" :id="article.id" />

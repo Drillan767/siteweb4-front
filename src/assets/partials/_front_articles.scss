@@ -1,4 +1,4 @@
-.front-articles {
+.front-articles, .portfolio {
   .header {
     text-align: center;
     padding: 25px 0;
@@ -27,6 +27,9 @@
       }
     }
   }
+}
+
+.front-articles {
   .posts {
     .post {
       text-align: center;

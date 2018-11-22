@@ -1,0 +1,52 @@
+.contact {
+  margin-top: 10vh;
+
+  form {
+
+    .ee {
+      animation: shake 0.5s;
+      animation-iteration-count: infinite;
+    }
+
+    .side {
+      display: flex;
+      align-items: center;
+
+      &-message {
+        p {
+          color: #fff;
+          a {
+            color: $purple;
+          }
+        }
+      }
+    }
+
+    input, textarea {
+      width: 100%;
+      border: solid 2px #fff;
+      background: none;
+      color: #fff;
+      padding: 10px;
+      margin-bottom: 20px;
+
+      &:focus, &:active {
+        border: solid 2px $purple;
+        outline: $purple;
+      }
+    }
+
+    button {
+      background: none;
+      color: $purple;
+      border: solid 1px $purple;
+      padding: 10px 20px;
+      transition: all 0.5s ease-in-out;
+
+      &:hover {
+        color: #fff;
+        background-color: $purple;
+      }
+    }
+  }
+}

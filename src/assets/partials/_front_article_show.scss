@@ -20,29 +20,6 @@
       position: absolute;
     }
   }
-  .article-details {
-    margin-top: 2vh;
-    
-    .tags {
-      display: flex;
-
-      .tag {
-        margin-right: 10px;
-        &-body {
-          background: black;
-          padding: 8px;
-          display: flex;
-          width: fit-content;
-          font-size: 14px;
-
-          i {
-            line-height: inherit;
-            margin-right: 5px;
-          }
-        }
-      }
-    }
-  }
 
   .article-content {
     margin-top: 5vh;
@@ -54,6 +31,44 @@
 
     .hljs {
       background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .back {
+    text-align: center;
+    margin: 20px 0;
+
+    .icon {
+      font-size: 30px;
+      transition: color 0.5s ease-out;
+
+      &:hover {
+        color: $purple;
+      }
+    }
+  }
+}
+
+.article-details, .project-details {
+  margin-top: 2vh;
+
+  .tags {
+    display: flex;
+
+    .tag {
+      margin-right: 10px;
+      &-body {
+        background: black;
+        padding: 8px;
+        display: flex;
+        width: fit-content;
+        font-size: 14px;
+
+        i {
+          line-height: inherit;
+          margin-right: 5px;
+        }
+      }
     }
   }
 }

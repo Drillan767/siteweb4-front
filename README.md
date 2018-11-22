@@ -2,20 +2,17 @@
 
 > Front-end part of my website's v4
 
-## Build Setup
+# Todo
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+* If anonymous, add cookie when user leaves a comment
+* Responsive
+* Fix easter egg
+* Footer
+* Show / Edit / Delete a project
+* Day mode, handle cookie for that too
+* Fix landing page
+* Contact form
+* Mobile app for dashboard
+* Fix edition / deletion animation when done in admin
+* About page (lel) (might need to remove it)
+* Related content (Article)

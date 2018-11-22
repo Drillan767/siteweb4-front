@@ -3,7 +3,11 @@
   <div class="front-layout">
     <section class="container">
       <nav class="navbar navbar-expand-lg navbar-dark">
-        <router-link class="nav-main" to="/">{{ settings.website_name }}</router-link>
+        <router-link class="nav-main" to="/">
+          <span :data-letters="settings.website_name">
+            {{ settings.website_name }}
+          </span>
+        </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

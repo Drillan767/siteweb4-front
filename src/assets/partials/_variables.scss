@@ -20,6 +20,9 @@
   font-style: normal;
 }
 
+$night: #061F2F;
+$purple: #3e00ba;
+
 html {
   min-height: 100vh;
 }
@@ -31,9 +34,11 @@ body {
 .admin-layout,
 .front-layout,
 .login {
-  h1, h2, h3, h4, h5, h5, h6, a, a:hover, label, th, td {
+  h1, h2, h3, h4, h5, h5, h6, a, a:hover label, th, td {
     color: #fff;
   }
+
+
 }
 
 .badge {
@@ -62,8 +67,6 @@ strong {
 .invalid-feedback {
   display: block;
 }
-
-$night: #061F2F;
 
 .switch {
   position: relative;
