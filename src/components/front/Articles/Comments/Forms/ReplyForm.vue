@@ -27,10 +27,20 @@
         <button class="btn btn-outline-primary">{{ $t('comment.send') }}</button>
       </div>
     </div>
+
+    <div class="modal fade" id="m_reply" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <img :src="buckaroo" alt="">
+        </div>
+      </div>
+    </div>
   </form>
 </template>
 
 <script>
+import VueCookie from '../../../../../settings/VueCookie'
+import buckaroo from '../../../../../assets/img/stopspam.jpg'
 export default {
   name: 'ReplyForm',
   data () {
@@ -46,7 +56,8 @@ export default {
         honey_pot: false
       },
       errors: [],
-      success: false
+      success: false,
+      buckaroo: buckaroo
     }
   },
 
@@ -71,16 +82,20 @@ export default {
           })
         }
       })
-
-      if (this.errors.length === 0) {
-        this.$axios.post('comment', this.comment)
-          .then(response => {
-            this.success = true
-            this.$parent.comments.push(response.data)
-          })
-          .catch(e => {
-            console.log(e.response.data)
-          })
+      if (VueCookie.has('reply')) {
+        $('#m_comment').modal()
+      } else {
+        if (this.errors.length === 0) {
+          this.$axios.post('comment', this.comment)
+            .then(response => {
+              this.success = true
+              VueCookie.setWithDeath('reply', 'true', 5)
+              this.$parent.comments.push(response.data)
+            })
+            .catch(e => {
+              console.log(e.response.data)
+            })
+        }
       }
     }
   }

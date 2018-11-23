@@ -10,6 +10,10 @@
 
   .article-comment {
 
+    label {
+      color: #fff;
+    }
+
     .col-md-12:not(.text-right) {
       margin: 20px 0 10px 0;
     }
@@ -20,6 +24,7 @@
 
   .comment {
     display: flex;
+    margin-bottom: 25px;
 
     &.response {
       margin: 20px 0 20px 130px;
@@ -35,7 +40,11 @@
     }
 
     &-cont {
+      color: #fff;
+      width: 100%
+    ;
       .comment {
+
         &-meta {
           margin-bottom: 10px;
           display: flex;
@@ -69,6 +78,10 @@
     .article-reply {
       margin-left: 255px;
 
+      label {
+        color: #fff;
+      }
+
       .col-md-12:not(.text-right) {
         margin: 20px 0 10px 0;
       }
@@ -96,6 +109,7 @@
 
     p {
       margin: 0;
+      color: #fff;
     }
   }
 }

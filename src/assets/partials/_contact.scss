@@ -3,6 +3,14 @@
 
   form {
 
+    .contact {
+      &-success p {
+        background: #003a00;
+        padding: 10px 20px;
+        color: #fff;
+      }
+    }
+
     .ee {
       animation: shake 0.5s;
       animation-iteration-count: infinite;

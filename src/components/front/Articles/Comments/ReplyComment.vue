@@ -1,10 +1,10 @@
 <template>
   <div class="replies">
-    <div class="comment response" v-for="(reply, index) in replies" :key="index">
+    <div class="comment response" v-for="(reply, index) in comments" :key="index">
       <div class="comment-avatar">
         <i class="fas fa-user-circle"></i>
       </div>
-      <div class="comment-cont">
+      <div :class="['comment-cont', !reply.accepted && 'font-italic']">
         <div class="comment-meta">
         <span class="comment-meta-name">
           {{ reply.name }}
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div :is="currentComponent" v-bind="{post_id: post_id, reply: reply}"></div>
+    <div :is="currentComponent" v-bind="{post_id: post_id, reply: reply}" ></div>
   </div>
 </template>
 
@@ -36,25 +36,22 @@ export default {
   data () {
     return {
       currentComponent: null,
-      componentArray: ['commentForm']
+      componentArray: ['commentForm'],
+      comments: []
+    }
+  },
+
+  mounted () {
+    if (this.replies) {
+      this.replies.map(reply => {
+        this.comments.push(reply)
+      })
     }
   },
 
   methods: {
     toggle (component) {
       this.currentComponent = component
-    },
-
-    test () {
-      console.log('Oooooskuuuuuuuur')
-    }
-  },
-
-  computed: {
-    properties () {
-      if (this.currentComponent === 'commentForm') {
-        return {post_id: 3, reply: 2}
-      }
     }
   }
 }

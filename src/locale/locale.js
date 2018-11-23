@@ -2,7 +2,8 @@ const messages = {
   en: {
     links: {
       about: '/about',
-      project: '/project'
+      project: '/project',
+      legalNotice: '/legal-notice'
     },
     navbar: {
       home: 'Home',
@@ -44,13 +45,18 @@ const messages = {
     misc: {
       years: 'years old',
       all: 'All',
-      back: 'Back'
+      back: 'Back',
+      legalNotice: 'Legal notice',
+      cookies: 'This websites uses cookies to run properly. You can see their purpose',
+      cookieLink: 'by clicking here',
+      cookieClose: '(Click the banner to close it)'
     }
   },
   fr: {
     links: {
       about: '/a-propos',
-      project: '/projet'
+      project: '/projet',
+      legalNotice: '/mentions-legales'
     },
     navbar: {
       home: 'Accueil',
@@ -92,7 +98,11 @@ const messages = {
     misc: {
       years: 'ans',
       all: 'All',
-      back: 'Retour'
+      back: 'Retour',
+      legalNotice: 'Mentions légales',
+      cookies: 'Ce site utilise des cookies pour fonctionner correctement. Vous pouvez voir leur utilisation',
+      cookieLink: 'en suivant ce lien',
+      cookieClose: '(Cliquez sur la bannière pour la fermer)'
     }
   }
 }

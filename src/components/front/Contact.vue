@@ -2,14 +2,6 @@
   <div class="contact">
     <h1>Contact</h1>
     <form @submit.prevent="submit">
-      <div class="errors" v-if="errors.length > 0">
-        <ul>
-          <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
-        </ul>
-      </div>
-      <div v-if="success">
-        {{ $t('contact.ok') }}
-      </div>
       <div class="row">
         <div class="col-md-4 side">
           <div class="side-message" @mouseover="ee" @mouseleave="reset">
@@ -18,6 +10,14 @@
           </div>
         </div>
         <div class="col-md-8 row">
+          <div class="contact-error" v-if="errors.length > 0">
+            <ul>
+              <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+            </ul>
+          </div>
+          <div v-if="success" class="col-md-12 contact-success">
+            <p>{{ $t('contact.ok') }}</p>
+          </div>
           <div class="col-md-6">
             <input
               type="email"
@@ -94,7 +94,7 @@ export default {
       errors: [],
       success: false,
       easter: false,
-      seconds: 0,
+      seconds: 0
     }
   },
 
@@ -106,7 +106,7 @@ export default {
     submit () {
       this.errors = []
       this.success = false
-      if (VueCookie.has('contact')) {
+      if (VueCookie.has('contact') || this.honey_pot) {
         $('#calmdown').modal()
       } else {
         let fields = ['name', 'object', 'email', 'message']
@@ -121,9 +121,10 @@ export default {
         }
 
         if (this.errors.length === 0) {
-          this.$axios.post('/message')
+          this.$axios.post('/message', this.message)
             .then(response => {
               if (response.data === 'ok') this.success = true
+              this.success = true
               VueCookie.setWithDeath('contact', 'true', 5)
             })
             .catch(e => {

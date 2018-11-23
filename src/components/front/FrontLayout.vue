@@ -1,6 +1,6 @@
 <template>
   <!--<div class="front-layout" :style="{ backgroundImage: `url(${background})` }">-->
-  <div class="front-layout">
+  <div class="front-layout" v-if="display">
     <section class="container">
       <nav class="navbar navbar-expand-lg navbar-dark">
         <router-link class="nav-main" to="/">
@@ -17,15 +17,15 @@
               <router-link class="nav-link" :to="$t('links.about')">{{ $t("navbar.about") }}</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/blog">
+              <router-link :class="['nav-link', blog && 'active']" to="/blog">
                 Blog
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/portfolio">{{ $t("navbar.projects") }}</router-link>
+              <router-link :class="['nav-link', project && 'active']" to="/portfolio">{{ $t("navbar.projects") }}</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/contact">{{ $t("navbar.contact")}}</router-link>
+              <router-link class="nav-link" to="/contact">{{ $t("navbar.contact") }}</router-link>
             </li>
             <li class="nav-item">
               <hr class="mobile" />
@@ -42,11 +42,52 @@
         <router-view></router-view>
       <!--</transition>-->
     </section>
-    <footer></footer>
+    <div class="banner" v-if="banner" @click="close">
+      <p>{{ $t('misc.cookies') }}<br />
+        <router-link :to="$t('links.legalNotice')">{{ $t('misc.cookieLink') }}</router-link>
+      </p>
+      <p>{{ $t('misc.cookieClose') }}</p>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 main">
+            <router-link to="/">
+              <h3>{{ settings.website_name }}</h3>
+            </router-link>
+          </div>
+          <div class="col-md-4 links">
+            <router-link :to="$t('links.about')">{{ $t("navbar.about") }}</router-link>
+            <router-link to="/blog" :class="blog && 'active'">Blog</router-link>
+            <router-link to="/portfolio" :class="project && 'active'">{{ $t("navbar.projects") }}</router-link>
+            <router-link to="/contact">{{ $t("navbar.contact") }}</router-link>
+            <router-link :to="$t('links.legalNotice')">{{ $t('misc.legalNotice') }}</router-link>
+          </div>
+          <div class="col-md-4 social-medias">
+            <a :href="settings.twitter" v-if="settings.twitter.length > 0" target="_blank">
+              <i class="fab fa-twitter"></i> Twitter
+            </a>
+            <a :href="settings.facebook" v-if="settings.facebook.length > 0" target="_blank">
+              <i class="fab fa-facebook"></i> Facebook
+            </a>
+            <a :href="settings.linkedin" v-if="settings.linkedin.length > 0" target="_blank">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a :href="settings.medium" v-if="settings.medium.length > 0" target="_blank">
+              <i class="fab fa-medium"></i> Medium
+            </a>
+          </div>
+          <div class="col-md-12 text-center copyright">
+            <p>&copy; {{ settings.website_name }} - {{ new Date().getFullYear() }}</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
+import VueCookie from '../../settings/VueCookie'
 export default {
   data () {
     return {
@@ -73,15 +114,25 @@ export default {
         first_name: '',
         last_name: '',
         profile_pic: ''
-      }
+      },
+      banner: true,
+      display: false,
+      blog: false,
+      project: false
     }
   },
 
-  watch: {
-    $route (to, from) {
-      if (to.name === 'bog-show') {
-        this.transitionName = 'slideup'
-      }
+  mounted () {
+    if (VueCookie.has('banner')) {
+      this.banner = false
+    } else {
+      VueCookie.set('banner', 'true')
+    }
+
+    this.blog = !!this.$route.path.includes('article')
+
+    if (this.$route.path.includes('/projet/')) {
+      this.project = true
     }
   },
 
@@ -96,6 +147,10 @@ export default {
 
     setBackground (image) {
       this.background = image
+    },
+
+    close () {
+      this.banner = false
     }
   },
 
@@ -104,7 +159,15 @@ export default {
       .then(response => {
         this.user = response.data.user
         this.settings = response.data.settings
+        this.display = true
       })
+  },
+
+  watch: {
+    '$route': function () {
+      this.blog = !!this.$route.path.includes('article')
+      this.project = !!this.$route.path.includes('/projet/')
+    }
   }
 }
 </script>

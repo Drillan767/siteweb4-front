@@ -107,10 +107,12 @@ export default {
         this.project = response.data
         this.$parent.setTitle(this.project.title)
         const mainTag = this.project.tags.find(tag => tag.category === 'project_type')
-        this.$axios.post('/portfolio/related', {tag_id: mainTag.id, project_id: this.project.id})
-          .then(response => {
-            this.related = response.data
-          })
+        if (mainTag) {
+          this.$axios.post('/portfolio/related', {tag_id: mainTag.id, project_id: this.project.id})
+            .then(response => {
+              this.related = response.data
+            })
+        }
       })
   },
 

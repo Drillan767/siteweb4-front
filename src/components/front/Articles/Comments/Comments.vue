@@ -6,7 +6,7 @@
         <div class="comment-avatar">
           <i class="fas fa-user-circle"></i>
         </div>
-        <div class="comment-cont">
+        <div :class="['comment-cont', !comment.accepted && 'font-italic']">
           <div class="comment-meta">
             <span class="comment-meta-name">
               {{ comment.name }}
@@ -28,6 +28,7 @@
         :post_id="id"
         :reply="comment.id"
         ref="replyComment"
+        v-if="comment.accepted"
       />
     </div>
   </div>
@@ -67,7 +68,7 @@ export default {
 
   computed: {
     mainComments () {
-      return this.comments.filter(comment => comment.reply === 0 && comment.accepted)
+      return this.comments.filter(comment => comment.reply === 0)
     }
   }
 }

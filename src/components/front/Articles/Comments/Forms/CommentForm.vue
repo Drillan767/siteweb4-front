@@ -2,7 +2,7 @@
   <form @submit.prevent="submit" class="article-comment">
     <div v-if="errors.length > 0" class="comment-error">
       <ul>
-        <li v-for="(error, index) in errors" :key="index">{{ error.error }}</li>
+        <li v-for="(error, index) in errors" :key="index">{{ error.message }}</li>
       </ul>
     </div>
     <div v-else-if="success" class="comment-success">
@@ -26,10 +26,20 @@
         <button class="btn btn-outline-primary">{{ $t('comment.send') }}</button>
       </div>
     </div>
+
+    <div class="modal fade" id="m_comment" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <img :src="buckaroo" alt="">
+        </div>
+      </div>
+    </div>
   </form>
 </template>
 
 <script>
+import VueCookie from '../../../../../settings/VueCookie'
+import buckaroo from '../../../../../assets/img/stopspam.jpg'
 export default {
   name: 'CommentForm',
   data () {
@@ -38,23 +48,19 @@ export default {
         name: '',
         email: '',
         comment: '',
-        reply: 1,
+        reply: 0,
         accepted: false,
-        post_id: 1,
+        post_id: 0,
         created_at: '',
         honey_pot: false
       },
       errors: [],
-      success: false
+      success: false,
+      buckaroo: buckaroo
     }
   },
 
   props: ['reply', 'post_id'],
-
-  mounted () {
-    this.comment.reply = this.reply
-    this.comment.post_id = this.post_id
-  },
 
   methods: {
     submit () {
@@ -71,16 +77,23 @@ export default {
         }
       })
 
-      if (this.errors.length === 0) {
-        this.$axios.post('comment', this.comment)
-          .then(response => {
-            this.success = true
-            this.$parent.comments.push(response.data)
-          })
-          .catch(e => {
-            this.errors.push(e.response.data)
-            console.log(e.response.data)
-          })
+      if (VueCookie.has('comment')) {
+        $('#m_comment').modal()
+      } else {
+        if (this.errors.length === 0) {
+          this.comment.post_id = this.post_id
+          console.log(this.comment)
+          this.$axios.post('comment', this.comment)
+            .then(response => {
+              this.success = true
+              VueCookie.setWithDeath('comment', 'true', 5)
+              this.$parent.comments.push(response.data)
+            })
+            .catch(e => {
+              this.errors.push(e.response.data)
+              console.log(e.response.data)
+            })
+        }
       }
     }
   }

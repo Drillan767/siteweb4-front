@@ -30,6 +30,7 @@ import UserSettings from '../components/admin/UserSettings'
 import NotFound from '../components/front/Errors/NotFound'
 import NotAllowed from '../components/front/Errors/NotAllowed'
 import Login from '../components/auth/Login'
+import LegalNotice from '../components/front/LegalNotice'
 
 Vue.use(Router)
 
@@ -52,10 +53,12 @@ export default new Router({
           component: ArticleShow
         },
         {
+          name: 'portfolio',
           path: 'portfolio',
           component: Portfolio
         },
         {
+          name: 'portfolio-show',
           path: 'project/:slug',
           alias: 'projet/:slug',
           component: Project
@@ -80,6 +83,11 @@ export default new Router({
         {
           path: 'tag/:slug',
           component: ShowTag
+        },
+        {
+          path: '/legal-notice',
+          alias: '/mentions-legales',
+          component: LegalNotice
         }
       ]
     },
