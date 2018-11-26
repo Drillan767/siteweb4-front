@@ -43,12 +43,14 @@ body {
   line-height: unset;
 }
 
+.about,
 .front-articles,
 .portfolio,
 .portfolio-show,
 .about,
 .contact,
-.legal-notice {
+.legal-notice,
+.show-tag {
   min-height: 90vh;
 }
 

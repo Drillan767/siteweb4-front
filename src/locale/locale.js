@@ -25,8 +25,14 @@ const messages = {
       cancel: 'Cancel',
       ok: 'Thanks! Your comment will show up once reviewed!'
     },
+    tag: {
+      project: 'Related projects for',
+      article: 'Related articles for',
+      all: 'Related content for'
+    },
     project: {
       simple: 'project',
+      clean: 'Project',
       see: 'See more',
       github: 'Check the repository',
       website: 'See the website',
@@ -78,8 +84,14 @@ const messages = {
       cancel: 'Annuler',
       ok: 'Merci ! Votre commentaire apparaitra une fois vérifié !'
     },
+    tag: {
+      project: 'Projets liés à',
+      article: 'Articles liés à',
+      all: 'Contenu lié à'
+    },
     project: {
       simple: 'projet',
+      clean: 'Projet',
       see: 'Voir plus',
       github: 'Voir le dépôt',
       website: 'Voir le site',
@@ -97,7 +109,7 @@ const messages = {
     },
     misc: {
       years: 'ans',
-      all: 'All',
+      all: 'Tout',
       back: 'Retour',
       legalNotice: 'Mentions légales',
       cookies: 'Ce site utilise des cookies pour fonctionner correctement. Vous pouvez voir leur utilisation',

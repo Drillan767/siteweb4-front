@@ -4,12 +4,10 @@
 
 # Todo
 
-* If anonymous, add cookie when user leaves a comment
 * Responsive
 * Show / Edit / Delete a project
 * Day mode, handle cookie for that too
 * Mobile app for dashboard
 * Fix edition / deletion animation when done in admin
-* About page (lel) (might need to remove it)
+* Add a translation column for About, plus make it MD - related
 * Related content (Article)
-* Actions when a tag is clicked

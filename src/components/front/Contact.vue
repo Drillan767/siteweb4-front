@@ -1,6 +1,8 @@
 <template>
   <div class="contact">
-    <h1>Contact</h1>
+    <div class="header">
+      <h1>Contact</h1>
+    </div>
     <form @submit.prevent="submit">
       <div class="row">
         <div class="col-md-4 side">

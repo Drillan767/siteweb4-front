@@ -1,4 +1,4 @@
-.front-articles, .portfolio {
+.front-articles, .portfolio, .show-tag, .about, .contact {
   .header {
     text-align: center;
     padding: 25px 0;
@@ -60,7 +60,7 @@
         left: 0;
         bottom: 0;
         z-index: -1;
-        background-position: 50% 50%;
+        background-position: center;
         background-size: cover;
         opacity: .5;
         transition: .5s opacity;
