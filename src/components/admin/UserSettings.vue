@@ -1,6 +1,14 @@
 <template>
   <div class="user-settings">
     <form @submit.prevent="submit" class="form-horizontal col-sm-8 offset-sm-2">
+      <div v-if="errors.length > 0" class="errors">
+        <ul>
+          <li v-for="(error, index) in errors" :key="index">{{ error.message }}</li>
+        </ul>
+      </div>
+      <div class="ok" v-if="success">
+        <p>Settings successfully saved</p>
+      </div>
       <div class="form-group row">
         <label for="first_name" class="col-sm-4 col-form-label">First Name</label>
         <div class="col-sm-6">
@@ -51,19 +59,19 @@
 
       <div class="form-group col-md-10 offset-1">
         <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <div class="nav nav-tabs" id="nav-tab-fr" role="tablist">
             <a
               class="nav-item nav-link active"
-              id="nav-write-tab"
+              id="nav-write-tab-fr"
               data-toggle="tab"
-              href="#nav-write" role="tab"
-              aria-controls="nav-write"
+              href="#nav-write-fr" role="tab"
+              aria-controls="nav-write-fr"
               aria-selected="true">
               Write
             </a>
             <a
               class="nav-item nav-link"
-              id="nav-result-tab"
+              id="nav-result-tab-fr"
               data-toggle="tab"
               href="#nav-result"
               role="tab"
@@ -73,22 +81,67 @@
             </a>
           </div>
         </nav>
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content" id="nav-tabContent-fr">
           <div
             class="tab-pane fade show active"
-            id="nav-write"
+            id="nav-write-fr"
             role="tabpanel"
             aria-labelledby="nav-write-tab"
           >
-            <textarea class="form-control" v-model="user.about" @input="update" id="about" rows="6"></textarea>
+            <textarea class="form-control" v-model="user.about_fr" @input="updatefr" id="about-fr" rows="6"></textarea>
           </div>
           <div
             class="tab-pane fade"
-            id="nav-result"
+            id="nav-result-fr"
             role="tabpanel"
             aria-labelledby="nav-result-tab"
           >
-            <div v-html="compiledMarkdown"></div>
+            <div v-html="about_fr"></div>
+            <hr />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-10 offset-1">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab-en" role="tablist">
+            <a
+              class="nav-item nav-link active"
+              id="nav-write-tab-en"
+              data-toggle="tab"
+              href="#nav-write-fr" role="tab"
+              aria-controls="nav-write"
+              aria-selected="true">
+              Write
+            </a>
+            <a
+              class="nav-item nav-link"
+              id="nav-result-tab-en"
+              data-toggle="tab"
+              href="#nav-result-en"
+              role="tab"
+              aria-controls="nav-result-en"
+              aria-selected="false">
+              Result
+            </a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent-en">
+          <div
+            class="tab-pane fade show active"
+            id="nav-write-en"
+            role="tabpanel"
+            aria-labelledby="nav-write-tab"
+          >
+            <textarea class="form-control" v-model="user.about_en" @input="updateen" id="about" rows="6"></textarea>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-result-en"
+            role="tabpanel"
+            aria-labelledby="nav-result-tab"
+          >
+            <div v-html="about_en"></div>
             <hr />
           </div>
         </div>
@@ -105,6 +158,7 @@ import DatePicker from 'vue2-datepicker'
 import _ from 'underscore'
 import VueCookie from '../../settings/VueCookie'
 import marked from 'marked'
+import moment from 'moment'
 export default {
   components: {DatePicker},
   mounted () {
@@ -120,7 +174,8 @@ export default {
   data () {
     return {
       user: {
-        about: '',
+        about_en: '',
+        about_fr: '',
         birthday: '',
         email: '',
         job_title: '',
@@ -128,7 +183,9 @@ export default {
         last_name: '',
         profile_pic: ''
       },
-      label: null
+      label: null,
+      success: false,
+      errors: []
     }
   },
 
@@ -155,39 +212,68 @@ export default {
       reader.readAsDataURL(file)
     },
 
-    update () {
+    updatefr () {
       _.debounce(e => {
-        this.user.about = e.target.value
+        this.user.about_fr = e.target.value
+      })
+    },
+
+    updateen () {
+      _.debounce(e => {
+        this.user.about_en = e.target.value
       })
     },
 
     submit () {
-      let formdata = new FormData()
-      formdata.append('first_name', this.user.first_name)
-      formdata.append('last_name', this.user.last_name)
-      formdata.append('email', this.user.email)
-      formdata.append('job_title', this.user.job_title)
-      formdata.append('birthday', this.user.birthday)
-      formdata.append('profile_pic', document.getElementById('profile_pic').files[0])
-      formdata.append('about', this.user.about)
-
-      this.$axios.put('/user_data', formdata, {
-        headers: {
-          'Authorization': `Bearer ${VueCookie.get('token')}`
+      let fields = ['first_name', 'last_name', 'email', 'job_title', 'birthday', 'about_en', 'about_fr']
+      fields.map(field => {
+        if (!this.user[field]) {
+          this.errors.push({message: `Field "${field}" is missing`})
         }
       })
-        .then(response => {
-          console.log(response)
+
+      const matches = this.user.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
+      if (matches.length === 0) {
+        this.errors.push({message: 'Please enter a valid mail'})
+      }
+
+      if (this.errors.length === 0) {
+        let formdata = new FormData()
+        formdata.append('first_name', this.user.first_name)
+        formdata.append('last_name', this.user.last_name)
+        formdata.append('email', this.user.email)
+        formdata.append('job_title', this.user.job_title)
+        formdata.append('birthday', moment(this.user.birthday).format('YYYY-MM-DD HH:mm:ss'))
+        formdata.append('profile_pic', document.getElementById('profile_pic').files[0])
+        formdata.append('about_en', this.user.about_en)
+        formdata.append('about_fr', this.user.about_fr)
+
+        this.$axios.put('/user_data', formdata, {
+          headers: {
+            'Authorization': `Bearer ${VueCookie.get('token')}`
+          }
         })
-        .catch(e => {
-          console.log(e.response)
-        })
+          .then(response => {
+            if (response.status === 200) {
+              this.success = true
+              $('html, body').animate({scrollTop: 0}, 'slow')
+            }
+          })
+          .catch(e => {
+            console.log(e.response)
+            this.errors = e.response.data
+          })
+      }
     }
   },
 
   computed: {
-    compiledMarkdown () {
-      return marked(this.user.about, {sanitized: true})
+    about_fr () {
+      return marked(this.user.about_fr, {sanitized: true})
+    },
+
+    about_en () {
+      return marked(this.user.about_en, {sanitized: true})
     }
   }
 }

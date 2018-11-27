@@ -1,7 +1,7 @@
 .edit-settings {
   form {
     .row {
-      & > div {
+      & > div:not(.sm) {
         margin-bottom: 3vh;
         .custom-file {
           label {
@@ -20,7 +20,30 @@
 }
 
 .user-settings {
+  .errors {
+    background-color: #9e0000;
+    color: #fff;
+    ul {
+      padding: 20px;
+      li {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .ok {
+    background: #003a00;
+
+    p {
+      padding: 14px;
+      color: #fff;
+    }
+  }
+
   .row {
+    .col-form-label {
+      color: #fff;
+    }
     .col-sm-6 {
       .mx-datepicker {
         width: 100%;
@@ -37,6 +60,14 @@
         }
       }
     }
+
+    &.sm {
+      .delete-row {
+        display: flex;
+        align-items: flex-end;
+      }
+    }
+
     &.profile {
       margin-top: 40px;
       img {
