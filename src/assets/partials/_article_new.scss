@@ -20,17 +20,16 @@
       background: none
     }
     background: none;
-    .multiselect__tag {
+    .multiselect__tags-wrap span {
       background: #266bb5;
-      i {
-        &::after {
-          color: #fff;
-        }
-        &:hover {
-          background: #105094;
-        }
-      }
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 10px;
+      margin-right: 6px;
 
+      &:hover {
+        background: #105094;
+      }
     }
   }
 

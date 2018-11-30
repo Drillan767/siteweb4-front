@@ -30,6 +30,24 @@
           track-by="name_en"
           v-model="post.tags"
         >
+          <template
+            slot="tag"
+            slot-scope="props"
+          >
+            <span>
+              <i :class="props.option.category.icon"></i>
+              {{ cleaned(props.option.name_en) }}
+            </span>
+          </template>
+          <template
+            slot="option"
+            slot-scope="props"
+          >
+            <span :class="props.option.class">
+              <i :class="props.option.category.icon"></i>
+              {{ list(props.option.name_en) }}
+            </span>
+          </template>
         </VueMultiselect>
       </div>
 
@@ -174,6 +192,24 @@ export default {
       _.debounce(e => {
         this.post.content = e.target.value
       })
+    },
+
+    list (fa) {
+      fa = fa.replace(/(fas|far|fab) fa-/gm, '')
+      fa = fa.replace(/-/gm, ' ')
+      fa = fa.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')
+      return fa
+    },
+
+    cleaned (fa) {
+      fa = fa.replace(/(fas|far|fab) fa-/gm, '')
+      fa = fa.replace(/-/gm, ' ')
+      fa = fa.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')
+      return fa
     },
 
     filename (file) {

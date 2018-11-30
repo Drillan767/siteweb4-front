@@ -16,7 +16,7 @@
           class="tag"
         >
             <span class="tag-body">
-            <i :class="['fas', getFAClass(tag.category)]"></i>
+            <i :class="tag.category.icon"></i>
             {{ tag[`name_${$i18n.locale}`] }}
           </span>
         </router-link>
@@ -107,16 +107,6 @@ export default {
   },
 
   methods: {
-    getFAClass (name) {
-      let fas = {
-        project_type: 'fa-screwdriver',
-        language: 'fa-cog',
-        misc: 'fa-circle',
-        general_subject: 'fa-book'
-      }
-      return fas[name]
-    },
-
     dateFormat (date) {
       const format = this.$i18n.locale === 'fr' ? 'DD/MM/YYYY' : 'YYYY/MM/DD'
       return moment(date).format(format)

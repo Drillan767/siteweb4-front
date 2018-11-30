@@ -57,93 +57,134 @@
         </div>
       </div>
 
-      <div class="form-group col-md-10 offset-1">
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab-fr" role="tablist">
+      <div class="col-md-10 offset-md-1 form-group">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
             <a
-              class="nav-item nav-link active"
-              id="nav-write-tab-fr"
+              class="nav-link active"
+              id="write-fr-tab"
               data-toggle="tab"
-              href="#nav-write-fr" role="tab"
-              aria-controls="nav-write-fr"
-              aria-selected="true">
-              Write
-            </a>
-            <a
-              class="nav-item nav-link"
-              id="nav-result-tab-fr"
-              data-toggle="tab"
-              href="#nav-result"
+              href="#write-fr"
               role="tab"
-              aria-controls="nav-result"
-              aria-selected="false">
+              aria-controls="write-fr"
+              aria-selected="true"
+            >
+            Write
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="result-fr-tab"
+              data-toggle="tab"
+              href="#result-fr"
+              role="tab"
+              aria-controls="result-fr"
+              aria-selected="false"
+            >
               Result
             </a>
-          </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent-fr">
+          </li>
+        </ul>
+
+        <div class="tab-content" id="nav-about-fr">
           <div
             class="tab-pane fade show active"
-            id="nav-write-fr"
+            id="write-fr"
             role="tabpanel"
-            aria-labelledby="nav-write-tab"
+            aria-labelledby="write-fr-tab"
           >
-            <textarea class="form-control" v-model="user.about_fr" @input="updatefr" id="about-fr" rows="6"></textarea>
+            <label for="about_fr" hidden></label>
+            <textarea
+              id="about_fr"
+              class="form-control"
+              rows="6"
+              @input="updatefr"
+              v-model="user.about_fr">
+            </textarea>
           </div>
           <div
             class="tab-pane fade"
-            id="nav-result-fr"
+            id="result-fr"
             role="tabpanel"
-            aria-labelledby="nav-result-tab"
+            aria-labelledby="result-fr-tab"
           >
-            <div v-html="about_fr"></div>
-            <hr />
+            <div v-html="markdown_fr" class="md"></div>
           </div>
         </div>
       </div>
 
-      <div class="form-group col-md-10 offset-1">
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab-en" role="tablist">
+      <div class="col-md-10 offset-md-1 form-group">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
             <a
-              class="nav-item nav-link active"
-              id="nav-write-tab-en"
+              class="nav-link active"
+              id="write-en-tab"
               data-toggle="tab"
-              href="#nav-write-fr" role="tab"
-              aria-controls="nav-write"
-              aria-selected="true">
+              href="#write-en"
+              role="tab"
+              aria-controls="write-en"
+              aria-selected="true"
+            >
               Write
             </a>
+          </li>
+          <li class="nav-item">
             <a
-              class="nav-item nav-link"
-              id="nav-result-tab-en"
+              class="nav-link"
+              id="result-en-tab"
               data-toggle="tab"
-              href="#nav-result-en"
+              href="#result-en"
               role="tab"
-              aria-controls="nav-result-en"
-              aria-selected="false">
+              aria-controls="result-en"
+              aria-selected="false"
+            >
               Result
             </a>
-          </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent-en">
+          </li>
+        </ul>
+
+        <div class="tab-content" id="nav-about-en">
           <div
             class="tab-pane fade show active"
-            id="nav-write-en"
+            id="write-en"
             role="tabpanel"
-            aria-labelledby="nav-write-tab"
+            aria-labelledby="write-en-tab"
           >
-            <textarea class="form-control" v-model="user.about_en" @input="updateen" id="about" rows="6"></textarea>
+            <label for="about_en" hidden></label>
+            <textarea
+              id="about_en"
+              class="form-control"
+              rows="6"
+              @input="updateen"
+              v-model="user.about_en">
+            </textarea>
           </div>
           <div
             class="tab-pane fade"
-            id="nav-result-en"
+            id="result-en"
             role="tabpanel"
-            aria-labelledby="nav-result-tab"
+            aria-labelledby="result-en-tab"
           >
-            <div v-html="about_en"></div>
-            <hr />
+            <div v-html="markdown_en" class="md"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="col-md-10 offset-md-1">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="upload" @change="upload($event)">
+          <label class="custom-file-label" for="upload">Choose file...</label>
+        </div>
+        <div class="extra-images">
+          <button
+            v-for="(image, index) in extra_images"
+            class="btn btn-secondary"
+            :key="index"
+            @click.prevent="copy(image)"
+          >
+            {{ image.split(/[\\/]/).pop() }}
+          </button>
         </div>
       </div>
       <div class="col-md-12 text-center">
@@ -185,6 +226,7 @@ export default {
       },
       label: null,
       success: false,
+      extra_images: [],
       errors: []
     }
   },
@@ -224,7 +266,36 @@ export default {
       })
     },
 
+    upload (e) {
+      let formData = new FormData()
+      formData.append('image', e.target.files[0])
+      this.$axios.post('/user/upload', formData, {
+        headers: {
+          'Authorization': `Bearer ${VueCookie.get('token')}`
+        }
+      })
+        .then(response => {
+          this.extra_images.push(response.data)
+        })
+        .catch(e => {
+          this.errors.push({message: e.response.data.message})
+        })
+    },
+
+    delete (image) {
+      // ...
+    },
+
+    copy (image) {
+      const basename = image.split(/[\\/]/).pop()
+      navigator.clipboard.writeText(`![${basename}](${image})`)
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+
     submit () {
+      this.errors = []
       let fields = ['first_name', 'last_name', 'email', 'job_title', 'birthday', 'about_en', 'about_fr']
       fields.map(field => {
         if (!this.user[field]) {
@@ -245,6 +316,7 @@ export default {
         formdata.append('job_title', this.user.job_title)
         formdata.append('birthday', moment(this.user.birthday).format('YYYY-MM-DD HH:mm:ss'))
         formdata.append('profile_pic', document.getElementById('profile_pic').files[0])
+        formdata.append('extra_images', this.extra_images)
         formdata.append('about_en', this.user.about_en)
         formdata.append('about_fr', this.user.about_fr)
 
@@ -260,7 +332,7 @@ export default {
             }
           })
           .catch(e => {
-            console.log(e.response)
+            $('html, body').animate({scrollTop: 0}, 'slow')
             this.errors = e.response.data
           })
       }
@@ -268,11 +340,11 @@ export default {
   },
 
   computed: {
-    about_fr () {
+    markdown_fr () {
       return marked(this.user.about_fr, {sanitized: true})
     },
 
-    about_en () {
+    markdown_en () {
       return marked(this.user.about_en, {sanitized: true})
     }
   }

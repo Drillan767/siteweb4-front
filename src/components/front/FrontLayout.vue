@@ -64,17 +64,8 @@
             <router-link :to="$t('links.legalNotice')">{{ $t('misc.legalNotice') }}</router-link>
           </div>
           <div class="col-md-4 social-medias">
-            <a :href="settings.twitter" v-if="settings.twitter.length > 0" target="_blank">
-              <i class="fab fa-twitter"></i> Twitter
-            </a>
-            <a :href="settings.facebook" v-if="settings.facebook.length > 0" target="_blank">
-              <i class="fab fa-facebook"></i> Facebook
-            </a>
-            <a :href="settings.linkedin" v-if="settings.linkedin.length > 0" target="_blank">
-              <i class="fab fa-linkedin"></i> LinkedIn
-            </a>
-            <a :href="settings.medium" v-if="settings.medium.length > 0" target="_blank">
-              <i class="fab fa-medium"></i> Medium
+            <a v-for="(social, index) in JSON.parse(settings.social_medias)" :href="social.url" :key="index">
+              <i :class="social.icon.name"></i>
             </a>
           </div>
           <div class="col-md-12 text-center copyright">
@@ -94,15 +85,7 @@ export default {
       transitionName: null,
       background: '',
       settings: {
-        medium: '',
-        linkedin: '',
-        twitter: '',
-        facebook: '',
-        landing_bg: '',
-        about_bg: '',
-        contact_bg: '',
-        article_bg: '',
-        portfolio_bg: '',
+        social_medias: '',
         website_name: '',
         dark_mode: true
       },

@@ -1,16 +1,26 @@
 <template>
   <div class="tags">
     <div class="form-inline col-md-8">
-      <button class="btn btn-outline-primary mb-2" @click="handleAdd">
+      <button class="btn btn-outline-primary mb-2" @click="handleAddTag">
         <i class="fas fa-plus"></i>
         Add a new tag
+      </button>
+      <button class="btn btn-outline-primary mb-2" @click="handleAddCategory">
+        <i class="fas fa-plus"></i>
+        Add a new category
       </button>
       <label class="sr-only" for="search">Name</label>
       <input type="text" class="form-control mb-2 mr-sm-2" id="search" v-model="search" placeholder="Search...">
     </div>
     <div class="col-sm-12 row" v-for="(tag, index) in filteredList" :key="index">
       <div class="col-sm-8">
-        <h4>{{tag.name_en}} <small v-if="tag.name_en !== tag.name_fr">/ {{ tag.name_fr }}</small></h4>
+        <h4>
+          <i :class="tag.category.icon"></i>
+          {{tag.name_en}}
+          <small v-if="tag.name_en !== tag.name_fr">
+            / {{ tag.name_fr }}
+          </small>
+        </h4>
         <p>{{tag.description_en}}</p>
       </div>
       <div class="col-sm-4 bulk">
@@ -25,7 +35,7 @@
       </div>
     </div>
 
-    <div class="modal fade" id="editModal" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="editTagModal" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -35,7 +45,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="submit">
+            <form @submit.prevent="submitTag">
               <div class="form-group">
                 <label for="name_en">Tag name</label>
                 <input type="text" class="form-control" id="name_en" v-model="tag.name_en" placeholder="Tag name">
@@ -43,6 +53,35 @@
               <div class="form-group">
                 <label for="name_fr">French translation</label>
                 <input type="text" class="form-control" id="name_fr" v-model="tag.name_fr" placeholder="French translation">
+              </div>
+              <div class="form-group">
+                <label>Category</label>
+                <vue-multiselect
+                  :options="categories"
+                  v-model="tag.category"
+                  :close-on-select="true"
+                  label="name_en"
+                  track-by="name_en"
+                >
+                  <template
+                    slot="singleLabel"
+                    slot-scope="props"
+                  >
+                  <span>
+                    <i :class="props.option.icon"></i>
+                    {{ cleaned(props.option.name_en) }}
+                  </span>
+                  </template>
+                  <template
+                    slot="option"
+                    slot-scope="props"
+                  >
+                    <span :class="props.option.class">
+                    <i :class="props.option.icon"></i>
+                    {{ list(props.option.name_en) }}
+                  </span>
+                  </template>
+                </vue-multiselect>
               </div>
               <div class="form-group">
                 <label for="e_description_en">Description in english</label>
@@ -56,13 +95,13 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="submit(tag.id)">Save changes</button>
+            <button type="button" class="btn btn-primary" @click="submitTag(tag.id)">Save changes</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="addModal" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="addTagModal" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -72,7 +111,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="submit">
+            <form @submit.prevent="submitTag">
               <div class="form-group">
                 <label for="name">Tag name</label>
                 <input type="text" class="form-control" id="name" v-model="tag.name_en" placeholder="Tag name">
@@ -80,6 +119,35 @@
               <div class="form-group">
                 <label for="e_name_fr">French translation</label>
                 <input type="text" class="form-control" id="e_name_fr" v-model="tag.name_fr" placeholder="French translation">
+              </div>
+              <div class="form-group">
+                <label>Category</label>
+                <vue-multiselect
+                :options="categories"
+                v-model="tag.category"
+                :close-on-select="true"
+                label="name_en"
+                track-by="name_en"
+                >
+                  <template
+                    slot="singleLabel"
+                    slot-scope="props"
+                  >
+                  <span>
+                    <i :class="props.option.icon"></i>
+                    {{ cleaned(props.option.name_en) }}
+                  </span>
+                  </template>
+                  <template
+                    slot="option"
+                    slot-scope="props"
+                  >
+                    <span :class="props.option.class">
+                    <i :class="props.option.icon"></i>
+                    {{ list(props.option.name_en) }}
+                  </span>
+                  </template>
+                </vue-multiselect>
               </div>
               <div class="form-group">
                 <label for="description_en">Description in english</label>
@@ -93,7 +161,69 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-outline-primary" @click="submit(null)">Save</button>
+            <button type="button" class="btn btn-outline-primary" @click="submitTag(null)">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="addCategoryModal" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add a new tag</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="submitCategory">
+              <div class="form-group">
+                <label for="cat_name_en">Name (en)</label>
+                <input type="text" id="cat_name_en" class="form-control" v-model="category.name_en">
+              </div>
+              <div class="form-group">
+                <label for="cat_name_fr">Name (fr)</label>
+                <input type="text" id="cat_name_fr" class="form-control" v-model="category.name_fr">
+              </div>
+              <div class="form-group">
+                <vue-multiselect
+                  :options="fa"
+                  :close-on-select="true"
+                  v-model="category.icon"
+                  :group-select="true"
+                  group-label="category"
+                  group-values="icons"
+                  track-by="name"
+                  label="name"
+                >
+                  <template
+                    slot="singleLabel"
+                    slot-scope="props"
+                  >
+                  <span>
+                    <i :class="props.option.name"></i>
+                    {{ cleaned(props.option.name) }}
+                  </span>
+                  </template>
+                  <template
+                    slot="option"
+                    slot-scope="props"
+                  >
+                  <span v-if="props.option.$isLabel">
+                    {{ props.option.$groupLabel }}
+                  </span>
+                    <span :class="props.option.class" v-else>
+                    <i :class="props.option.name"></i>
+                    {{ list(props.option.name) }}
+                  </span>
+                  </template>
+                </vue-multiselect>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-primary" @click="submitCategory(null)">Save</button>
           </div>
         </div>
       </div>
@@ -104,17 +234,27 @@
 <script>
 import SweetAlert from '../../settings/SweetAlert2'
 import VueCookie from '../../settings/VueCookie'
+import VueMultiselect from 'vue-multiselect/src/Multiselect'
+import FA from '../../assets/fa'
 export default {
+  components: {VueMultiselect},
   data () {
     return {
       tags: [],
+      categories: [],
+      category: {
+        name_en: '',
+        name_fr: '',
+        category_id: 0
+      },
       tag: {
         name_en: '',
         name_fr: '',
         description_en: '',
         description_fr: ''
       },
-      search: ''
+      search: '',
+      fa: []
     }
   },
 
@@ -124,7 +264,15 @@ export default {
         this.tags = response.data
       })
       .catch(e => console.log(e.response))
+    this.$axios.get('/categories')
+      .then(response => {
+        this.categories = response.data
+      })
+      .catch(e => {
+        console.log(e.response.data)
+      })
     this.$parent.setTitle('Tag management')
+    this.fa = FA
   },
 
   methods: {
@@ -138,45 +286,99 @@ export default {
       )
     },
 
-    handleAdd () {
-      $('#addModal').modal()
+    handleAddTag () {
+      $('#addTagModal').modal()
+    },
+
+    handleAddCategory () {
+      $('#addCategoryModal').modal()
     },
 
     handleEdit (tag) {
       this.tag = tag
-      $('#editModal h5').text(`Edit "${tag.name_en}"`)
-      $('#editModal ')
-      $('#editModal').modal()
+      $('#editTagModal h5').text(`Edit "${tag.name_en}"`)
+      $('#editTagModal ')
+      $('#editTagModal').modal()
     },
 
-    submit (id = null) {
+    list (fa) {
+      fa = fa.replace(/(fas|far|fab) fa-/gm, '')
+      fa = fa.replace(/-/gm, ' ')
+      fa = fa.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')
+      return fa
+    },
+
+    cleaned (fa) {
+      fa = fa.replace(/(fas|far|fab) fa-/gm, '')
+      fa = fa.replace(/-/gm, ' ')
+      fa = fa.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')
+      return fa
+    },
+
+    submitTag (id = null) {
+      let formData = new FormData()
+      formData.append('name_en', this.tag.name_en)
+      formData.append('name_fr', this.tag.name_fr)
+      formData.append('description_en', this.tag.description_en)
+      formData.append('description_fr', this.tag.description_fr)
+      formData.append('category_id', this.tag.category.id)
+
       if (!Number.isInteger(id)) {
-        this.$axios.post('/tag', this.tag, {
+        this.$axios.post('/tag', formData, {
           headers: {
             'Authorization': `Bearer ${VueCookie.get('token')}`
           }
         })
           .then(response => {
+            $('#addTagModal form')[0].reset()
+            $('#addTagModal').modal('hide')
             SweetAlert.confirm('Tag successfully created', `Tag "${response.data.name_en}" was created`)
-            $('#addModal').find('input[type=text], textarea').val('').modal('toggle')
             this.tags.push(response.data)
           })
           .catch(e => console.log(e))
       } else {
-        this.$axios.put(`tag/${id}`, this.tag, {
+        this.$axios.put(`tag/${id}`, formData, {
           headers: {
             'Authorization': `Bearer ${VueCookie.get('token')}`
           }
         })
           .then(response => {
+            console.log(response)
+            $('#editTagModal form')[0].reset()
+            $('#editTagModal').modal('hide')
             SweetAlert.confirm('Tag was updated!', `Tag "${response.data.name_en}" sucessfully updated!`)
-            $('#editModal form').find('input[type=text], textarea').val('')
-            $('#editModal').modal('toggle')
             this.tags.map(tag => {
               if (tag.id === id) {
                 return response.data
               }
             })
+          })
+      }
+    },
+
+    submitCategory (id = null) {
+      if (!Number.isInteger(id)) {
+        let formData = new FormData()
+        formData.append('name_en', this.category.name_en)
+        formData.append('name_fr', this.category.name_fr)
+        formData.append('icon', this.category.icon.name)
+        this.$axios.post('/category', formData, {
+          headers: {
+            'Authorization': `Bearer ${VueCookie.get('token')}`
+          }
+        })
+          .then(response => {
+            $('#addCategoryModal form')[0].reset()
+            $('#addCategoryModal').modal('hide')
+            SweetAlert.confirm('Category successfully created', `Tag "${response.data.name_en}" was created`)
+            this.categories.push(response.data)
+          })
+          .catch(e => {
+            console.log(e.response.data)
           })
       }
     }
