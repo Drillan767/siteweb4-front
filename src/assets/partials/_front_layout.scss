@@ -195,6 +195,20 @@
     }
   }
 
+  .about {
+    .picture {
+      img {
+        width: 100%;
+      }
+    }
+
+    .text {
+
+      font-family: 'Work-sans', 'monospace';
+      color: #cbcbcb;
+    }
+  }
+
   footer {
     background-color: #020202;
     padding: 25px 0;
