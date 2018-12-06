@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-8 offset-md-2 article-new">
-    <div class="alert alert-danger" v-if="errors" role="alert">
+    <div class="alert alert-danger" v-if="errors.length > 0" role="alert">
       <span>Please fix the following problems:</span>
       <ul>
         <li v-for="(error, index) in errors" :key="index">
@@ -35,7 +35,7 @@
             slot-scope="props"
           >
             <span>
-              <i :class="props.option.category.icon"></i>
+              <i :class="props.option.icon"></i>
               {{ cleaned(props.option.name_en) }}
             </span>
           </template>
@@ -44,7 +44,7 @@
             slot-scope="props"
           >
             <span :class="props.option.class">
-              <i :class="props.option.category.icon"></i>
+              <i :class="props.option.icon"></i>
               {{ list(props.option.name_en) }}
             </span>
           </template>
@@ -153,6 +153,7 @@ export default {
 
   methods: {
     submit () {
+      this.errors = []
       this.selected = this.post.tags.map(tag => tag.id)
       let formData = new FormData()
       formData.append('title', this.post.title)

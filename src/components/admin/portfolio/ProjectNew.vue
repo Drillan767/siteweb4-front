@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-8 offset-md-2 project-new">
-    <div class="alert alert-danger" v-if="errors" role="alert">
+    <div class="alert alert-danger" v-if="errors.length > 0" role="alert">
       <span>Please fix the following problems:</span>
       <ul>
         <li v-for="(error, index) in errors" :key="index">
@@ -29,12 +29,36 @@
           track-by="name_en"
           v-model="project.tags"
         >
+          <template
+            slot="tag"
+            slot-scope="props"
+          >
+            <span>
+              <i :class="props.option.icon"></i>
+              {{ cleaned(props.option.name_en) }}
+            </span>
+          </template>
+          <template
+            slot="option"
+            slot-scope="props"
+          >
+            <span :class="props.option.class">
+              <i :class="props.option.icon"></i>
+              {{ list(props.option.name_en) }}
+            </span>
+          </template>
         </VueMultiselect>
       </div>
 
       <label>Illustration</label>
       <div class="custom-file">
-        <input type="file" :class="[fieldsInError.includes('illustration') ? 'is-invalid' : '', 'custom-file-input']" id="project_illustration" @change="filename($event.target.files[0].name)" required>
+        <input
+          type="file"
+          :class="[fieldsInError.includes('illustration') ? 'is-invalid' : '', 'custom-file-input']"
+          id="project_illustration"
+          @change="filename($event.target.files[0].name)"
+          required
+        >
         <label class="custom-file-label" for="project_illustration">{{ label ? label : 'Choose a file...' }}</label>
         <div class="invalid-feedback" v-if="fieldsInError.includes('illustration')">
           Please pick a valid image to upload
@@ -157,14 +181,14 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fab fa-github"></i></span>
           </div>
-          <input type="text" class="form-control" placeholder="Link to repository" v-model="project.website">
+          <input type="text" class="form-control" placeholder="Link to repository" v-model="project.github">
         </div>
 
         <div class="input-group col-md-6">
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-globe"></i></span>
           </div>
-          <input type="text" class="form-control" placeholder="Website's URL" v-model="project.github">
+          <input type="text" class="form-control" placeholder="Website's URL" v-model="project.website">
         </div>
       </div>
 
@@ -201,7 +225,7 @@ export default {
       images: [],
       extraImages: [],
       options: [],
-      errors: null,
+      errors: [],
       fieldsInError: [],
       label: null,
       count: 0
@@ -257,6 +281,24 @@ export default {
         })
     },
 
+    list (fa) {
+      fa = fa.replace(/(fas|far|fab) fa-/gm, '')
+      fa = fa.replace(/-/gm, ' ')
+      fa = fa.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')
+      return fa
+    },
+
+    cleaned (fa) {
+      fa = fa.replace(/(fas|far|fab) fa-/gm, '')
+      fa = fa.replace(/-/gm, ' ')
+      fa = fa.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')
+      return fa
+    },
+
     filename (file) {
       this.label = file
     },
@@ -282,6 +324,7 @@ export default {
     },
 
     submit () {
+      this.errors = []
       let formData = new FormData()
       let imagesFiles = document.getElementById('project_images').files
       this.selected = this.project.tags.map(tag => tag.id)
@@ -313,10 +356,14 @@ export default {
         }
       })
         .then(response => {
-          console.log(response)
+          if (response.status === 201) {
+            this.$router.replace(`/admin/project/${response.data.slug}?created=1`)
+          }
         })
         .catch(e => {
-          console.log(e.response)
+          e.response.data.map(error => {
+            this.errors.push(error)
+          })
         })
     }
   },

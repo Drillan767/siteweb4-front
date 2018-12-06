@@ -101,7 +101,7 @@ export default {
     this.$axios.get(`/portfolio/${this.$route.params.slug}`)
       .then(response => {
         if (response.data.draft) {
-          this.$router.replace('/portfolio')
+          this.$router.replace('/portfolio?denied=1')
         }
 
         this.project = response.data

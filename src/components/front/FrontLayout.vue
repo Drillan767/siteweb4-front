@@ -62,6 +62,7 @@
             <router-link to="/portfolio" :class="project && 'active'">{{ $t("navbar.projects") }}</router-link>
             <router-link to="/contact">{{ $t("navbar.contact") }}</router-link>
             <router-link :to="$t('links.legalNotice')">{{ $t('misc.legalNotice') }}</router-link>
+            <router-link to="/admin" v-if="logged">Admin</router-link>
           </div>
           <div class="col-md-4 social-medias">
             <a v-for="(social, index) in JSON.parse(settings.social_medias)" :href="social.url" :key="index">
@@ -101,7 +102,8 @@ export default {
       banner: true,
       display: false,
       blog: false,
-      project: false
+      project: false,
+      logged: false
     }
   },
 
@@ -117,7 +119,25 @@ export default {
     if (this.$route.path.includes('/projet/')) {
       this.project = true
     }
+
+    this.$axios.post('/logged_in', {}, {
+      headers: {
+        'Authorization': `Bearer ${VueCookie.get('token')}`
+      }
+    })
+      .then(response => {
+        if (response.data === 'ok') {
+          this.logged = true
+        }
+      })
+      .catch(e => {
+        if (e.response.status === 401) {
+          this.logged = false
+        }
+      })
   },
+
+  // http://localhost:8080/article/article-test-1
 
   methods: {
     handleLocale (locale) {

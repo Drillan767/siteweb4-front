@@ -88,19 +88,19 @@
           }
         }
       }
-      &.col-md-5{
+      &.long {
         .hovereffect {
           h2 {
-            transform: translateY(150px);
+            transform: translateY(80px);
           }
           a.info {
-            margin: 38px auto;
-            padding: 16% 37%;
+            margin: -30px auto;
+            padding: 15.5% 37%;
           }
 
           &:hover {
             h2 {
-              transform: translateY(100px);
+              transform: translateY(30px);
             }
           }
         }

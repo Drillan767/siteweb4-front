@@ -5,17 +5,13 @@
         <i class="fas fa-plus"></i>
         Add a new tag
       </button>
-      <button class="btn btn-outline-primary mb-2" @click="handleAddCategory">
-        <i class="fas fa-plus"></i>
-        Add a new category
-      </button>
       <label class="sr-only" for="search">Name</label>
       <input type="text" class="form-control mb-2 mr-sm-2" id="search" v-model="search" placeholder="Search...">
     </div>
     <div class="col-sm-12 row" v-for="(tag, index) in filteredList" :key="index">
       <div class="col-sm-8">
         <h4>
-          <i :class="tag.category.icon"></i>
+          <i :class="tag.icon"></i>
           {{tag.name_en}}
           <small v-if="tag.name_en !== tag.name_fr">
             / {{ tag.name_fr }}
@@ -55,30 +51,36 @@
                 <input type="text" class="form-control" id="name_fr" v-model="tag.name_fr" placeholder="French translation">
               </div>
               <div class="form-group">
-                <label>Category</label>
+                <label>Icon</label>
                 <vue-multiselect
-                  :options="categories"
-                  v-model="tag.category"
+                  :options="fa"
                   :close-on-select="true"
-                  label="name_en"
-                  track-by="name_en"
+                  v-model="tag.icon"
+                  :group-select="true"
+                  group-label="category"
+                  group-values="icons"
+                  track-by="name"
+                  label="name"
                 >
                   <template
                     slot="singleLabel"
                     slot-scope="props"
                   >
                   <span>
-                    <i :class="props.option.icon"></i>
-                    {{ cleaned(props.option.name_en) }}
+                    <i :class="props.option.name"></i>
+                    {{ cleaned(props.option.name) }}
                   </span>
                   </template>
                   <template
                     slot="option"
                     slot-scope="props"
                   >
-                    <span :class="props.option.class">
-                    <i :class="props.option.icon"></i>
-                    {{ list(props.option.name_en) }}
+                  <span v-if="props.option.$isLabel">
+                    {{ props.option.$groupLabel }}
+                  </span>
+                    <span :class="props.option.class" v-else>
+                    <i :class="props.option.name"></i>
+                    {{ list(props.option.name) }}
                   </span>
                   </template>
                 </vue-multiselect>
@@ -121,75 +123,11 @@
                 <input type="text" class="form-control" id="e_name_fr" v-model="tag.name_fr" placeholder="French translation">
               </div>
               <div class="form-group">
-                <label>Category</label>
-                <vue-multiselect
-                :options="categories"
-                v-model="tag.category"
-                :close-on-select="true"
-                label="name_en"
-                track-by="name_en"
-                >
-                  <template
-                    slot="singleLabel"
-                    slot-scope="props"
-                  >
-                  <span>
-                    <i :class="props.option.icon"></i>
-                    {{ cleaned(props.option.name_en) }}
-                  </span>
-                  </template>
-                  <template
-                    slot="option"
-                    slot-scope="props"
-                  >
-                    <span :class="props.option.class">
-                    <i :class="props.option.icon"></i>
-                    {{ list(props.option.name_en) }}
-                  </span>
-                  </template>
-                </vue-multiselect>
-              </div>
-              <div class="form-group">
-                <label for="description_en">Description in english</label>
-                <textarea class="form-control" placeholder="Description in english" id="description_en" rows="3" v-model="tag.description_en"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="description_fr">Description in french</label>
-                <textarea class="form-control" placeholder="Description in french" id="description_fr" rows="3" v-model="tag.description_fr"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-outline-primary" @click="submitTag(null)">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="addCategoryModal" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add a new tag</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form @submit.prevent="submitCategory">
-              <div class="form-group">
-                <label for="cat_name_en">Name (en)</label>
-                <input type="text" id="cat_name_en" class="form-control" v-model="category.name_en">
-              </div>
-              <div class="form-group">
-                <label for="cat_name_fr">Name (fr)</label>
-                <input type="text" id="cat_name_fr" class="form-control" v-model="category.name_fr">
-              </div>
-              <div class="form-group">
+                <label>Icon</label>
                 <vue-multiselect
                   :options="fa"
                   :close-on-select="true"
-                  v-model="category.icon"
+                  v-model="tag.icon"
                   :group-select="true"
                   group-label="category"
                   group-values="icons"
@@ -219,11 +157,19 @@
                   </template>
                 </vue-multiselect>
               </div>
+              <div class="form-group">
+                <label for="description_en">Description in english</label>
+                <textarea class="form-control" placeholder="Description in english" id="description_en" rows="3" v-model="tag.description_en"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="description_fr">Description in french</label>
+                <textarea class="form-control" placeholder="Description in french" id="description_fr" rows="3" v-model="tag.description_fr"></textarea>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-outline-primary" @click="submitCategory(null)">Save</button>
+            <button type="button" class="btn btn-outline-primary" @click="submitTag(null)">Save</button>
           </div>
         </div>
       </div>
@@ -241,12 +187,6 @@ export default {
   data () {
     return {
       tags: [],
-      categories: [],
-      category: {
-        name_en: '',
-        name_fr: '',
-        category_id: 0
-      },
       tag: {
         name_en: '',
         name_fr: '',
@@ -264,13 +204,7 @@ export default {
         this.tags = response.data
       })
       .catch(e => console.log(e.response))
-    this.$axios.get('/categories')
-      .then(response => {
-        this.categories = response.data
-      })
-      .catch(e => {
-        console.log(e.response.data)
-      })
+
     this.$parent.setTitle('Tag management')
     this.fa = FA
   },
@@ -288,10 +222,6 @@ export default {
 
     handleAddTag () {
       $('#addTagModal').modal()
-    },
-
-    handleAddCategory () {
-      $('#addCategoryModal').modal()
     },
 
     handleEdit (tag) {
@@ -323,9 +253,9 @@ export default {
       let formData = new FormData()
       formData.append('name_en', this.tag.name_en)
       formData.append('name_fr', this.tag.name_fr)
+      formData.append('icon', this.tag.icon.name)
       formData.append('description_en', this.tag.description_en)
       formData.append('description_fr', this.tag.description_fr)
-      formData.append('category_id', this.tag.category.id)
 
       if (!Number.isInteger(id)) {
         this.$axios.post('/tag', formData, {
@@ -356,29 +286,6 @@ export default {
                 return response.data
               }
             })
-          })
-      }
-    },
-
-    submitCategory (id = null) {
-      if (!Number.isInteger(id)) {
-        let formData = new FormData()
-        formData.append('name_en', this.category.name_en)
-        formData.append('name_fr', this.category.name_fr)
-        formData.append('icon', this.category.icon.name)
-        this.$axios.post('/category', formData, {
-          headers: {
-            'Authorization': `Bearer ${VueCookie.get('token')}`
-          }
-        })
-          .then(response => {
-            $('#addCategoryModal form')[0].reset()
-            $('#addCategoryModal').modal('hide')
-            SweetAlert.confirm('Category successfully created', `Tag "${response.data.name_en}" was created`)
-            this.categories.push(response.data)
-          })
-          .catch(e => {
-            console.log(e.response.data)
           })
       }
     }

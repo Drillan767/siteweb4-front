@@ -6,9 +6,10 @@
 
 * Responsive
 * Show / Edit / Delete a project
-* Article and project's illustration must have a thumbnail version
 * Day mode, handle cookie for that too
 * Mobile app for dashboard
-* Fix edition / deletion animation when done in admin
 * Related content (Article)
 * Dashboard
+* Add link to get to Admin from front
+* Add login verification when reaching draft content + small message
+* Update the FontAwesome icon list

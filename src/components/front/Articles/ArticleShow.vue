@@ -16,7 +16,7 @@
           class="tag"
         >
             <span class="tag-body">
-            <i :class="tag.category.icon"></i>
+            <i :class="tag.icon"></i>
             {{ tag[`name_${$i18n.locale}`] }}
           </span>
         </router-link>
@@ -80,6 +80,10 @@ export default {
           this.$router.replace('/404')
         }
         this.article = response.data
+
+        if (this.$parent.logged === false && this.article.draft) {
+          this.$router.replace('/blog?denied=1')
+        }
 
         this.$parent.setTitle(this.article.title)
         this.$parent.setBackground(this.$parent.settings.article_bg)

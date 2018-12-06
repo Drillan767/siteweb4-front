@@ -9,6 +9,9 @@
           </li>
         </ul>
       </div>
+      <div class="ok" v-if="success">
+        <p>Global settings successfully saved.</p>
+      </div>
       <form @submit.prevent="submit">
         <div class="form-group row">
 
@@ -97,6 +100,7 @@ export default {
         dark_mode: true
       },
       errors: null,
+      success: false,
       social_medias: [],
       icons: null
     }
@@ -141,7 +145,7 @@ export default {
         }
       })
         .then(response => {
-          console.log(response)
+          this.success = true
         })
         .catch(e => {
           console.log(e.response)

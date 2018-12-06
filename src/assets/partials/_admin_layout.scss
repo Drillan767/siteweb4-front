@@ -122,6 +122,33 @@
     padding-left: 30px !important;
   }
 
+  .ok {
+    background: #003a00;
+
+    p {
+      padding: 14px;
+      color: #fff;
+    }
+  }
+
+  .multiselect__tags {
+    input#tags {
+      background: none
+    }
+    background: none;
+    .multiselect__tags-wrap span {
+      background: #266bb5;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 10px;
+      margin-right: 6px;
+
+      &:hover {
+        background: #105094;
+      }
+    }
+  }
+
 /* ---------------------------------------------------
                   CONTENT STYLE
 ----------------------------------------------------- */

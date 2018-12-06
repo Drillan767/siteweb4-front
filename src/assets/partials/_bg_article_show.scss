@@ -1,4 +1,4 @@
-.bg-article-show {
+.bg-article-show, .project-show {
   h1 {
     width: 100%;
   }
@@ -37,7 +37,7 @@
   }
 
   .img-preview {
-    height: 200px;
+    height: 300px;
     overflow: hidden;
     img {
       margin-top: -25%;
@@ -46,5 +46,17 @@
 
   .content-preview {
     margin-top: 30px;
+  }
+}
+
+.project-show {
+  .extra {
+    .images {
+      .image {
+        img {
+          width: 100%;
+        }
+      }
+    }
   }
 }

@@ -27,7 +27,8 @@
             :to="`/tag/${tag.slug}`"
             class="badge badge-secondary"
           >
-            {{ tag.name }}
+            <i :class="tag.icon"></i>
+            {{ tag.name_en }}
           </router-link>
         </div>
       </div>
@@ -95,10 +96,6 @@ export default {
     toHTML () {
       return marked(this.post.content, {sanitized: true})
     }
-  },
-
-  beforeCreate () {
-    this.$parent.setTitle(this.article.title)
   }
 }
 </script>

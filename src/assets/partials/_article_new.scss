@@ -15,24 +15,6 @@
     }
   }
 
-  .multiselect__tags {
-    input#tags {
-      background: none
-    }
-    background: none;
-    .multiselect__tags-wrap span {
-      background: #266bb5;
-      color: #fff;
-      padding: 3px 10px;
-      border-radius: 10px;
-      margin-right: 6px;
-
-      &:hover {
-        background: #105094;
-      }
-    }
-  }
-
   textarea {
     margin-top: 20px;
   }

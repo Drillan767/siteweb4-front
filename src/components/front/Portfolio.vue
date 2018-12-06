@@ -3,6 +3,9 @@
     <div class="header">
       <h1>Portfolio</h1>
     </div>
+    <div class="warning" v-if="denied">
+      <p>{{ $t('misc.denied') }}</p>
+    </div>
     <p class="filter">
       <span @click="selected = 'all'" :class="[selected === 'all' ? 'active' : '']">{{ $t('misc.all') }} </span>
       <span
@@ -14,9 +17,9 @@
     </span>
     </p>
     <isotope class="projects" :options="options" :list="filteredProjects">
-      <div :class="['project', addClass(index)]" v-for="(project, index) in filteredProjects" :key="index">
+      <div :class="['project', index % 5 === 0 && index !== 0 && 'long']" v-for="(project, index) in filteredProjects" :key="index">
         <div class="hovereffect">
-          <img :src="project.illustration" class="img-responsive"/>
+          <img :src="getThumbnail(index, project)" class="img-responsive"/>
           <div class="overlay">
             <h2>{{ project.title }}</h2>
             <router-link class="info" :to="`${$t('project.simple')}/${project.slug}`">{{ $t('project.see') }}</router-link>
@@ -29,7 +32,6 @@
 
 <script>
 import isotope from 'vueisotope'
-// import moment from 'moment'
 export default {
   components: {isotope},
   data () {
@@ -39,6 +41,7 @@ export default {
       tags: [],
       ids: [],
       selected: 'all',
+      denied: false,
       options: {
         itemSelector: 'projects',
         layoutMode: 'fitRows',
@@ -70,17 +73,19 @@ export default {
       .catch(e => {
         console.log(e.response)
       })
+    if (window.location.search.includes('denied')) {
+      this.denied = true
+    }
   },
 
   methods: {
-    addClass (index) {
-      let response = ''
-      if (index % 5 === 0) {
-        response += ' col-md-5'
+    getThumbnail (index, project) {
+      let thumbnail = JSON.parse(project.thumbnail)
+      if (index !== 0 && index % 5 === 0) {
+        return thumbnail.wide
       } else {
-        response += ' col-md-3'
+        return thumbnail.small
       }
-      return response
     }
   },
 

@@ -37,8 +37,8 @@
   .posts {
     .post {
       text-align: center;
-      width: calc(100% / 3);
-      height: calc(80vh / 2);
+      width: 370px;
+      height: 320px;
       float: left;
       z-index: 1;
       position: relative;
@@ -62,7 +62,7 @@
         z-index: -1;
         background-position: center;
         background-size: cover;
-        opacity: .5;
+        opacity: .8;
         transition: .5s opacity;
       }
       &-content {

@@ -207,6 +207,33 @@
       font-family: 'Work-sans', 'monospace';
       color: #cbcbcb;
     }
+
+    .social-medias {
+      flex: 0 0 100%;
+      max-width: 100%;
+      display: flex;
+      font-size: 25px;
+      justify-content: space-evenly;
+      padding: 20px 0;
+
+      a {
+        transition: color 0.5s ease-in-out;
+
+        &:hover {
+          color: $purple;
+        }
+      }
+    }
+  }
+
+  .legal-notice {
+    h1 {
+      margin: 30px 0;
+    }
+    p {
+      font-family: 'Work-sans', 'monospace';
+      color: #cbcbcb;
+    }
   }
 
   footer {
@@ -269,9 +296,9 @@
 
     .social-medias {
       display: flex;
-      flex-direction: column;
-      text-align: right;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: space-evenly;
+      font-size: 25px;
 
 
       a {
@@ -285,6 +312,15 @@
 
     .copyright {
       margin-top: 15px;
+    }
+  }
+
+  .warning {
+    background: #c58000;
+
+    p {
+      padding: 14px;
+      color: #fff;
     }
   }
 

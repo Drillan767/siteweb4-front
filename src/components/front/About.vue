@@ -8,6 +8,16 @@
         <img :src="$parent.user.profile_pic" alt="">
       </div>
       <div class="col-md-8 text" v-html="translate"></div>
+      <div class="col-md-12 social-medias">
+        <a
+          v-for="(sm, index) in JSON.parse(this.$parent.settings.social_medias)"
+          :key="index"
+          target="_blank"
+          :href="sm.url"
+        >
+          <i :class="sm.icon.name"></i>
+        </a>
+      </div>
     </div>
   </div>
 </template>

@@ -30,6 +30,24 @@
           track-by="name"
           v-model="post.tags"
         >
+          <template
+            slot="tag"
+            slot-scope="props"
+          >
+            <span>
+              <i :class="props.option.category.icon"></i>
+              {{ cleaned(props.option.name_en) }}
+            </span>
+          </template>
+          <template
+            slot="option"
+            slot-scope="props"
+          >
+            <span :class="props.option.class">
+              <i :class="props.option.category.icon"></i>
+              {{ list(props.option.name_en) }}
+            </span>
+          </template>
         </VueMultiselect>
       </div>
 
@@ -193,6 +211,24 @@ export default {
       })
     },
 
+    list (fa) {
+      fa = fa.replace(/(fas|far|fab) fa-/gm, '')
+      fa = fa.replace(/-/gm, ' ')
+      fa = fa.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')
+      return fa
+    },
+
+    cleaned (fa) {
+      fa = fa.replace(/(fas|far|fab) fa-/gm, '')
+      fa = fa.replace(/-/gm, ' ')
+      fa = fa.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')
+      return fa
+    },
+
     filename (file) {
       this.label = file
     }
@@ -205,14 +241,11 @@ export default {
   },
 
   mounted () {
-    // Retrieving all the tags
-
     this.$axios.get('/tags')
       .then(response => {
         this.tags = response.data
       })
 
-    // Getting the current article's informations
     this.$axios.get(`/post/${this.$route.params.slug}`)
       .then(response => {
         // console.log(response)

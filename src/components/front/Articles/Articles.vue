@@ -3,6 +3,9 @@
   <div class="header">
     <h1>Blog</h1>
   </div>
+  <div class="warning" v-if="denied">
+    <p>{{ $t('misc.denied') }}</p>
+  </div>
   <p class="filter">
     <span @click="selected = 'all'" :class="[selected === 'all' ? 'active' : '']">{{ $t('misc.all') }} </span>
     <span
@@ -15,7 +18,7 @@
   </p>
   <isotope class="posts" ref="cpt" :list="filteredArticles" :options="option">
     <div class="post" v-for="(article, index) in filteredArticles" :key="index">
-      <div class="post-bg" :style="{ backgroundImage: `url(${article.illustration})` }"></div>
+      <img :src="`${article.thumbnail}`" alt="" class="post-bg">
       <div class="post-content">
         <p class="post-content-date">
           {{ dateFormat(article.created_at) }}
@@ -49,6 +52,7 @@ export default {
       page: 2,
       loading: false,
       incomplete: true,
+      denied: false,
       option: {
         itemSelector: 'posts',
         getSortData: {
@@ -61,7 +65,9 @@ export default {
 
   mounted () {
     this.$parent.setTitle('Blog')
-    this.$parent.setBackground(this.$parent.settings.article_bg)
+    if (window.location.search.includes('denied')) {
+      this.denied = true
+    }
 
     this.$axios.post('post/infinite', {page: 1, limit: 6})
       .then(response => {
