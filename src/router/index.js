@@ -15,6 +15,7 @@ import ShowTag from '../components/front/ShowTag'
 import AdminLayout from '../components/admin/AdminLayout'
 import Tags from '../components/admin/Tags'
 import Dashboard from '../components/admin/Dashboard'
+import Messages from '../components/admin/Messages'
 import ArticlesList from '../components/admin/articles/Articles'
 import BOArticle from '../components/admin/articles/Article'
 import ArticleNew from '../components/admin/articles/ArticleNew'
@@ -103,6 +104,17 @@ export default new Router({
           meta: {
             title: 'Dashboard',
             breadcrumb: []
+          }
+        },
+        {
+          name: 'Messages',
+          path: 'messages',
+          component: Messages,
+          meta: {
+            title: 'Messages',
+            breadcrumb: [
+              'Dashboard'
+            ]
           }
         },
         {

@@ -16,6 +16,12 @@
               </router-link>
             </li>
             <li>
+              <router-link to="/admin/messages">
+                <i class="fas fa-comment-alt"></i>
+                Messages
+              </router-link>
+            </li>
+            <li>
               <router-link to="/">
                 <i class="fas fa-home"></i>
                 Back to website

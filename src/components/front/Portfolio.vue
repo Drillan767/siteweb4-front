@@ -17,7 +17,7 @@
     </span>
     </p>
     <isotope class="projects" :options="options" :list="filteredProjects">
-      <div :class="['project', index % 5 === 0 && index !== 0 && 'long']" v-for="(project, index) in filteredProjects" :key="index">
+      <div :class="['project', index % 5 === 0 && index !== 0 && 'long']" v-for="(project, index) in filteredProjects" :key="index" v-if="project.draft === 0">
         <div class="hovereffect">
           <img :src="getThumbnail(index, project)" class="img-responsive"/>
           <div class="overlay">

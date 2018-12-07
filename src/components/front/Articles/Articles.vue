@@ -17,7 +17,7 @@
     </span>
   </p>
   <isotope class="posts" ref="cpt" :list="filteredArticles" :options="option">
-    <div class="post" v-for="(article, index) in filteredArticles" :key="index">
+    <div class="post" v-for="(article, index) in filteredArticles" :key="index" v-if="article.draft === 0">
       <img :src="`${article.thumbnail}`" alt="" class="post-bg">
       <div class="post-content">
         <p class="post-content-date">
