@@ -160,6 +160,7 @@ export default {
   beforeCreate () {
     this.$axios.get('/settings')
       .then(response => {
+        console.log(response.data)
         this.user = response.data.user
         this.settings = response.data.settings
         this.display = true

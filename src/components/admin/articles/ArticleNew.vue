@@ -145,7 +145,7 @@ export default {
       selected: [],
       tags: [],
       options: [],
-      errors: null,
+      errors: [],
       fieldsInError: [],
       label: null
     }

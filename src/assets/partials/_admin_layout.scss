@@ -81,7 +81,7 @@
           &.logout {
             cursor: pointer;
           }
-          
+
           a {
             padding: 8px;
             font-size: 1.1em;
@@ -132,10 +132,13 @@
   }
 
   .multiselect__tags {
-    input#tags {
-      background: none
-    }
     background: none;
+
+    span, input {
+      background: none;
+      color: #fff;
+    }
+
     .multiselect__tags-wrap span {
       background: #266bb5;
       color: #fff;
