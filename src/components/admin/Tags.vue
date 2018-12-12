@@ -221,6 +221,12 @@ export default {
     },
 
     handleAddTag () {
+      this.tag = {
+        name_en: '',
+        name_fr: '',
+        description_en: '',
+        description_fr: ''
+      }
       $('#addTagModal').modal()
     },
 

@@ -1,5 +1,11 @@
 <template>
   <div class="bg-article-show">
+    <div class="ok" v-if="created">
+      <p>Article successfully created</p>
+    </div>
+    <div class="ok" v-else-if="updated">
+      <p>Article successfully updated</p>
+    </div>
     <div class="row">
       <div class="row col-md-8 status">
         <span v-if="post.draft" class="badge badge-secondary">Draft</span>
@@ -57,7 +63,9 @@ export default {
       },
       errors: null,
       fieldsInError: [],
-      label: null
+      label: null,
+      created: false,
+      updated: false
     }
   },
 
@@ -73,6 +81,11 @@ export default {
       .catch(e => {
         console.log(e.response)
       })
+    if (window.location.search.substr(1).includes('created')) {
+      this.created = true
+    } else if (window.location.search.substr(1).includes('updated')) {
+      this.updated = true
+    }
   },
 
   methods: {

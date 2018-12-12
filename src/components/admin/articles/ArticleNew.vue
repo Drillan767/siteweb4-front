@@ -168,7 +168,7 @@ export default {
         }
       })
         .then(response => {
-          this.$router.replace(`/admin/article/${response.data.slug}`)
+          this.$router.replace(`/admin/article/${response.data.slug}?created=1`)
         })
         .catch(e => {
           console.log(e)

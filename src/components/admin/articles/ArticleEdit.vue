@@ -35,7 +35,7 @@
             slot-scope="props"
           >
             <span>
-              <i :class="props.option.category.icon"></i>
+              <i :class="props.option.icon"></i>
               {{ cleaned(props.option.name_en) }}
             </span>
           </template>
@@ -44,7 +44,7 @@
             slot-scope="props"
           >
             <span :class="props.option.class">
-              <i :class="props.option.category.icon"></i>
+              <i :class="props.option.icon"></i>
               {{ list(props.option.name_en) }}
             </span>
           </template>
@@ -184,7 +184,7 @@ export default {
         }
       })
         .then(response => {
-          this.$router.replace(`/admin/article/${response.data.slug}`)
+          this.$router.replace(`/admin/article/${response.data.slug}?updated=1`)
         })
         .catch(e => {
           console.log(e)
@@ -248,12 +248,11 @@ export default {
 
     this.$axios.get(`/post/${this.$route.params.slug}`)
       .then(response => {
-        // console.log(response)
         if (response.status === 204) {
           this.$router.replace('/404')
         }
         this.post = response.data
-        this.$parent.setTitle(`Edit ${this.post.title}`)
+        this.$parent.setTitle(`Editing "${this.post.title}"`)
         this.post.tags.map(tag => {
           this.preset.push(tag.id)
         })
@@ -261,10 +260,6 @@ export default {
       .catch(e => {
         console.log(e.response)
       })
-  },
-
-  beforeCreate () {
-    this.$parent.setTitle(`Edit ${this.article.title}`)
   }
 }
 </script>

@@ -1,5 +1,13 @@
 <template>
   <div class="articles">
+    <div class="col-md-12 text-right">
+      <router-link
+        to="/admin/article/new"
+        class="btn btn-outline-primary">
+        <i class="fas fa-plus"></i>
+        Add an article
+      </router-link>
+    </div>
     <table class="table table-hover">
       <thead>
         <tr>

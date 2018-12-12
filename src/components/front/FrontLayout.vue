@@ -70,7 +70,11 @@
             </a>
           </div>
           <div class="col-md-12 text-center copyright">
-            <p>&copy; {{ settings.website_name }} - {{ new Date().getFullYear() }}</p>
+            <p>
+              &copy; {{ settings.website_name }} -
+              {{ new Date().getFullYear() }} |
+              <router-link to="/admin">Login</router-link>
+            </p>
           </div>
         </div>
       </div>

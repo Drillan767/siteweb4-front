@@ -1,6 +1,9 @@
 .projects {
-  table {
+  .text-right {
+    margin: 20px 0;
+  }
 
+  table {
     table-layout: fixed;
 
     thead tr th {
