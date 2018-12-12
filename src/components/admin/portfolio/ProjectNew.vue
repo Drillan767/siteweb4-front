@@ -118,12 +118,11 @@
           >
             <div class="form-group">
               <label for="extra_upload" hidden>Example file input</label>
-              <input
-                type="file"
-                class="form-control-file"
-                id="extra_upload"
-                @change="upload($event)"
-              >
+              <div class="upload-btn-wrapper">
+                <button class="btn-upload">Upload a file</button>
+                <input type="file" id="extra_upload"
+                       @change="upload($event)" />
+              </div>
             </div>
             <div class="upload-list">
               <button
@@ -132,10 +131,8 @@
                 :key="index"
                 type="button"
                 class="btn btn-secondary uploaded"
-                data-container="body"
-                data-toggle="popover"
-                data-placement="bottom"
-                data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                title="click to copy"
+              >
                 {{ image.split(/[\\/]/).pop() }}
               </button>
             </div>

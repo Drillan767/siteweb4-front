@@ -1,4 +1,41 @@
 .project-new, .project-edit {
+
+  #nav-upload  {
+    .form-group {
+      text-align: center;
+      padding: 20px;
+
+      .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+
+        input[type=file] {
+          font-size: 100px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+        }
+      }
+
+      .btn-upload {
+        border: 2px solid $purple;
+        color: $purple;
+        background: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
+    .upload-list button {
+      margin-right: 10px;
+    }
+  }
+
   .result {
     img {
       width: 100%;
@@ -13,6 +50,5 @@
         width: 100%;
       }
     }
-
   }
 }
