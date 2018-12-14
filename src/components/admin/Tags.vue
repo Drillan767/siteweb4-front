@@ -199,6 +199,7 @@ export default {
   },
 
   mounted () {
+    this.$parent.setBreadcrumb(['Dashboard', 'Tags'])
     this.$axios.get('/tags')
       .then(response => {
         this.tags = response.data

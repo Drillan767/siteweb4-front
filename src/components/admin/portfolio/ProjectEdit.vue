@@ -223,6 +223,7 @@ export default {
       .then(response => {
         this.project = response.data
         this.$parent.setTitle(`Editing "${this.project.title}"`)
+        this.$parent.setBreadcrumb(['Dashboard', 'Portfolio', this.project.title])
       })
       .catch(e => {
         console.log(e.response.data)

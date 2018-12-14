@@ -242,6 +242,7 @@ export default {
           this.options.push({id: tag.id, name: tag.name_en})
         })
       })
+    this.$parent.setBreadcrumb(['Dashboard', 'Portfolio', 'New project'])
   },
 
   methods: {

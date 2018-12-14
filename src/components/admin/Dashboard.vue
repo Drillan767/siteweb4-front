@@ -122,13 +122,13 @@ export default {
   },
 
   mounted () {
+    this.$parent.setBreadcrumb('Dashboard')
     this.$axios.post('/all', {}, {
       headers: {
         'Authorization': `Bearer ${VueCookie.get('token')}`
       }
     })
       .then(response => {
-        console.log(response.data)
         const { articles, projects, comments, messages } = response.data
         this.articles = articles
         this.projects = projects

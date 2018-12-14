@@ -154,6 +154,7 @@ export default {
   },
 
   mounted () {
+    this.$parent.setBreadcrumb(['Dashboard', 'Settings'])
     this.$axios.get('/admin_settings', {
       headers: {
         'Authorization': `Bearer ${VueCookie.get('token')}`

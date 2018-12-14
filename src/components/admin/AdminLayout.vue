@@ -116,12 +116,12 @@
               <ol class="breadcrumb">
                 <li
                   class="breadcrumb-item"
-                  v-for="(element, index) in this.$route.meta.breadcrumb"
+                  v-for="(element, index) in breadcrumb"
                   :key="index"
-                  :class="[index === last ? 'active' : '']"
+                  :class="[(index + 1) === breadcrumb.length ? 'active' : '']"
                 >
-                  <router-link v-if="index !== last" :to="{name: element}">{{ element }}</router-link>
-                  <a v-else>{{ element }}</a>
+                  <a v-if="(index + 1) === breadcrumb.length">{{ element }}</a>
+                  <router-link v-else :to="{name: element}">{{ element }}</router-link>
                 </li>
               </ol>
             </nav>
@@ -145,7 +145,7 @@ export default {
       transitionName: null,
       logged: null,
       pageTitle: 'Dashboard',
-      breadcrumb: []
+      breadcrumb: ['Dashboard', 'Portfolio', 'This incredible website']
     }
   },
 
@@ -176,8 +176,18 @@ export default {
 
     setTitle (value) {
       document.title = `Administration | ${value}`
-      this.$route.meta.breadcrumb.splice(-1, 1).push(value)
       this.pageTitle = value
+    },
+
+    setBreadcrumb (elements) {
+      this.breadcrumb = []
+      if (Array.isArray(elements)) {
+        elements.map(element => {
+          this.breadcrumb.push(element)
+        })
+      } else {
+        this.breadcrumb.push(elements)
+      }
     }
   },
 
@@ -186,12 +196,6 @@ export default {
       $('#sidebar').toggleClass('active')
       $(this).toggleClass('active')
     })
-  },
-
-  computed: {
-    last () {
-      return Object.keys(this.$route.meta.breadcrumb).length - 1
-    }
   }
 }
 </script>

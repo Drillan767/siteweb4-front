@@ -253,6 +253,7 @@ export default {
         }
         this.post = response.data
         this.$parent.setTitle(`Editing "${this.post.title}"`)
+        this.$parent.setBreadcrumb(['Dashboard', 'All articles', this.post.title])
         this.post.tags.map(tag => {
           this.preset.push(tag.id)
         })

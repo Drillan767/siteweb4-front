@@ -82,7 +82,6 @@ export default {
       } else {
         if (this.errors.length === 0) {
           this.comment.post_id = this.post_id
-          console.log(this.comment)
           this.$axios.post('comment', this.comment)
             .then(response => {
               this.success = true

@@ -203,6 +203,7 @@ import moment from 'moment'
 export default {
   components: {DatePicker},
   mounted () {
+    this.$parent.setBreadcrumb(['Dashboard', 'User settings'])
     this.$axios.get('/user')
       .then(response => {
         this.user = response.data

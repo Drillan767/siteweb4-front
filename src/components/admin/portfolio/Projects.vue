@@ -53,6 +53,7 @@ export default {
     this.$axios.get('/portfolio')
       .then(response => {
         this.projects = response.data
+        this.$parent.setBreadcrumb(['Dashboard', 'Portfolio'])
       })
       .catch(e => {
         console.log(e.response)
@@ -73,6 +74,8 @@ export default {
           this.projects = this.projects.map((project, index) => {
             if (project.id === id) {
               return response.data
+            } else {
+              return project
             }
           })
         })

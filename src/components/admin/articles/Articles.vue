@@ -23,12 +23,12 @@
         <tr v-for="(post, index) in posts" :key="index">
           <td><router-link :to="`/admin/article/${ post.slug }`">{{ post.title }}</router-link></td>
           <td>{{ post.lang === 'fr' ? 'Français' : 'English' }}</td>
-          <td>{{ post.draft ? 'Published' : 'Draft' }}</td>
+          <td>{{ !!post.draft ? 'Draft' : 'Published' }}</td>
           <td>{{ formatDate(post.created_at) }}</td>
           <td>{{ formatDate(post.updated_at) }}</td>
           <td>
             <div class="actions">
-              <span @click="handlePublish(post.id)">{{ post.draft ? 'Unpublish' : 'Publish' }}</span>
+              <span @click="handlePublish(post.id)">{{ !!post.draft ? 'Publish' : 'Unpublish' }}</span>
               |
               <router-link :to="`/admin/article/edit/${post.slug}`">Edit</router-link>
               |
@@ -56,6 +56,7 @@ export default {
     this.$axios.get('/posts')
       .then(response => {
         this.posts = response.data
+        this.$parent.setBreadcrumb(['Dashboard', 'All articles'])
       })
       .catch(e => console.log(e.response))
     this.$parent.setTitle('All articles')
@@ -75,6 +76,8 @@ export default {
           this.posts = this.posts.map((post, index) => {
             if (post.id === id) {
               return response.data
+            } else {
+              return post
             }
           })
         })

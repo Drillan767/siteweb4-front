@@ -100,160 +100,72 @@ export default new Router({
         {
           name: 'Dashboard',
           path: '',
-          component: Dashboard,
-          meta: {
-            title: 'Dashboard',
-            breadcrumb: []
-          }
+          component: Dashboard
         },
         {
           name: 'Messages',
           path: 'messages',
-          component: Messages,
-          meta: {
-            title: 'Messages',
-            breadcrumb: [
-              'Dashboard'
-            ]
-          }
+          component: Messages
         },
         {
           name: 'All articles',
           path: 'articles',
-          component: ArticlesList,
-          meta: {
-            title: 'All articles',
-            breadcrumb: [
-              'Dashboard',
-              'All articles'
-            ]
-          }
+          component: ArticlesList
         },
         {
           name: 'New Article',
           path: 'article/new',
-          component: ArticleNew,
-          meta: {
-            title: 'New article',
-            breadcrumb: [
-              'Dashboard',
-              'All articles'
-            ]
-          }
+          component: ArticleNew
         },
         {
           name: 'Edit Article',
           path: 'article/edit/:slug',
-          component: ArticleEdit,
-          meta: {
-            breadcrumb: [
-              'Dashboard',
-              'All articles',
-              'Edit article'
-            ]
-          }
+          component: ArticleEdit
         },
         {
           name: 'Show Article',
           path: 'article/:slug',
-          component: BOArticle,
-          meta: {
-            breadcrumb: [
-              'Dashboard',
-              'All articles'
-            ]
-          }
+          component: BOArticle
         },
         {
           name: 'All comments',
           path: 'comments',
-          component: Comments,
-          meta: {
-            breadcrumb: [
-              'Dashboard'
-            ]
-          }
+          component: Comments
         },
         {
           name: 'Portfolio',
           path: 'portfolio',
-          component: Projects,
-          meta: {
-            breadcrumb: [
-              'Dashboard',
-              'Portfolio'
-            ]
-          }
+          component: Projects
         },
         {
           name: 'New project',
           path: 'project/new',
-          component: ProjectNew,
-          meta: {
-            breadcrumb: [
-              'Dashboard',
-              'Portfolio',
-              'New project'
-            ]
-          }
+          component: ProjectNew
         },
         {
           name: 'Show Project',
           path: 'project/:slug',
-          component: ProjectShow,
-          meta: {
-            breadcrumb: [
-              'Dashboard',
-              'Portfolio'
-            ]
-          }
+          component: ProjectShow
         },
         {
           name: 'Edit Project',
           path: 'project/edit/:slug',
-          component: ProjectEdit,
-          meta: {
-            breadcrumb: [
-              'Dashboard',
-              'Portfolio'
-            ]
-          }
+          component: ProjectEdit
         },
         {
           name: 'Edit settings',
           path: 'settings',
-          component: EditSettings,
-          meta: {
-            title: 'Edit settings',
-            breadcrumb: [
-              'Dashboard',
-              'Settings'
-            ]
-          }
+          component: EditSettings
         },
         {
           name: 'User settings',
           path: 'user/settings',
-          component: UserSettings,
-          meta: {
-            title: 'User settings',
-            breadcrumb: [
-              'Dashboard',
-              'User settings'
-            ]
-          }
+          component: UserSettings
         },
         {
           name: 'Tags',
           path: 'tags',
-          component: Tags,
-          meta: {
-            title: 'Tag list',
-            breadcrumb: [
-              'Dashboard',
-              'Tags'
-            ]
-          }
+          component: Tags
         }
       ]
     },

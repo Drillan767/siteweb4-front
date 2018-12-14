@@ -77,6 +77,7 @@ export default {
         }
         this.post = response.data
         this.$parent.setTitle(this.post.title)
+        this.$parent.setBreadcrumb(['Dashboard', 'All articles', this.post.title])
       })
       .catch(e => {
         console.log(e.response)

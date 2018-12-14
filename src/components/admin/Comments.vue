@@ -138,6 +138,7 @@ export default {
     this.$axios.get('/all_comments')
       .then(response => {
         this.comments = response.data
+        this.$parent.setBreadcrumb(['Dashboard', 'All articles', 'Comments'])
       })
       .catch(e => {
         console.log(e.response)
