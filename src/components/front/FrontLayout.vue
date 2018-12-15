@@ -8,9 +8,19 @@
             {{ settings.website_name }}
           </span>
         </router-link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="hamburger d-lg-none d-xl-none
+"
+             @click="toggleBurger"
+             data-toggle="collapse"
+             data-target="#navbarText"
+             aria-controls="navbarText"
+             aria-expanded="false"
+             aria-label="Toggle navigation"
+        >
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -38,9 +48,7 @@
           </ul>
         </div>
       </nav>
-      <!--<transition name="slideup">-->
         <router-view></router-view>
-      <!--</transition>-->
     </section>
     <div class="banner" v-if="banner" @click="close">
       <p>{{ $t('misc.cookies') }}<br />
@@ -146,6 +154,10 @@ export default {
   methods: {
     handleLocale (locale) {
       this.$i18n.locale = locale
+    },
+
+    toggleBurger () {
+      document.querySelector('.hamburger').classList.toggle('is-active')
     },
 
     setTitle (value) {
