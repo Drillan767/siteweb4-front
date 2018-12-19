@@ -52,8 +52,20 @@
 
 <script>
 export default {
-  mounted () {
-    this.$parent.setTitle(this.$t('misc.legalNotice'))
+  metaInfo () {
+    return {
+      title: this.$t('misc.legalNotice'),
+      meta: [
+        {
+          'property': 'og:title',
+          'content': this.$t('misc.legalNotice')
+        },
+        {
+          'property': 'og:url',
+          'content': window.location.host + this.$router.history.current.fullPath
+        }
+      ]
+    }
   }
 }
 </script>

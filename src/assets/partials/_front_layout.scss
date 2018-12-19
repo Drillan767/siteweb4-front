@@ -146,7 +146,7 @@
             transform: translateY(10px);
           }
           // ACTIVE : PURPLE, ELSE : WHITE
-          &:hover, &:focus {
+          &:hover {
             color: #fff;
 
             &::before, &::after {

@@ -115,7 +115,13 @@ export default {
 
   computed: {
     toHTML () {
-      return marked(this.project.content, {sanitized: true})
+      let el = $('<div></div>')
+      el.html(marked(this.project.content, {sanitized: true}))
+      $('img', el).parent('a').attr('data-fancybox', 'gallery')
+      $('img', el).each(() => {
+
+      })
+      return el[0].innerHTML
     }
   }
 }

@@ -13,7 +13,7 @@
           class="tag"
         >
             <span class="tag-body">
-            <i :class="['fas', getFAClass(tag.category)]"></i>
+            <i :class="tag.icon"></i>
             {{ tag[`name_${$i18n.locale}`] }}
           </span>
         </router-link>
@@ -39,7 +39,7 @@
           v-for="(image, index) in JSON.parse(project.images)"
           :key="index"
         >
-          <img :src="image" alt="">
+          <img :src="image" :alt="$parent.basename(image)">
         </a>
       </div>
       <div class="col-md-8 project-body-content" v-html="toHTML"></div>
@@ -64,7 +64,7 @@
       <div class="related row">
         <div class="project col-md-3" v-for="(project, index) in related" :key="index" v-if="index <= 4">
           <div class="hovereffect">
-            <img :src="project.illustration" class="img-responsive"/>
+            <img :src="JSON.parse(project.thumbnail).small" class="img-responsive"/>
             <div class="overlay">
               <h2>{{ project.title }}</h2>
               <router-link class="info" :to="`${$t('project.simple')}/${project.slug}`">{{ $t('project.see') }}</router-link>
@@ -80,6 +80,25 @@
 import moment from 'moment'
 import marked from 'marked'
 export default {
+  metaInfo () {
+    return {
+      title: this.project.title,
+      meta: [
+        {
+          'property': 'og:title',
+          'content': this.project.title
+        },
+        {
+          'property': 'og:image',
+          'content': this.project.illustration
+        },
+        {
+          'property': 'og:url',
+          'content': window.location.host + this.$router.history.current.fullPath
+        }
+      ]
+    }
+  },
   data () {
     return {
       project: {
@@ -105,28 +124,20 @@ export default {
         }
 
         this.project = response.data
-        this.$parent.setTitle(this.project.title)
-        const mainTag = this.project.tags.find(tag => tag.category === 'project_type')
-        if (mainTag) {
-          this.$axios.post('/portfolio/related', {tag_id: mainTag.id, project_id: this.project.id})
+        this.project.tags.map(tag => {
+          this.$axios.post('/portfolio/related', {tag_id: tag.id, project_id: this.project.id})
             .then(response => {
-              this.related = response.data
+              response.data.map(data => {
+                if (!this.related.filter(r => r.title === data.title).length > 0) {
+                  this.related.push(data)
+                }
+              })
             })
-        }
+        })
       })
   },
 
   methods: {
-    getFAClass (name) {
-      let fas = {
-        project_type: 'fa-screwdriver',
-        language: 'fa-cog',
-        misc: 'fa-circle',
-        general_subject: 'fa-book'
-      }
-      return fas[name]
-    },
-
     dateFormat (date) {
       const format = this.$i18n.locale === 'fr' ? 'DD/MM/YYYY' : 'YYYY/MM/DD'
       return moment(date).format(format)

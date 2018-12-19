@@ -3,19 +3,19 @@
   <div class="front-layout" v-if="display">
     <section class="container">
       <nav class="navbar navbar-expand-lg navbar-dark">
-        <router-link class="nav-main" to="/">
+        <router-link class="nav-main" to="/" title="Home">
           <span :data-letters="settings.website_name">
             {{ settings.website_name }}
           </span>
         </router-link>
-        <div class="hamburger d-lg-none d-xl-none
-"
-             @click="toggleBurger"
-             data-toggle="collapse"
-             data-target="#navbarText"
-             aria-controls="navbarText"
-             aria-expanded="false"
-             aria-label="Toggle navigation"
+        <div
+          class="hamburger d-lg-none d-xl-none"
+           @click="toggleBurger"
+           data-toggle="collapse"
+           data-target="#navbarText"
+           aria-controls="navbarText"
+           aria-expanded="false"
+           aria-label="Toggle navigation"
         >
           <span class="line"></span>
           <span class="line"></span>
@@ -73,7 +73,7 @@
             <router-link to="/admin" v-if="logged">Admin</router-link>
           </div>
           <div class="col-md-4 social-medias">
-            <a v-for="(social, index) in JSON.parse(settings.social_medias)" :href="social.url" :key="index">
+            <a v-for="(social, index) in JSON.parse(settings.social_medias)" :href="social.url" :key="index" target="_blank">
               <i :class="social.icon.name"></i>
             </a>
           </div>
@@ -93,6 +93,32 @@
 <script>
 import VueCookie from '../../settings/VueCookie'
 export default {
+  metaInfo () {
+    return {
+      titleTemplate: `%s | ${this.settings.website_name}`,
+      htmlAttrs: {
+        lang: this.$i18n.locale
+      },
+      meta: [
+        {
+          'http-equiv': 'content-language',
+          'content': this.$i18n.locale
+        },
+        {
+          'name': 'language',
+          'content': this.$i18n.locale
+        },
+        {
+          'property': 'og:site_name',
+          'content': this.settings.website_name
+        },
+        {
+          'property': 'og:language',
+          'content': this.$i18n.locale
+        }
+      ]
+    }
+  },
   data () {
     return {
       transitionName: null,
@@ -149,8 +175,6 @@ export default {
       })
   },
 
-  // http://localhost:8080/article/article-test-1
-
   methods: {
     handleLocale (locale) {
       this.$i18n.locale = locale
@@ -160,12 +184,12 @@ export default {
       document.querySelector('.hamburger').classList.toggle('is-active')
     },
 
-    setTitle (value) {
-      document.title = `${this.settings.website_name} | ${value}`
-    },
-
     setBackground (image) {
       this.background = image
+    },
+
+    basename (string) {
+      return string.split(/[\\/]/).pop()
     },
 
     close () {

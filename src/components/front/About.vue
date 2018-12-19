@@ -5,7 +5,7 @@
     </div>
     <div class="content row">
       <div class="col-md-4 picture">
-        <img :src="$parent.user.profile_pic" alt="">
+        <img :src="$parent.user.profile_pic" :alt="$parent.basename($parent.user.profile_pic)">
       </div>
       <div class="col-md-8 text" v-html="translate"></div>
       <div class="col-md-12 social-medias">
@@ -25,9 +25,20 @@
 <script>
 import marked from 'marked'
 export default {
-
-  mounted () {
-    this.$parent.setTitle(this.$t('navbar.about'))
+  metaInfo () {
+    return {
+      title: this.$t('navbar.about'),
+      meta: [
+        {
+          'property': 'og:title',
+          'content': this.$t('navbar.about')
+        },
+        {
+          'property': 'og:url',
+          'content': window.location.host + this.$router.history.current.fullPath
+        }
+      ]
+    }
   },
 
   computed: {

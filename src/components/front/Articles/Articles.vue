@@ -18,7 +18,7 @@
   </p>
   <isotope class="posts" ref="cpt" :list="filteredArticles" :options="option">
     <div class="post" v-for="(article, index) in filteredArticles" :key="index" v-if="article.draft === 0">
-      <img :src="`${article.thumbnail}`" alt="" class="post-bg">
+      <img :src="`${article.thumbnail}`" :alt="$parent.basename(article.thumbnail)" class="post-bg">
       <div class="post-content">
         <p class="post-content-date">
           {{ dateFormat(article.created_at) }}
@@ -42,6 +42,22 @@ import isotope from 'vueisotope'
 import moment from 'moment'
 export default {
   components: {isotope},
+  metaInfo () {
+    return {
+      title: 'Blog',
+      meta: [
+        {
+          'property': 'og:title',
+          'content': 'Blog'
+        },
+        {
+          'property': 'og:url',
+          'content': window.location.host + this.$router.history.current.fullPath
+        }
+      ]
+    }
+  },
+
   data () {
     return {
       articles: [],
@@ -64,7 +80,6 @@ export default {
   },
 
   mounted () {
-    this.$parent.setTitle('Blog')
     if (window.location.search.includes('denied')) {
       this.denied = true
     }

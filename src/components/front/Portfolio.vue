@@ -19,7 +19,7 @@
     <isotope class="projects" :options="options" :list="filteredProjects">
       <div :class="['project', index % 5 === 0 && index !== 0 && 'long']" v-for="(project, index) in filteredProjects" :key="index" v-if="project.draft === 0">
         <div class="hovereffect">
-          <img :src="getThumbnail(index, project)" class="img-responsive"/>
+          <img :src="getThumbnail(index, project)" :alt="$parent.basename(getThumbnail(index, project))" class="img-responsive" />
           <div class="overlay">
             <h2>{{ project.title }}</h2>
             <router-link class="info" :to="`${$t('project.simple')}/${project.slug}`">{{ $t('project.see') }}</router-link>
@@ -34,6 +34,22 @@
 import isotope from 'vueisotope'
 export default {
   components: {isotope},
+  metaInfo () {
+    return {
+      title: 'Portfolio',
+      meta: [
+        {
+          'property': 'og:title',
+          'content': 'Portfolio'
+        },
+        {
+          'property': 'og:url',
+          'content': window.location.host + this.$router.history.current.fullPath
+        }
+      ]
+    }
+  },
+
   data () {
     return {
       projects: [],
@@ -57,7 +73,6 @@ export default {
   },
 
   mounted () {
-    this.$parent.setTitle('Portfolio')
     this.$axios.get('/portfolio')
       .then(response => {
         this.projects = response.data

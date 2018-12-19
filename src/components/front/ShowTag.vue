@@ -4,6 +4,7 @@
       <h1 v-if="selected === 'project'">{{ $t('tag.project') }} "{{ tag[`name_${$i18n.locale}`] }}"</h1>
       <h1 v-else-if="selected === 'article'">{{ $t('tag.article') }} "{{ tag[`name_${$i18n.locale}`] }}"</h1>
       <h1 v-else>{{ $t('tag.all') }} "{{ tag[`name_${$i18n.locale}`] }}"</h1>
+      <h5>{{ tag[`description_${$i18n.locale}`] }}</h5>
     </div>
 
     <p class="filter">
@@ -34,6 +35,19 @@
 import isotope from 'vueisotope'
 export default {
   components: {isotope},
+  metaInfo: {
+    title: 'Tags',
+    meta: [
+      {
+        'property': 'og:title',
+        'content': 'Tags'
+      },
+      {
+        'property': 'og:url',
+        'content': window.location.host + this.$router.history.current.fullPath
+      }
+    ]
+  },
   data () {
     return {
       tag: {
@@ -53,7 +67,6 @@ export default {
   },
 
   mounted () {
-    this.$parent.setTitle('Tag')
     this.$axios.get(`/tag/${this.$route.params.slug}`)
       .then(response => {
         this.tag = response.data

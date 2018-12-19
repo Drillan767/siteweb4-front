@@ -254,7 +254,7 @@ export default {
 
     copy (image) {
       const basename = image.split(/[\\/]/).pop()
-      navigator.clipboard.writeText(`[![${basename}](${image})](${image})`)
+      navigator.clipboard.writeText(`[![${basename}](${image.replace(/ /g, '%20')})](${image.replace(/ /g, '%20')})`)
         .catch((e) => {
           console.log(e)
         })

@@ -81,6 +81,21 @@
 import VueCookie from '../../settings/VueCookie'
 import buckaroo from '../../assets/img/stopspam.jpg'
 export default {
+  metaInfo () {
+    return {
+      title: 'Contact',
+      meta: [
+        {
+          'property': 'og:title',
+          'content': 'Contact'
+        },
+        {
+          'property': 'og:url',
+          'content': window.location.host + this.$router.history.current.fullPath
+        }
+      ]
+    }
+  },
   data () {
     return {
       message: {
@@ -98,10 +113,6 @@ export default {
       easter: false,
       seconds: 0
     }
-  },
-
-  mounted () {
-    this.$parent.setTitle('Contact')
   },
 
   methods: {

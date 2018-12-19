@@ -43,6 +43,23 @@
         <i class="fas fa-th"></i>
       </router-link>
     </div>
+    <div class="article-related" v-if="related.length > 0">
+      <h1>{{ $t('article.related') }}</h1>
+      <div class="related row">
+        <div class="article col-md-3" v-for="(article, index) in related" :key="index" v-if="index <= 4">
+          <img :src="`${article.thumbnail}`" :alt="$parent.basename(article.thumbnail)" class="article-bg">
+          <div class="article-content">
+            <p class="article-content-date">
+              {{ dateFormat(article.created_at) }}
+            </p>
+            <h3 class="article-content-title">
+              <router-link :to="`article/${article.slug}`">{{ article.title }}</router-link>
+            </h3>
+            <router-link :to="`article/${article.slug}`">{{ $t('article.read') }}</router-link>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="article-comments col-lg-10 offset-lg-1">
       <h1>Comments</h1>
       <Comments :comments="comments" :id="article.id" />
@@ -57,6 +74,26 @@ import Comments from './Comments/Comments'
 import CommentForm from './Comments/Forms/CommentForm'
 export default {
   components: {Comments, CommentForm},
+  metaInfo () {
+    return {
+      title: this.article.title,
+      meta: [
+        {
+          'property': 'og:title',
+          'content': this.$t('navbar.about')
+        },
+        {
+          'property': 'og:image',
+          'content': this.article.illustration
+        },
+        {
+          'property': 'og:url',
+          'content': window.location.host + this.$router.history.current.fullPath
+        }
+      ]
+    }
+  },
+
   data () {
     return {
       article: {
@@ -69,7 +106,8 @@ export default {
         created_at: '',
         updated_at: ''
       },
-      comments: []
+      comments: [],
+      related: []
     }
   },
 
@@ -80,12 +118,23 @@ export default {
           this.$router.replace('/404')
         }
         this.article = response.data
+        this.article.tags.map(tag => {
+          this.$axios.post('/post/related', {tagId: tag.id, postId: this.article.id})
+            .then(response => {
+              if (response.data.length > 0) {
+                response.data.map(data => {
+                  if (!this.related.filter(r => r.title === data.title).length > 0) {
+                    this.related.push(data)
+                  }
+                })
+              }
+            })
+        })
 
         if (this.$parent.logged === false && this.article.draft) {
           this.$router.replace('/blog?denied=1')
         }
 
-        this.$parent.setTitle(this.article.title)
         this.$parent.setBackground(this.$parent.settings.article_bg)
 
         this.$axios.post('/comments', {post_id: response.data.id})

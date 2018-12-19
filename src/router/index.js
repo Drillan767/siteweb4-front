@@ -9,7 +9,6 @@ import ArticleShow from '../components/front/Articles/ArticleShow'
 import About from '../components/front/About'
 import Contact from '../components/front/Contact'
 import Landing from '../components/front/Landing'
-import TagList from '../components/front/TagList'
 import ShowTag from '../components/front/ShowTag'
 // --------- ADMIN ---------------- //
 import AdminLayout from '../components/admin/AdminLayout'
@@ -76,10 +75,6 @@ export default new Router({
         {
           path: '',
           component: Landing
-        },
-        {
-          path: 'tags',
-          component: TagList
         },
         {
           path: 'tag/:slug',

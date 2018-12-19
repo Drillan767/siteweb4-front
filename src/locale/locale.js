@@ -16,7 +16,8 @@ const messages = {
       load: 'Load more articles',
       no_more: 'All article displayed',
       comment: 'comment | comment | comments',
-      reply: 'Reply'
+      reply: 'Reply',
+      related: 'Related articles'
     },
     comment: {
       email_p: 'Email (won\'t be displayed)',
@@ -76,7 +77,8 @@ const messages = {
       load: 'Afficher plus d\'articles',
       no_more: 'Tous les articles sont affichés',
       comment: 'commentaire | commentaire | commentaires',
-      reply: 'Répondre'
+      reply: 'Répondre',
+      related: 'Related articles'
     },
     comment: {
       email_p: 'Email (ne sera pas affiché)',
