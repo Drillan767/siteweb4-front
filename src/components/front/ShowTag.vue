@@ -35,18 +35,20 @@
 import isotope from 'vueisotope'
 export default {
   components: {isotope},
-  metaInfo: {
-    title: 'Tags',
-    meta: [
-      {
-        'property': 'og:title',
-        'content': 'Tags'
-      },
-      {
-        'property': 'og:url',
-        'content': window.location.host + this.$router.history.current.fullPath
-      }
-    ]
+  metaInfo () {
+    return {
+      title: 'Tags',
+      meta: [
+        {
+          'property': 'og:title',
+          'content': 'Tags'
+        },
+        {
+          'property': 'og:url',
+          'content': window.location.host + this.$router.history.current.fullPath
+        }
+      ]
+    }
   },
   data () {
     return {

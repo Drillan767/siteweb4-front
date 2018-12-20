@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import moment from 'moment'
 import VueCookie from '../../settings/VueCookie'
 export default {

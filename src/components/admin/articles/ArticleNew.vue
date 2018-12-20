@@ -132,7 +132,7 @@ import VueCookie from '../../../settings/VueCookie'
 import VueMultiselect from 'vue-multiselect/src/Multiselect'
 
 export default {
-  components: {VueMultiselect},
+  components: { VueMultiselect },
   data () {
     return {
       post: {
@@ -220,7 +220,7 @@ export default {
 
   computed: {
     compiledMarkdown () {
-      return marked(this.post.content, {sanitized: true})
+      return marked(this.post.content, { sanitized: true })
     }
   },
 
@@ -230,7 +230,7 @@ export default {
       .then(response => {
         this.tags = response.data
         this.tags.map(tag => {
-          this.options.push({id: tag.id, name: tag.name_en})
+          this.options.push({ id: tag.id, name: tag.name_en })
         })
       })
   },

@@ -62,7 +62,7 @@
     <div class="project-related" v-if="related.length > 0">
       <h1>{{ $t('project.related')}}</h1>
       <div class="related row">
-        <div class="project col-md-3" v-for="(project, index) in related" :key="index" v-if="index <= 4">
+        <div class="project col-md-3" v-for="(project, index) in related" :key="index">
           <div class="hovereffect">
             <img :src="JSON.parse(project.thumbnail).small" class="img-responsive"/>
             <div class="overlay">
@@ -77,8 +77,11 @@
 </template>
 
 <script>
+import 'jquery/dist/jquery.min'
 import moment from 'moment'
 import marked from 'marked'
+import '@fancyapps/fancybox/dist/jquery.fancybox.min.css'
+import '@fancyapps/fancybox/dist/jquery.fancybox.min.js'
 export default {
   metaInfo () {
     return {
@@ -99,6 +102,7 @@ export default {
       ]
     }
   },
+
   data () {
     return {
       project: {
@@ -122,10 +126,9 @@ export default {
         if (response.data.draft) {
           this.$router.replace('/portfolio?denied=1')
         }
-
         this.project = response.data
         this.project.tags.map(tag => {
-          this.$axios.post('/portfolio/related', {tag_id: tag.id, project_id: this.project.id})
+          this.$axios.post('/portfolio/related', { tag_id: tag.id, project_id: this.project.id })
             .then(response => {
               response.data.map(data => {
                 if (!this.related.filter(r => r.title === data.title).length > 0) {
@@ -146,10 +149,7 @@ export default {
 
   computed: {
     toHTML () {
-      let el = $('<div></div>')
-      el.html(marked(this.project.content, {sanitized: true}))
-      $('img', el).parent('a').attr('data-fancybox', 'gallery')
-      return el[0].innerHTML
+      return marked(this.project.content, { sanitized: true })
     }
   }
 }

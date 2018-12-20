@@ -149,7 +149,7 @@ import VueCookie from '../../../settings/VueCookie'
 import VueMultiselect from 'vue-multiselect/src/Multiselect'
 
 export default {
-  components: {VueMultiselect},
+  components: { VueMultiselect },
   data () {
     return {
       post: {
@@ -236,7 +236,7 @@ export default {
 
   computed: {
     compiledMarkdown () {
-      return marked(this.post.content, {sanitized: true})
+      return marked(this.post.content, { sanitized: true })
     }
   },
 

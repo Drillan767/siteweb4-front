@@ -138,6 +138,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import VueCookie from '../../settings/VueCookie'
 export default {
   data () {
@@ -167,7 +168,7 @@ export default {
     logout () {
       const refreshToken = VueCookie.get('refresh_token')
       this.$axios.post('/logout', {refresh_token: refreshToken})
-        .then(response => {
+        .then(() => {
           VueCookie.delete('refresh_token')
           VueCookie.delete('token')
           this.$router.replace({name: 'Landing'})

@@ -193,7 +193,7 @@ import marked from 'marked'
 import VueCookie from '../../../settings/VueCookie'
 import VueMultiselect from 'vue-multiselect/src/Multiselect'
 export default {
-  components: {VueMultiselect},
+  components: { VueMultiselect },
   data () {
     return {
       project: {
@@ -232,7 +232,7 @@ export default {
       .then(response => {
         this.tags = response.data
         this.tags.map(tag => {
-          this.options.push({id: tag.id, name: tag.name_en})
+          this.options.push({ id: tag.id, name: tag.name_en })
         })
       })
   },
@@ -338,7 +338,7 @@ export default {
 
   computed: {
     compiledMarkdown () {
-      return marked(this.project.content, {sanitized: true})
+      return marked(this.project.content, { sanitized: true })
     }
   }
 }

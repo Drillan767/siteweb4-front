@@ -178,6 +178,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import SweetAlert from '../../settings/SweetAlert2'
 import VueCookie from '../../settings/VueCookie'
 import VueMultiselect from 'vue-multiselect/src/Multiselect'
