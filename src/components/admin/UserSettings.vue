@@ -201,7 +201,7 @@ import VueCookie from '../../settings/VueCookie'
 import marked from 'marked'
 import moment from 'moment'
 export default {
-  components: {DatePicker},
+  components: { DatePicker },
   mounted () {
     this.$parent.setBreadcrumb(['Dashboard', 'User settings'])
     this.$axios.get('/user')

@@ -2,7 +2,7 @@
   <div class="login">
     <form class="form-signin text-center" @submit.prevent="signin">
       <div v-if="error" class="alert alert-danger" role="alert">
-        {{ this.error }}
+        {{ this.error }}. Fucker.
       </div>
       <img class="mb-4" src="https://placekitten.com/72/72" alt="" width="72" height="72">
       <h3 class="font-weight-normal">Please sign in</h3>
@@ -39,7 +39,7 @@ export default {
         .catch(e => {
           VueCookie.delete('refresh_token')
           VueCookie.delete('token')
-          console.log(e.response)
+          this.error = e.response.data.error
         })
     }
   }
