@@ -1,19 +1,32 @@
-.login {
-  display: -ms-flexbox;
+.login, .reset {
   display: flex;
-  -ms-flex-align: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: $night;
   min-height: 100vh;
 
+  .modal {
+    &-header {
+      border-bottom: none;
+    }
+    &-content {
+      background-color: #101e26;
+
+      p {
+        color: #fff;
+      }
+    }
+    &-footer {
+      border-top: none;
+    }
+  }
+
 
   .form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
+    width: 300px;
 
     .checkbox {
       font-weight: 400;
@@ -45,6 +58,22 @@
 
     input[type="email"], input[type="password"] {
       background: transparent;
+      color: #fff;
+    }
+  }
+
+  .fpmodal {
+    margin-top: 20px;
+  }
+}
+
+.reset {
+  .form-reset {
+    .alert ul {
+      margin: 0;
+    }
+
+    h3 {
       color: #fff;
     }
   }

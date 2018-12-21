@@ -1,11 +1,6 @@
 <template>
   <div class="admin-layout wrapper">
     <nav id="sidebar">
-      <ul class="list-unstyled components">
-        <li class="active">
-
-        </li>
-      </ul>
       <div class="accordion" id="accordion">
         <div class="card">
           <div class="card-header" id="headingOne">

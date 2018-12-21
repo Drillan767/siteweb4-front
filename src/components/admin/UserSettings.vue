@@ -223,7 +223,10 @@ export default {
         job_title: '',
         first_name: '',
         last_name: '',
-        profile_pic: ''
+        profile_pic: '',
+        old_pwd: '',
+        new_pwd: '',
+        r_pwd: ''
       },
       label: null,
       success: false,
