@@ -172,6 +172,7 @@
       </div>
 
       <div class="col-md-10 offset-md-1">
+        <label>Additional image for description</label>
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="upload" @change="upload($event)">
           <label class="custom-file-label" for="upload">Choose file...</label>
@@ -185,6 +186,19 @@
           >
             {{ image.split(/[\\/]/).pop() }}
           </button>
+        </div>
+      </div>
+      <hr />
+      <div class="form-group row">
+        <label for="new_pwd" class="col-sm-4 col-form-label">New password</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control" id="new_pwd" v-model="user.new_pwd" placeholder="New password (min: 8 characters)">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="r_pwd" class="col-sm-4 col-form-label">Last Name</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control" id="r_pwd" v-model="user.r_pwd" placeholder="Repeat password">
         </div>
       </div>
       <div class="col-md-12 text-center">
@@ -224,7 +238,6 @@ export default {
         first_name: '',
         last_name: '',
         profile_pic: '',
-        old_pwd: '',
         new_pwd: '',
         r_pwd: ''
       },
@@ -282,12 +295,8 @@ export default {
           this.extra_images.push(response.data)
         })
         .catch(e => {
-          this.errors.push({message: e.response.data.message})
+          this.errors.push({ message: e.response.data.message })
         })
-    },
-
-    delete (image) {
-      // ...
     },
 
     copy (image) {
@@ -300,16 +309,27 @@ export default {
 
     submit () {
       this.errors = []
+      if (this.user.new_pwd.length > 0) {
+        if (this.user.r_pwd.length > 0 && this.user.new_pwd !== this.user.r_pwd) {
+          this.errors.push({ message: "Password aren't matching" })
+        }
+        if (this.user.r_pwd.length === 0) {
+          this.errors.push({ message: 'Please repeat the password or leave both fields empty' })
+        }
+        if (this.user.new_pwd.length <= 7) {
+          this.errors.push({ message: 'New password should length at least 8 characters' })
+        }
+      }
       let fields = ['first_name', 'last_name', 'email', 'job_title', 'birthday', 'about_en', 'about_fr']
       fields.map(field => {
         if (!this.user[field]) {
-          this.errors.push({message: `Field "${field}" is missing`})
+          this.errors.push({ message: `Field "${field}" is missing` })
         }
       })
 
       const matches = this.user.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
       if (matches.length === 0) {
-        this.errors.push({message: 'Please enter a valid mail'})
+        this.errors.push({ message: 'Please enter a valid mail' })
       }
 
       if (this.errors.length === 0) {
@@ -323,6 +343,7 @@ export default {
         formdata.append('extra_images', this.extra_images)
         formdata.append('about_en', this.user.about_en)
         formdata.append('about_fr', this.user.about_fr)
+        formdata.append('password', this.user.new_pwd)
 
         this.$axios.put('/user_data', formdata, {
           headers: {
@@ -332,11 +353,12 @@ export default {
           .then(response => {
             if (response.status === 200) {
               this.success = true
-              $('html, body').animate({scrollTop: 0}, 'slow')
+              $('html, body').animate({ scrollTop: 0 }, 'slow')
             }
           })
           .catch(e => {
-            $('html, body').animate({scrollTop: 0}, 'slow')
+            console.log(e)
+            $('html, body').animate({ scrollTop: 0 }, 'slow')
             this.errors = e.response.data
           })
       }
@@ -345,11 +367,11 @@ export default {
 
   computed: {
     markdown_fr () {
-      return marked(this.user.about_fr, {sanitized: true})
+      return marked(this.user.about_fr, { sanitized: true })
     },
 
     markdown_en () {
-      return marked(this.user.about_en, {sanitized: true})
+      return marked(this.user.about_en, { sanitized: true })
     }
   }
 }

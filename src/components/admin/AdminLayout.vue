@@ -235,6 +235,14 @@ export default {
       $(this).toggleClass('active')
     })
     $('.collapse').collapse()
+    const list = document.querySelectorAll('.list-unstyled')
+    for (let i = 0; i < list.length; i++) {
+      for (let j = 0; j < list[i].childNodes.length; j++) {
+        if (list[i].childNodes[j].childNodes[0].classList.contains('active')) {
+          list[i].parentNode.parentNode.classList.add('show')
+        }
+      }
+    }
   }
 }
 </script>
