@@ -73,7 +73,18 @@ export default {
       field: '',
       r_email: '',
       not_found: false,
-      success: false
+      success: false,
+      banned: false
+    }
+  },
+  
+  mounted () {
+  
+    if (this.nb_fails <= 5) {
+      this.$axios.post('/blacklist', {})
+       .then(() => {
+         this.$router.replace('/')
+       }
     }
   },
 
