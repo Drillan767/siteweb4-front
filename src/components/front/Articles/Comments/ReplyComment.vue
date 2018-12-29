@@ -31,7 +31,7 @@ import ReplyForm from './Forms/ReplyForm'
 export default {
   name: 'ReplyComment',
   props: ['replies', 'reply', 'post_id'],
-  components: {ReplyForm, CommentForm},
+  components: { ReplyForm, CommentForm },
 
   data () {
     return {

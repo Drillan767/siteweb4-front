@@ -40,7 +40,7 @@ import ReplyComment from './ReplyComment'
 import moment from 'moment'
 export default {
   name: 'Comments',
-  components: {CommentForm, ReplyComment},
+  components: { CommentForm, ReplyComment },
   props: ['comments', 'id'],
   data () {
     return {

@@ -22,6 +22,12 @@
         Toujours par mesure anti-spam, l'envoi d'un message dans la partie contact résultera d'un nouveau cookie dans votre navigateur. <br />
         Également d'une durée de cinq minute, il vous empêchera d'envoyer un autre message sous ce délai.
       </p>
+      <h4>Blacklist</h4>
+      <p>
+        J'ai créé un système qui me permet d'éviter tout... importun tentant de se connecter à mon site. Je ne vous dirai pas comment cela marche <br />
+        pour plus de fun, mais sachez juste que votre IP sera blacklistée, et vous serez redirigé automatiquement après coup.<br />
+        Il est cependant important de noter que votre adresse IP <b>N'EST PAS SAUVEGARDÉE EN CLAIR</b>. Même moi, je ne serai pas en mesure de la retrouver.
+      </p>
     </div>
     <div class="ln-en" v-if="$i18n.locale === 'en'">
       <h1>{{ $t('misc.legalNotice') }}</h1>
@@ -45,6 +51,12 @@
       <p>
         Still for obvious antispam reasons, sending a message from the contact form will also give you a cookie that will also
         live for 5 minutes and won't you send me a new message as long as it's alive.
+      </p>
+      <h4>Blacklist</h4>
+      <p>
+        I set a system up to avoid any... annoyance of whoever tries to force my login page too hard. Won't tell you how, or it won't be fun. <br />
+        Anyway, you can be blacklisted, meaning your IP is blacklisted. You can still visit the website, but you'll be redirected if you try to login again.<br />
+        What's important is that your IP address <b>ISN'T SAVED IN CLEAR IN MY DATABASE.</b> Even I won't be able to know who got blocked.
       </p>
     </div>
   </div>

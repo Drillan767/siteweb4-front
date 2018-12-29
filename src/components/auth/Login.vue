@@ -77,15 +77,18 @@ export default {
       banned: false
     }
   },
-  
+
   mounted () {
-  
-    if (this.nb_fails <= 5) {
-      this.$axios.post('/blacklist', {})
-       .then(() => {
-         this.$router.replace('/')
-       }
-    }
+    this.$axios.post('/check')
+      .then(response => {
+        console.log(response)
+        if (response.data === 'blocked') {
+          this.$router.replace('/')
+        }
+      })
+      .catch(e => {
+        console.log(e)
+      })
   },
 
   methods: {
@@ -100,6 +103,12 @@ export default {
           VueCookie.delete('refresh_token')
           VueCookie.delete('token')
           this.nb_fails++
+          if (this.nb_fails >= 5) {
+            this.$axios.post('/blacklist', {})
+              .then(() => {
+                this.$router.replace('/')
+              })
+          }
           this.error = e.response.data.error
         })
     },

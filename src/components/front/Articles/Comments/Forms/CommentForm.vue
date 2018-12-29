@@ -65,7 +65,7 @@ export default {
   methods: {
     submit () {
       if (this.comment.honey_pot) {
-        this.errors.push({error: 'Sorry for the racism but the comment section is for humans only.'})
+        this.errors.push({ error: 'Sorry for the racism but the comment section is for humans only.' })
       }
       let fields = ['name', 'email', 'comment']
       fields.map(field => {

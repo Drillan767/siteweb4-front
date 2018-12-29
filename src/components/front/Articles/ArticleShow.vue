@@ -26,7 +26,7 @@
           {{ this.comments.filter(comment => comment.accepted).length }}
           {{ $tc('article.comment', this.comments.length)}}
         </span>
-        <span>/</span>
+        <span>/ </span>
         <span v-if="article.created_at === article.updated_at">
           <i class="far fa-clock"></i>
           {{ dateFormat(article.created_at) }}
@@ -46,7 +46,7 @@
     <div class="article-related" v-if="related.length > 0">
       <h1>{{ $t('article.related') }}</h1>
       <div class="related row">
-        <div class="article col-md-3" v-for="(article, index) in related" :key="index" v-if="index <= 4">
+        <div class="article col-md-3" v-for="(article, index) in related" :key="index">
           <img :src="`${article.thumbnail}`" :alt="$parent.basename(article.thumbnail)" class="article-bg">
           <div class="article-content">
             <p class="article-content-date">
@@ -71,9 +71,8 @@
 import marked from 'marked'
 import moment from 'moment'
 import Comments from './Comments/Comments'
-import CommentForm from './Comments/Forms/CommentForm'
 export default {
-  components: {Comments, CommentForm},
+  components: { Comments },
   metaInfo () {
     return {
       title: this.article.title,
@@ -119,7 +118,7 @@ export default {
         }
         this.article = response.data
         this.article.tags.map(tag => {
-          this.$axios.post('/post/related', {tagId: tag.id, postId: this.article.id})
+          this.$axios.post('/post/related', { tagId: tag.id, postId: this.article.id })
             .then(response => {
               if (response.data.length > 0) {
                 response.data.map(data => {
@@ -137,7 +136,7 @@ export default {
 
         this.$parent.setBackground(this.$parent.settings.article_bg)
 
-        this.$axios.post('/comments', {post_id: response.data.id})
+        this.$axios.post('/comments', { post_id: response.data.id })
           .then(response => {
             this.comments = response.data
           })
@@ -168,7 +167,7 @@ export default {
 
   computed: {
     toHTML () {
-      return marked(this.article.content, {sanitized: true})
+      return marked(this.article.content, { sanitized: true })
     }
   }
 }
