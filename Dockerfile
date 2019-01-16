@@ -1,5 +1,5 @@
 FROM node:latest
-RUN npm install -g http server
+RUN npm install -g http-server
 RUN mkdir -p /home/front
 WORKDIR /home/front
 COPY package*.json ./
