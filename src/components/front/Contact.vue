@@ -125,12 +125,12 @@ export default {
         let fields = ['name', 'object', 'email', 'message']
         fields.map(field => {
           if (this.message[field] === '') {
-            this.errors.push({field: field})
+            this.errors.push({ field: field })
           }
         })
         const matches = this.message.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
         if (matches.length === 0) {
-          this.errors.push({field: 'email', message: this.$t('contact.fakeMail')})
+          this.errors.push({ field: 'email', message: this.$t('contact.fakeMail') })
         }
 
         if (this.errors.length === 0) {
