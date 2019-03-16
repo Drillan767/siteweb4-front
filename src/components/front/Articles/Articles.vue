@@ -17,7 +17,7 @@
     </span>
   </p>
   <isotope class="posts" ref="cpt" :list="filteredArticles" :options="option">
-    <div class="post" v-for="(article, index) in filteredArticles" :key="index" v-if="article.draft === 0">
+    <div class="post" v-for="(article, index) in filteredArticles" :key="index">
       <img :src="`${article.thumbnail}`" :alt="$parent.basename(article.thumbnail)" class="post-bg">
       <div class="post-content">
         <p class="post-content-date">
@@ -41,7 +41,7 @@
 import isotope from 'vueisotope'
 import moment from 'moment'
 export default {
-  components: {isotope},
+  components: { isotope },
   metaInfo () {
     return {
       title: 'Blog',
@@ -84,7 +84,7 @@ export default {
       this.denied = true
     }
 
-    this.$axios.post('post/infinite', {page: 1, limit: 6})
+    this.$axios.post('post/infinite', { page: 1, limit: 6 })
       .then(response => {
         if (response.data.data.length < 6) this.incomplete = false
         this.articles = response.data.data
@@ -137,7 +137,7 @@ export default {
         return this.articles
       } else {
         let self = this
-        return this.articles.filter(article => article.tags.some(tag => tag.id === self.selected))
+        return this.articles.filter(article => article.tags.some(tag => tag.id === self.selected) && !article.draft)
       }
     }
   }

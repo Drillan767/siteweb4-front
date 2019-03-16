@@ -184,7 +184,7 @@ import VueCookie from '../../settings/VueCookie'
 import VueMultiselect from 'vue-multiselect/src/Multiselect'
 import FA from '../../assets/fa'
 export default {
-  components: {VueMultiselect},
+  components: { VueMultiselect },
   data () {
     return {
       tags: [],

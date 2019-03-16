@@ -129,7 +129,7 @@ export default {
       this.message = message
       $('#show_message').modal()
       if (!message.read) {
-        this.$axios.post('/message/read', {id: message.id}, {
+        this.$axios.post('/message/read', { id: message.id }, {
           headers: {
             'Authorization': `Bearer ${VueCookie.get('token')}`
           }

@@ -108,7 +108,7 @@ export default {
 
   methods: {
     addRow () {
-      this.social_medias.push({icon: '', url: ''})
+      this.social_medias.push({ icon: '', url: '' })
     },
 
     removeRow (index) {

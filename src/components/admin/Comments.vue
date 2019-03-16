@@ -158,9 +158,9 @@ export default {
 
     handleDecision (decision, id, index = null) {
       if (decision !== 'delete') {
-        this.$axios.post('/comment/decision', {decision: decision, id: id}, {
+        this.$axios.post('/comment/decision', { decision: decision, id: id }, {
           headers: {
-            'Authorization': `Bearer ${VueCookie.get('token')}`
+            'Authorization': `Bearer ${ VueCookie.get('token') }`
           }
         })
           .then(response => {

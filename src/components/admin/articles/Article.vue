@@ -108,7 +108,7 @@ export default {
 
   computed: {
     toHTML () {
-      return marked(this.post.content, {sanitized: true})
+      return marked(this.post.content, { sanitized: true })
     }
   }
 }

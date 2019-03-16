@@ -34,7 +34,7 @@
 <script>
 import isotope from 'vueisotope'
 export default {
-  components: {isotope},
+  components: { isotope },
   metaInfo () {
     return {
       title: 'Tags',

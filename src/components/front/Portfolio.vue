@@ -17,7 +17,7 @@
     </span>
     </p>
     <isotope class="projects" :options="options" :list="filteredProjects">
-      <div :class="['project', index % 5 === 0 && index !== 0 && 'long']" v-for="(project, index) in filteredProjects" :key="index" v-if="project.draft === 0">
+      <div :class="['project', index % 5 === 0 && index !== 0 && 'long']" v-for="(project, index) in filteredProjects" :key="index">
         <div class="hovereffect">
           <img :src="getThumbnail(index, project)" :alt="$parent.basename(getThumbnail(index, project))" class="img-responsive" />
           <div class="overlay">
@@ -33,7 +33,7 @@
 <script>
 import isotope from 'vueisotope'
 export default {
-  components: {isotope},
+  components: { isotope },
   metaInfo () {
     return {
       title: 'Portfolio',
@@ -110,7 +110,7 @@ export default {
         return this.projects
       } else {
         let self = this
-        return this.projects.filter(project => project.tags.some(tag => tag.id === self.selected))
+        return this.projects.filter(project => project.tags.some(tag => tag.id === self.selected) && !project.draft)
       }
     }
   }

@@ -116,7 +116,7 @@ export default {
   computed: {
     toHTML () {
       let el = $('<div></div>')
-      el.html(marked(this.project.content, {sanitized: true}))
+      el.html(marked(this.project.content, { sanitized: true }))
       $('img', el).parent('a').attr('data-fancybox', 'gallery')
       $('img', el).each(() => {
 

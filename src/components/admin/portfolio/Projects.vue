@@ -66,7 +66,7 @@ export default {
     },
 
     handlePublish (id) {
-      this.$axios.post('/portfolio/publish', {id: id}, {
+      this.$axios.post('/portfolio/publish', { id: id }, {
         headers: {
           'Authorization': `Bearer ${VueCookie.get('token')}`
         }})

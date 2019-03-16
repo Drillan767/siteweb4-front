@@ -180,7 +180,7 @@ export default {
       formData.append('lang', this.post.lang ? 'fr' : 'en')
       this.$axios.put(`/post/${this.$route.params.slug}`, formData, {
         headers: {
-          'Authorization': `Bearer ${VueCookie.get('token')}`
+          'Authorization': `Bearer ${ VueCookie.get('token') }`
         }
       })
         .then(response => {
