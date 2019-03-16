@@ -1,0 +1,7 @@
+0.0.0.0:8080 {
+  root /home/front/dist
+
+  rewrite {
+    to {path} {path}/ /
+  }
+}
