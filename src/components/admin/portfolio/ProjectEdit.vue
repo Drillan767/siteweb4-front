@@ -322,7 +322,7 @@ export default {
       formData.append('draft', this.project.draft ? 1 : 0)
       this.$axios.post(`/portfolio/${this.project.id}`, formData, {
         headers: {
-          'Authorization': `Bearer ${VueCookie.get('token')}`
+          'Authorization': `Bearer ${ VueCookie.get('token') }`
         }
       })
         .then(response => {

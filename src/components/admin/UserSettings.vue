@@ -288,7 +288,7 @@ export default {
       formData.append('image', e.target.files[0])
       this.$axios.post('/user/upload', formData, {
         headers: {
-          'Authorization': `Bearer ${VueCookie.get('token')}`
+          'Authorization': `Bearer ${ VueCookie.get('token') }`
         }
       })
         .then(response => {
@@ -347,7 +347,7 @@ export default {
 
         this.$axios.put('/user_data', formdata, {
           headers: {
-            'Authorization': `Bearer ${VueCookie.get('token')}`
+            'Authorization': `Bearer ${ VueCookie.get('token') }`
           }
         })
           .then(response => {

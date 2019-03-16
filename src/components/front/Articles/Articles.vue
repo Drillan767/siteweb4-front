@@ -104,7 +104,7 @@ export default {
 
   methods: {
     loadMore () {
-      this.$axios.post('/post/infinite', {page: this.page, limit: 6})
+      this.$axios.post('/post/infinite', { page: this.page, limit: 6 })
         .then(response => {
           this.page++
           if (response.data.data.length < 6) this.incomplete = false

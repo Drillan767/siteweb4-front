@@ -160,7 +160,7 @@ export default {
 
     this.$axios.post('/logged_in', {}, {
       headers: {
-        'Authorization': `Bearer ${VueCookie.get('token')}`
+        'Authorization': `Bearer ${ VueCookie.get('token') }`
       }
     })
       .then(response => {

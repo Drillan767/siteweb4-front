@@ -125,7 +125,7 @@ export default {
     this.$parent.setBreadcrumb('Dashboard')
     this.$axios.post('/all', {}, {
       headers: {
-        'Authorization': `Bearer ${VueCookie.get('token')}`
+        'Authorization': `Bearer ${ VueCookie.get('token') }`
       }
     })
       .then(response => {

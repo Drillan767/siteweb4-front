@@ -268,7 +268,7 @@ export default {
       if (!Number.isInteger(id)) {
         this.$axios.post('/tag', formData, {
           headers: {
-            'Authorization': `Bearer ${VueCookie.get('token')}`
+            'Authorization': `Bearer ${ VueCookie.get('token') }`
           }
         })
           .then(response => {
@@ -281,7 +281,7 @@ export default {
       } else {
         this.$axios.put(`tag/${id}`, formData, {
           headers: {
-            'Authorization': `Bearer ${VueCookie.get('token')}`
+            'Authorization': `Bearer ${ VueCookie.get('token') }`
           }
         })
           .then(response => {

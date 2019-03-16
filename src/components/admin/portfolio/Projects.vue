@@ -68,7 +68,7 @@ export default {
     handlePublish (id) {
       this.$axios.post('/portfolio/publish', { id: id }, {
         headers: {
-          'Authorization': `Bearer ${VueCookie.get('token')}`
+          'Authorization': `Bearer ${ VueCookie.get('token') }`
         }})
         .then(response => {
           this.projects = this.projects.map((project, index) => {

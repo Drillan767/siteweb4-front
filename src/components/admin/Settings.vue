@@ -141,7 +141,7 @@ export default {
 
       this.$axios.post('/settings', formData, {
         headers: {
-          'Authorization': `Bearer ${VueCookie.get('token')}`
+          'Authorization': `Bearer ${ VueCookie.get('token') }`
         }
       })
         .then(response => {
@@ -157,7 +157,7 @@ export default {
     this.$parent.setBreadcrumb(['Dashboard', 'Settings'])
     this.$axios.get('/admin_settings', {
       headers: {
-        'Authorization': `Bearer ${VueCookie.get('token')}`
+        'Authorization': `Bearer ${ VueCookie.get('token') }`
       }
     })
       .then(response => {

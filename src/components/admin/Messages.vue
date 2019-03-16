@@ -109,7 +109,7 @@ export default {
     this.$parent.setTitle('Messages')
     this.$axios.get('/messages', {
       headers: {
-        'Authorization': `Bearer ${VueCookie.get('token')}`
+        'Authorization': `Bearer ${ VueCookie.get('token') }`
       }
     })
       .then(response => {
@@ -131,7 +131,7 @@ export default {
       if (!message.read) {
         this.$axios.post('/message/read', { id: message.id }, {
           headers: {
-            'Authorization': `Bearer ${VueCookie.get('token')}`
+            'Authorization': `Bearer ${ VueCookie.get('token') }`
           }
         })
           .then(response => {

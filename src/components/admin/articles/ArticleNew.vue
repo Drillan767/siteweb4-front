@@ -164,7 +164,7 @@ export default {
       formData.append('lang', this.post.lang ? 'fr' : 'en')
       this.$axios.post('/post', formData, {
         headers: {
-          'Authorization': `Bearer ${VueCookie.get('token')}`
+          'Authorization': `Bearer ${ VueCookie.get('token') }`
         }
       })
         .then(response => {
