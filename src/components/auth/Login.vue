@@ -81,7 +81,6 @@ export default {
   mounted () {
     this.$axios.post('/check')
       .then(response => {
-        console.log(response)
         if (response.data === 'blocked') {
           this.$router.replace('/')
         }
